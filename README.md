@@ -6,9 +6,18 @@
 
 基于 **proot 用户态容器**（ptrace 实现文件系统隔离），将 Docker 风格的命令语义（pull / run / ps / logs / exec / rm / compose）带入原生 Android App，UI 遵循 Google 推荐架构，全程 Jetpack Compose + Material 3。
 
+## 📲 下载安装（欢迎使用正式版）
+
+欢迎下载 Google Play 正式版使用——开箱即用、内置 **22 个真机验证过的编排模板**（Home Assistant、n8n、code-server、Vaultwarden 等），无需自行构建：
+
+| 渠道 | 链接 |
+| --- | --- |
+| 🟢 **Google Play（推荐）** | [play.google.com/store/apps/details?id=cn.yzapp.androidcontainer](https://play.google.com/store/apps/details?id=cn.yzapp.androidcontainer) |
+| 🌐 官网（教程 / 隐私政策 / 反馈） | [https://191005.xyz/](https://191005.xyz/) |
+
+> 本仓库源码构建的 APK 功能完整但**不含内置模板库**；正式版随版本持续更新，还请以商店渠道为准。
+
 > 📄 模板编写规范见 [`docs/template_authoring_guide.md`](docs/template_authoring_guide.md)；字段齐全的示例模板见 [`core/engine/src/test/resources/examples/hello-world.yaml`](core/engine/src/test/resources/examples/hello-world.yaml)
->
-> ℹ️ 本仓库的内置模板目录**有意留空**（应用商店版内置的编排模板不随源码分发），从这里构建的 APK 除模板库为空外功能完整。
 
 ## ✨ 功能特性
 
@@ -162,7 +171,5 @@ proot 运行时二进制由 [`tool/fetch_proot_runtime.py`](tool/fetch_proot_run
 
 - **GitHub Issues（推荐）**：[nesror/Droid-Containers/issues](https://github.com/nesror/Droid-Containers/issues)
 - **邮箱**：nestorgu@foxmail.com
-- **使用教程**：/container/help/（Cloudflare Pages 发布后为完整 URL）
-- **隐私权政策**：/container/privacy-policy/
 
 反馈问题时请附上：设备型号、Android 版本、镜像名称、容器日志输出（App 内日志页可查看），以及复现步骤，这样能更快定位问题。
