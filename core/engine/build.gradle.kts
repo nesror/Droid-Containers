@@ -21,7 +21,11 @@ val generateTemplateSources = tasks.register("generateTemplateSources") {
     // 配置期解析成 File，任务执行期不再触碰 project（兼容 configuration-cache）
     val inputDir = templateSourceDir.asFile
     val outputDir = generatedTemplateDir.get().asFile
-    inputs.dir(inputDir).withPropertyName("templateYaml")
+    // 开源公开仓可能整个没有 templates 目录（git 不跟踪空目录）：
+    // 目录缺失时不注册输入，任务照常执行并生成空常量（开源方案 §8-② 的「缺目录」变体）
+    if (inputDir.isDirectory) {
+        inputs.dir(inputDir).withPropertyName("templateYaml")
+    }
     outputs.dir(outputDir).withPropertyName("generatedKotlin")
 
     doLast {
