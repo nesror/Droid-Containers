@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 检查更新（仅 cn 渠道源集，global 不打包） -->
+    <string name="settings_update_title">Check for updates</string>
+    <string name="settings_update_desc">Check GitHub Releases for a newer version</string>
+    <string name="settings_update_checking">Checking…</string>
+    <string name="settings_update_dialog_title">New version %1$s available</string>
+    <string name="settings_update_dialog_no_changelog">No changelog provided for this release.</string>
+    <string name="settings_update_dialog_download">Go to download</string>
+    <string name="settings_update_dialog_later">Later</string>
+    <string name="settings_update_latest_title">Up to date</string>
+    <string name="settings_update_latest_text">You are already running the latest version.</string>
+    <string name="settings_update_failed_title">Update check failed</string>
+    <string name="settings_update_failed_reason">Reason: %1$s</string>
+    <string name="settings_update_ok">OK</string>
+</resources>

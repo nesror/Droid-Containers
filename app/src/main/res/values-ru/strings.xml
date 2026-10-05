@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Droid Containers</string>
+    <string name="nav_dashboard">Панель</string>
+    <string name="nav_images">Образы</string>
+    <string name="nav_containers">Контейнеры</string>
+    <string name="nav_compose">Compose</string>
+    <string name="nav_settings">Настройки</string>
+    <string name="notif_channel_name">Синхронизация образов</string>
+    <string name="notif_pull_started">Загрузка начата</string>
+    <string name="notif_pull_running">Загрузка образа</string>
+    <string name="notif_pull_done">Загрузка завершена</string>
+    <string name="notif_pull_failed">Ошибка загрузки</string>
+    <string name="notif_remote_channel">Удалённое управление</string>
+    <string name="notif_remote_title">Удалённое управление активно</string>
+    <string name="notif_remote_starting">Запуск…</string>
+    <string name="notif_remote_failed">Ошибка запуска: %1$s</string>
+    <string name="notif_runtime_channel">Среда выполнения контейнеров</string>
+    <string name="notif_runtime_title">Контейнеры работают</string>
+    <string name="notif_runtime_text">Контейнеров в фоне: %1$d</string>
+    <string name="notif_runtime_starting">Запуск среды выполнения…</string>
+    <string name="notif_runtime_stop_all">Остановить все</string>
+</resources>

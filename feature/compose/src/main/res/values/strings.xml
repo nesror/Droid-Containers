@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="compose_title">Compose</string>
+    <string name="compose_new_project">New project</string>
+    <string name="compose_subtitle">Define a multi-container stack in one compose file.</string>
+    <plurals name="compose_project_count">
+        <item quantity="one">%1$d project</item>
+        <item quantity="other">%1$d projects</item>
+    </plurals>
+    <string name="compose_editor_new_title">New project</string>
+    <string name="compose_editor_edit_title">Edit project</string>
+    <string name="compose_project_name">Project name</string>
+    <string name="compose_yaml">compose YAML</string>
+    <string name="compose_import">Import YAML</string>
+    <string name="compose_sample">Insert sample</string>
+    <string name="compose_save">Save</string>
+    <string name="compose_cancel">Cancel</string>
+    <string name="compose_confirm">Confirm</string>
+    <string name="compose_edit">Edit</string>
+    <string name="compose_delete">Delete</string>
+    <string name="compose_detail">Details</string>
+    <string name="compose_back">Back</string>
+    <string name="compose_up">Up</string>
+    <string name="compose_down">Down</string>
+    <plurals name="compose_service_count">
+        <item quantity="one">%1$d service</item>
+        <item quantity="other">%1$d services</item>
+    </plurals>
+    <string name="compose_parse_ok">Parsed OK · services: %1$s</string>
+    <string name="compose_parse_error">Parse error: %1$s</string>
+    <string name="compose_issues">Compatibility notes</string>
+    <string name="compose_line">L%1$d</string>
+    <string name="compose_empty">No projects yet. Start from the built-in sample, or import a compose YAML.</string>
+    <string name="compose_state_running">Running</string>
+    <string name="compose_state_partial">Partially running</string>
+    <string name="compose_state_stopped">Stopped</string>
+    <string name="compose_state_not_created">Not created</string>
+    <string name="compose_state_starting">Starting</string>
+    <string name="compose_open_browser">Browser</string>
+    <string name="compose_ports_url">http://127.0.0.1:%1$d</string>
+    <string name="compose_service_image">Image: %1$s</string>
+    <string name="compose_service_depends">Depends on: %1$s</string>
+    <string name="compose_service_ports">Ports (hint only): %1$s</string>
+    <string name="compose_running">Running</string>
+    <string name="compose_stopped">Stopped</string>
+    <string name="compose_start">Start</string>
+    <string name="compose_stop">Stop</string>
+    <string name="compose_logs">Logs</string>
+    <string name="compose_hide_logs">Hide logs</string>
+    <string name="compose_not_created_hint">Not created yet — run Up to create this service container.</string>
+    <string name="compose_ports_note">Ports are not remapped here: a service listening on port N is reachable at 127.0.0.1:N.</string>
+    <string name="compose_delete_confirm_title">Delete project</string>
+    <string name="compose_delete_confirm_message">This stops and removes all containers of “%1$s”.</string>
+    <string name="compose_import_failed">Import failed: %1$s</string>
+    <string name="compose_import_failed_empty">Import failed: file is empty</string>
+    <string name="compose_parse_unknown">Unknown parse error</string>
+
+    <!-- ==================== Orchestration template library ==================== -->
+
+    <string name="compose_templates_entry">Templates</string>
+    <string name="compose_templates_title">Template library</string>
+    <string name="compose_templates_subtitle">Ready-made stacks — pick one and you are running in a minute.</string>
+    <string name="compose_templates_free_hint">Prefer to write your own? Editing and importing YAML stays free — templates are only a shortcut.</string>
+    <string name="compose_templates_unlock_all">Unlock all templates</string>
+    <string name="compose_tpl_category_other">Other</string>
+    <string name="compose_tpl_badge_free">Free</string>
+    <string name="compose_tpl_badge_pro">Pro</string>
+    <string name="compose_tpl_locked_hint">Unlock the template pack to use this template.</string>
+    <string name="compose_tpl_services_label">Services</string>
+    <string name="compose_tpl_notes_label">Good to know</string>
+    <string name="compose_tpl_yaml_preview">YAML preview</string>
+    <string name="compose_tpl_use">Use this template</string>
+    <string name="compose_tpl_use_dialog_title">Name your project</string>
+    <string name="compose_tpl_use_dialog_desc">The template will be copied into a new project. You can edit the YAML at any time before saving.</string>
+    <string name="compose_tpl_unknown_name">Template</string>
+    <string name="compose_tpl_service_ports">Ports: %1$s</string>
+    <string name="compose_tpl_yaml_copy">Copy YAML</string>
+    <string name="compose_tpl_yaml_copied">YAML copied to the clipboard</string>
+
+    <!-- Shared notes, reused across templates (see TemplateNote). -->
+
+    <!-- Template names and descriptions. -->
+
+    <!-- ==================== Template pack (one-time purchase) ==================== -->
+
+    <string name="pro_title">Template pack</string>
+    <string name="pro_subtitle">A one-time purchase that unlocks every template in the library.</string>
+    <string name="pro_benefit_all">All templates in the library</string>
+    <string name="pro_benefit_future">Templates added in future versions</string>
+    <string name="pro_benefit_permanent">Permanent, tied to your Google Play account. Not a subscription.</string>
+    <string name="pro_price">Price: %1$s</string>
+    <string name="pro_price_loading">Loading price…</string>
+    <string name="pro_buy">Unlock</string>
+    <string name="pro_restore">Restore purchase</string>
+    <string name="pro_owned">Unlocked</string>
+    <string name="pro_purchased_toast">Thank you! All templates are now unlocked.</string>
+    <string name="pro_offline_note">Your unlock is stored on this device, so templates keep working offline.</string>
+    <string name="pro_error_unavailable">Google Play is not available on this device, so the purchase cannot be completed here. You can still write or import your own compose YAML for free.</string>
+    <string name="pro_error_network">Could not reach Google Play. Please check your network and try again.</string>
+    <string name="pro_error_item_unavailable">This item is not available for your account right now. Please try again later.</string>
+    <string name="pro_error_already_owned">You already own this item — tap “Restore purchase” to unlock it.</string>
+    <string name="pro_error_cancelled">Purchase cancelled. You can unlock the templates whenever you like.</string>
+    <string name="pro_error_nothing_to_restore">No previous purchase was found for this Google Play account. If you bought the template pack before, please make sure you are signed in with the same account.</string>
+    <string name="pro_error_generic">The purchase could not be completed: %1$s</string>
+</resources>

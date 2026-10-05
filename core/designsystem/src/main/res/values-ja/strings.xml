@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ds_status_created">作成済み</string>
+    <string name="ds_status_running">実行中</string>
+    <string name="ds_status_stopped">停止中</string>
+    <string name="ds_status_exited">終了</string>
+    <string name="ds_status_failed">失敗</string>
+    <string name="ds_log_empty">ログはまだありません</string>
+    <string name="error_banner_dismiss">閉じる</string>
+    <string name="ds_pull_stage_resolving">マニフェストを解決中</string>
+    <string name="ds_pull_stage_downloading">ダウンロード中</string>
+    <string name="ds_pull_layer_progress">レイヤー %1$d/%2$d</string>
+    <string name="ds_pull_stage_extracting">展開中</string>
+    <string name="ds_pull_stage_done">完了</string>
+    <string name="ds_pull_stage_failed">失敗</string>
+    <string name="ds_back">戻る</string>
+    <string name="ds_recommended">おすすめ</string>
+</resources>
+

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="images_title">Images</string>
+    <string name="images_subtitle">Pulled images are stored on the device and reused by your containers.</string>
+    <plurals name="images_count">
+        <item quantity="one">%1$d image</item>
+        <item quantity="other">%1$d images</item>
+    </plurals>
+    <string name="images_input_hint">Image reference</string>
+    <string name="images_pull">Pull</string>
+    <string name="images_inventory_title">Downloaded</string>
+    <string name="images_empty_inventory">No images yet. Enter a reference above and pull it.</string>
+    <string name="images_stage_resolving">resolving manifest</string>
+    <string name="images_stage_downloading">downloading</string>
+    <string name="images_stage_extracting">extracting</string>
+    <string name="images_stage_done">done</string>
+    <string name="images_stage_failed">failed</string>
+    <string name="images_delete">Delete</string>
+
+    <!-- ==================== Compose recommendation ==================== -->
+
+    <string name="images_recommend_compose_title">Let Compose pull images for you</string>
+    <string name="images_recommend_compose_desc">Describe your services in a Compose project and tap Up: every image they need is downloaded automatically, so you do not have to pull them one by one here.</string>
+    <string name="images_import">Import docker save archive (.tar)</string>
+    <string name="images_importing">Importing…</string>
+    <string name="images_import_success">Imported: %1$s</string>
+    <string name="images_import_failed_empty">Selected file is empty</string>
+    <string name="images_import_failed">Import failed: %1$s</string>
+</resources>

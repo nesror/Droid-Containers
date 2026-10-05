@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- 问题反馈日志导出：AppLogger.exportTo 写入 cacheDir/exports -->
+    <cache-path name="exports" path="exports/" />
+</paths>

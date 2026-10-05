@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ds_status_created">已创建</string>
+    <string name="ds_status_running">运行中</string>
+    <string name="ds_status_stopped">已停止</string>
+    <string name="ds_status_exited">已退出</string>
+    <string name="ds_status_failed">失败</string>
+    <string name="ds_log_empty">暂无日志</string>
+    <string name="error_banner_dismiss">关闭</string>
+    <string name="ds_pull_stage_resolving">解析清单</string>
+    <string name="ds_pull_stage_downloading">下载中</string>
+    <string name="ds_pull_layer_progress">第 %1$d/%2$d 层</string>
+    <string name="ds_pull_stage_extracting">解压中</string>
+    <string name="ds_pull_stage_done">完成</string>
+    <string name="ds_pull_stage_failed">失败</string>
+    <string name="ds_back">返回</string>
+    <string name="ds_recommended">推荐</string>
+</resources>
+

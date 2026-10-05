@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="containers_title">コンテナ</string>
+    <string name="containers_subtitle">1つずつ起動する単体コンテナ。</string>
+    <plurals name="containers_count">
+        <item quantity="other">%1$d 個のコンテナ</item>
+    </plurals>
+    <string name="containers_create">新規コンテナ</string>
+    <string name="containers_cancel">キャンセル</string>
+    <string name="containers_name">コンテナ名</string>
+    <string name="containers_image">イメージ参照</string>
+    <string name="containers_start">起動</string>
+    <string name="containers_stop">停止</string>
+    <string name="containers_delete">削除</string>
+    <string name="containers_logs">ログ</string>
+    <string name="containers_hide_logs">ログを閉じる</string>
+    <string name="containers_running">実行中</string>
+    <string name="containers_stopped">停止中</string>
+    <string name="containers_empty">まだコンテナはありません。イメージを取得してからここで作成しましょう。</string>
+    <string name="containers_autostart">アプリ起動時に自動開始</string>
+    <string name="containers_exec_hint">コマンド</string>
+    <string name="containers_exec_send">送信</string>
+    <string name="containers_terminal">ターミナル</string>
+    <string name="term_keys_toggle_keyboard">キーボードの表示 / 非表示</string>
+    <string name="containers_docker_hint">docker コマンドから作成</string>
+    <string name="containers_docker_placeholder">docker run -d --name web -p 8080:80 nginx</string>
+    <string name="containers_docker_paste">貼り付け</string>
+    <string name="containers_docker_parse">解析して反映</string>
+    <string name="containers_docker_parse_ok">解析に成功し、名前・イメージ・自動起動に反映しました。</string>
+    <string name="containers_docker_unsupported">未対応のオプションを無視しました：%1$s</string>
+    <string name="containers_docker_parse_fail">有効な docker run コマンドではありません。</string>
+    <string name="containers_open_browser">ブラウザ</string>
+    <string name="containers_ports_title">コンテナの Web ページ</string>
+    <string name="containers_ports_empty">保存されたポートはありません。Web サービスが待ち受けるポートを入力してください。</string>
+    <string name="containers_ports_hint">ポート番号</string>
+    <string name="containers_ports_open">開く</string>
+    <string name="containers_ports_remove">ポートを削除</string>
+    <string name="containers_ports_url">http://127.0.0.1:%1$d</string>
+
+    <!-- ==================== 編成機能のおすすめ ==================== -->
+
+    <string name="containers_recommend_compose_title">Compose の編成を試す</string>
+    <string name="containers_recommend_compose_desc">複数のサービスをひとつのスタックとしてまとめて実行できます。必要なイメージは自動で取得されるので、「Up」を1回押すだけで起動します。</string>
+    <string name="containers_compose_managed">Compose プロジェクトで管理</string>
+</resources>
+

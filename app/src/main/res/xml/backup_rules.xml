@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  自动备份排除规则（API 30 及以下；API 31+ 见 data_extraction_rules.xml）。
+
+  审查 P1-4：DataStore（`settings` / `entitlements`）里存着远程控制端口的 Bearer token——
+  该端口全链路无 TLS，token 即容器完全控制权，一旦随云备份或换机迁移落到别处即是漏洞；
+  日志目录含设备信息与运行细节，引擎目录是百 MB 级 rootfs（且含容器内数据），
+  三者都不应参与备份。
+-->
+<full-backup-content>
+    <exclude domain="file" path="datastore" />
+    <exclude domain="file" path="logs" />
+    <exclude domain="file" path="engine" />
+</full-backup-content>

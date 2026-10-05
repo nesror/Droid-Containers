@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="containers_title">容器</string>
+    <string name="containers_subtitle">逐个运行的单个容器。</string>
+    <plurals name="containers_count">
+        <item quantity="other">%1$d 个容器</item>
+    </plurals>
+    <string name="containers_create">新建容器</string>
+    <string name="containers_cancel">取消</string>
+    <string name="containers_name">容器名</string>
+    <string name="containers_image">镜像引用</string>
+    <string name="containers_start">启动</string>
+    <string name="containers_stop">停止</string>
+    <string name="containers_delete">删除</string>
+    <string name="containers_logs">日志</string>
+    <string name="containers_hide_logs">收起日志</string>
+    <string name="containers_running">运行中</string>
+    <string name="containers_stopped">已停止</string>
+    <string name="containers_empty">还没有容器。先到「镜像」页拉取镜像，再在这里创建。</string>
+    <string name="containers_autostart">随应用自启</string>
+    <string name="containers_exec_hint">命令</string>
+    <string name="containers_exec_send">发送</string>
+    <string name="containers_terminal">终端</string>
+    <string name="term_keys_toggle_keyboard">显示 / 隐藏键盘</string>
+    <string name="containers_docker_hint">从 docker 命令创建</string>
+    <string name="containers_docker_placeholder">docker run -d --name web -p 8080:80 nginx</string>
+    <string name="containers_docker_paste">粘贴</string>
+    <string name="containers_docker_parse">解析填充</string>
+    <string name="containers_docker_parse_ok">解析成功，已填充名称、镜像与自启开关。</string>
+    <string name="containers_docker_unsupported">已忽略不支持的参数：%1$s</string>
+    <string name="containers_docker_parse_fail">无法识别的 docker run 命令。</string>
+    <string name="containers_open_browser">浏览器</string>
+    <string name="containers_ports_title">容器网页</string>
+    <string name="containers_ports_empty">还没有保存端口。输入 Web 服务监听的端口号。</string>
+    <string name="containers_ports_hint">端口号</string>
+    <string name="containers_ports_open">打开</string>
+    <string name="containers_ports_remove">删除端口</string>
+    <string name="containers_ports_url">http://127.0.0.1:%1$d</string>
+
+    <!-- ==================== 编排功能推荐 ==================== -->
+
+    <string name="containers_recommend_compose_title">试试编排功能</string>
+    <string name="containers_recommend_compose_desc">把多个服务作为一个整体一起运行，用到的镜像会自动拉取，点一次「Up」就能全部跑起来。</string>
+    <string name="containers_compose_managed">由编排项目管理</string>
+</resources>
+

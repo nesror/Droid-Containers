@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="containers_title">Контейнеры</string>
+    <string name="containers_subtitle">Отдельные контейнеры, запускаемые по одному.</string>
+    <plurals name="containers_count">
+        <item quantity="one">%1$d контейнер</item>
+        <item quantity="few">%1$d контейнера</item>
+        <item quantity="many">%1$d контейнеров</item>
+        <item quantity="other">%1$d контейнера</item>
+    </plurals>
+    <string name="containers_create">Новый контейнер</string>
+    <string name="containers_cancel">Отмена</string>
+    <string name="containers_name">Имя контейнера</string>
+    <string name="containers_image">Ссылка на образ</string>
+    <string name="containers_start">Запустить</string>
+    <string name="containers_stop">Остановить</string>
+    <string name="containers_delete">Удалить</string>
+    <string name="containers_logs">Журнал</string>
+    <string name="containers_hide_logs">Скрыть журнал</string>
+    <string name="containers_running">Запущен</string>
+    <string name="containers_stopped">Остановлен</string>
+    <string name="containers_empty">Контейнеров пока нет. Загрузите образ, затем создайте контейнер здесь.</string>
+    <string name="containers_autostart">Автозапуск с приложением</string>
+    <string name="containers_exec_hint">Команда</string>
+    <string name="containers_exec_send">Отправить</string>
+    <string name="containers_terminal">Терминал</string>
+    <string name="term_keys_toggle_keyboard">Показать / скрыть клавиатуру</string>
+    <string name="containers_docker_hint">Создать из команды docker</string>
+    <string name="containers_docker_placeholder">docker run -d --name web -p 8080:80 nginx</string>
+    <string name="containers_docker_paste">Вставить</string>
+    <string name="containers_docker_parse">Разобрать и заполнить</string>
+    <string name="containers_docker_parse_ok">Команда разобрана: имя, образ и автозапуск заполнены ниже.</string>
+    <string name="containers_docker_unsupported">Неподдерживаемые параметры пропущены: %1$s</string>
+    <string name="containers_docker_parse_fail">Не удалось распознать команду docker run.</string>
+    <string name="containers_open_browser">Браузер</string>
+    <string name="containers_ports_title">Веб-страницы контейнера</string>
+    <string name="containers_ports_empty">Порты ещё не сохранены. Введите порт, который слушает ваш веб-сервис.</string>
+    <string name="containers_ports_hint">Номер порта</string>
+    <string name="containers_ports_open">Открыть</string>
+    <string name="containers_ports_remove">Удалить порт</string>
+    <string name="containers_ports_url">http://127.0.0.1:%1$d</string>
+
+    <!-- ==================== Рекомендация оркестрации ==================== -->
+
+    <string name="containers_recommend_compose_title">Попробуйте оркестрацию Compose</string>
+    <string name="containers_recommend_compose_desc">Запускайте несколько сервисов как единый стек. Образы скачиваются автоматически — одного нажатия «Up» достаточно, чтобы всё заработало.</string>
+    <string name="containers_compose_managed">Управляется проектом Compose</string>
+</resources>
+

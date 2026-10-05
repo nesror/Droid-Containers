@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 检查更新（仅 cn 渠道源集，global 不打包） -->
+    <string name="settings_update_title">更新を確認</string>
+    <string name="settings_update_desc">GitHub Releases の新バージョンを確認</string>
+    <string name="settings_update_checking">確認中…</string>
+    <string name="settings_update_dialog_title">新バージョン %1$s があります</string>
+    <string name="settings_update_dialog_no_changelog">このリリースには更新履歴がありません。</string>
+    <string name="settings_update_dialog_download">ダウンロードへ</string>
+    <string name="settings_update_dialog_later">後で</string>
+    <string name="settings_update_latest_title">最新バージョンです</string>
+    <string name="settings_update_latest_text">すでに最新バージョンを使用中です。</string>
+    <string name="settings_update_failed_title">更新の確認に失敗しました</string>
+    <string name="settings_update_failed_reason">理由: %1$s</string>
+    <string name="settings_update_ok">OK</string>
+</resources>

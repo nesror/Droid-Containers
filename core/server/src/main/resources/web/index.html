@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Droid Containers · Console</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--fg:#1c1e21;--mut:#65676b;--acc:#2563eb;--acc-weak:#e8f0fe;--ok:#16a34a;--ok-bg:#dcfce7;--warn:#dc2626;--warn-bg:#fee2e2;--bd:#e4e6eb;--bd2:#f0f1f3;--hover:#eef1f5;--code:#f6f7f9;--radius:12px;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1117;--card:#161b22;--fg:#e6edf3;--mut:#8b949e;--acc:#4493f8;--acc-weak:#1c2f4a;--ok:#3fb950;--ok-bg:#14301f;--warn:#f85149;--warn-bg:#3d1418;--bd:#30363d;--bd2:#21262d;--hover:#1d232b;--code:#0d1117}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"PingFang SC",Roboto,"Segoe UI",sans-serif;background:var(--bg);color:var(--fg);font-size:14px}
+a{color:var(--acc);text-decoration:none}
+a:hover{text-decoration:underline}
+.shell{display:flex;min-height:100vh}
+aside{width:216px;flex:0 0 216px;background:var(--card);border-right:1px solid var(--bd);padding:14px 10px;display:flex;flex-direction:column;gap:14px;position:sticky;top:0;height:100vh}
+.brand{font-size:15px;font-weight:600;padding:2px 8px}
+nav{display:flex;flex-direction:column;gap:2px}
+nav button{border:none;background:none;padding:8px 10px;border-radius:8px;cursor:pointer;color:var(--mut);font-size:14px;text-align:left}
+nav button:hover{background:var(--hover);color:var(--fg)}
+nav button.on{background:var(--acc);color:#fff}
+.side{margin-top:auto;display:flex;flex-direction:column;gap:10px;font-size:12px;color:var(--mut)}
+.side label{display:flex;flex-direction:column;gap:4px}
+.side select{border:1px solid var(--bd);border-radius:8px;padding:6px;background:var(--card);color:var(--fg);font-size:12px}
+main{flex:1;max-width:1160px;margin:0 auto;padding:16px;width:100%}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:var(--radius);padding:14px;margin-bottom:14px}
+.card h2{font-size:15px;margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card h2 .spacer{flex:1}
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--bd2);word-break:break-all;vertical-align:top}
+th{color:var(--mut);font-weight:500;font-size:12px;white-space:nowrap}
+tbody tr:hover{background:var(--hover)}
+.tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:12px;background:var(--acc-weak);color:var(--acc);white-space:nowrap}
+.tag.ok{background:var(--ok-bg);color:var(--ok)}
+.tag.err{background:var(--warn-bg);color:var(--warn)}
+.tag.mut{background:var(--bd2);color:var(--mut)}
+.tag.gold{background:#fdf1d7;color:#9a6700}
+@media(prefers-color-scheme:dark){.tag.gold{background:#3d2e0a;color:#e3b341}}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+button.act{border:1px solid var(--bd);background:var(--card);border-radius:8px;padding:6px 10px;cursor:pointer;font-size:13px;color:var(--fg)}
+button.act:hover{background:var(--hover)}
+button.act:disabled{opacity:.45;cursor:not-allowed}
+button.act.pri{background:var(--acc);border-color:var(--acc);color:#fff}
+button.act.dgr{color:var(--warn);border-color:var(--warn)}
+input,textarea,select{border:1px solid var(--bd);border-radius:8px;padding:8px;font-size:14px;width:100%;font-family:inherit;background:var(--card);color:var(--fg)}
+textarea{min-height:180px;font-family:var(--mono);font-size:13px}
+.mut{color:var(--mut);font-size:12px}
+.stat{display:flex;gap:12px;flex-wrap:wrap}
+.stat>div{flex:1;min-width:120px;background:var(--bg);border-radius:10px;padding:12px}
+.stat b{font-size:22px;display:block}
+.bar{height:6px;background:var(--bd2);border-radius:3px;overflow:hidden;margin-top:4px}
+.bar i{display:block;height:100%;background:var(--acc);transition:width .4s}
+#logs{background:var(--code);color:var(--fg);font-family:var(--mono);font-size:12px;padding:10px;border-radius:8px;max-height:340px;overflow:auto;white-space:pre-wrap}
+.overlay{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:9;padding:16px}
+.overlay[hidden]{display:none}
+.overlay .card{width:min(420px,94vw)}
+#toasts{position:fixed;right:14px;bottom:14px;display:flex;flex-direction:column;gap:8px;z-index:30}
+.toast{background:var(--card);border:1px solid var(--bd);border-left:3px solid var(--acc);border-radius:8px;padding:10px 14px;font-size:13px;box-shadow:0 4px 14px rgba(0,0,0,.12);max-width:340px}
+.toast.ok{border-left-color:var(--ok)}
+.toast.err{border-left-color:var(--warn)}
+.tplgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.tpl{background:var(--card);border:1px solid var(--bd);border-radius:var(--radius);padding:12px;display:flex;flex-direction:column;gap:8px;cursor:pointer}
+.tpl:hover{border-color:var(--acc)}
+.tpl .name{font-weight:600;font-size:14px}
+.tpl .desc{color:var(--mut);font-size:12px;min-height:32px}
+.badges{display:flex;gap:6px;flex-wrap:wrap}
+.drw{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;justify-content:flex-end;z-index:20}
+.drw>div{width:min(520px,100%);background:var(--bg);height:100%;overflow:auto;padding:18px;box-sizing:border-box}
+.drw h3{margin:12px 0 8px;font-size:14px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:13px;margin:8px 0}
+.kv b{color:var(--mut);font-weight:500;white-space:nowrap}
+.termov{position:fixed;inset:0;background:#0d1117;z-index:26;display:flex;flex-direction:column}
+.termhead{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#161b22;color:#e6edf3;font-size:14px}
+.termhead b{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.termhost{flex:1;padding:0 8px 8px;min-height:0}
+.termhost #termbox{height:100%}
+@media(max-width:899px){.shell{flex-direction:column}aside{width:auto;flex:0 0 auto;height:auto;position:static;flex-direction:row;flex-wrap:wrap;align-items:center;border-right:none;border-bottom:1px solid var(--bd)}nav{flex-direction:row;overflow-x:auto}.side{margin:0;flex-direction:row;align-items:center}}
+</style>
+</head>
+<body>
+<script id="gate" type="application/json">__GATE_JSON__</script>
+
+<div id="gatepage" class="overlay" hidden>
+  <div class="card">
+    <h2 data-i18n="gate.title"></h2>
+    <p class="mut" style="margin:8px 0" data-i18n="gate.hint"></p>
+    <p class="mut" style="margin:0 0 10px" data-i18n="gate.phone"></p>
+    <button class="act pri" style="width:100%" data-act="gate.recheck" data-i18n="gate.recheck"></button>
+  </div>
+</div>
+
+<div id="login" class="overlay" hidden>
+  <div class="card">
+    <h2 data-i18n="login.title"></h2>
+    <p class="mut" style="margin:8px 0" data-i18n="login.hint"></p>
+    <input id="tk" data-i18n-ph="login.placeholder">
+    <button class="act pri" style="margin-top:10px;width:100%" data-act="login.submit" data-i18n="login.submit"></button>
+    <p id="lerr" class="mut" style="color:var(--warn);margin-top:8px"></p>
+  </div>
+</div>
+
+<div class="shell" id="shell" hidden>
+  <aside>
+    <div class="brand">📦 <span data-i18n="app.name"></span></div>
+    <nav id="nav"></nav>
+    <div class="side">
+      <label><span data-i18n="common.language"></span><select id="langsel"></select></label>
+      <label><span data-i18n="common.baseAddress"></span><select id="baseaddr"></select></label>
+    </div>
+  </aside>
+  <main id="main"></main>
+</div>
+
+<div id="toasts"></div>
+<div id="modalroot"></div>
+
+<script>
+"use strict";
+
+/* ============================================================ i18n =====
+ * 语言集合与 App / _taxonomy.yaml 对齐：en / zh / ru / ja（zh-Hant 回退 zh）。
+ * 优先级：localStorage 手动选择 > navigator.languages 命中 > 默认英语。
+ * 英语是基准语言：缺键一律回退 en；完整性由 tool/check_console_i18n.py 守门。
+ */
+const I18N = {
+en:{
+ "app.name":"Droid Containers","app.console":"Console",
+ "nav.dash":"Dashboard","nav.images":"Images","nav.containers":"Containers","nav.compose":"Compose","nav.templates":"Templates","nav.audit":"Audit",
+ "common.loading":"Loading…","common.edit":"Edit","common.clear":"Clear","common.none":"Nothing here yet","common.search":"Search","common.copy":"Copy","common.copied":"Copied",
+ "common.close":"Close","common.cancel":"Cancel","common.confirm":"Confirm","common.delete":"Delete","common.refresh":"Refresh","common.save":"Save",
+ "common.language":"Language","common.followBrowser":"Follow browser","common.baseAddress":"Base address",
+ "common.baseAddressHint":"Used for the direct links to container services","common.actions":"Actions","common.loopback":"This phone",
+ "common.pause":"Pause","common.resume":"Resume","common.download":"Save log","common.free":"Free",
+ "gate.title":"Template pack required","gate.hint":"The remote console is part of the template pack. Unlock it in the app to manage images, containers and stacks from your browser.","gate.phone":"Open the app → Settings → Template pack to unlock, then come back here.","gate.recheck":"Re-check",
+ "login.title":"Remote console","login.hint":"Enter the API token shown on the phone: Settings → Remote control","login.placeholder":"API Token","login.submit":"Sign in","login.error":"Token check failed, please retry",
+ "dash.title":"Dashboard","dash.containers":"Containers","dash.running":"Running","dash.images":"Images","dash.storage":"Storage","dash.device":"Device","dash.lan":"LAN addresses","dash.pack":"Template pack",
+ "images.pull":"Pull image","images.pullPlaceholder":"e.g. alpine:3.20","images.pullBtn":"Pull","images.inventory":"Inventory","images.pullStarted":"Pull started","images.deleteConfirm":"Delete image {ref}?","images.deleted":"Image deleted",
+ "containers.title":"Containers","containers.createTitle":"Create container","containers.createName":"Name","containers.createImage":"Image (e.g. alpine:3.20)","containers.autoStart":"Start with the app","containers.create":"Create","containers.created":"Container created",
+ "containers.name":"Name","containers.image":"Image","containers.status":"Status","containers.ports":"Web ports","containers.start":"Start","containers.stop":"Stop","containers.logs":"Logs","containers.deleteConfirm":"Delete container {name}?",
+ "containers.execPlaceholder":"Run a command in the container, e.g. uname -a","containers.execSend":"Run","containers.execSent":"Command sent — output appears in the log below","containers.execHint":"No pseudo-terminal: output goes to the container log","containers.download":"Save log","containers.terminal":"Terminal",
+ "term.title":"Terminal · {name}","term.connecting":"Connecting to container…","term.connect_fail":"Ticket request failed","term.exit":"Session ended (exit code {code})","term.closed":"Connection closed",
+ "compose.title":"Compose projects","compose.project":"Project","compose.services":"Services","compose.state":"State","compose.newTitle":"New project","compose.editTitle":"Edit · {name}",
+ "compose.namePlaceholder":"Project name","compose.yamlPlaceholder":"services:\n  web:\n    image: alpine:3.20\n    command: sh -c 'while true; do date; sleep 5; done'","compose.nameRequired":"Project name and YAML are required","compose.saved":"Project saved","compose.fromTemplate":"New project · from template {id}","compose.parseError":"This project's YAML could not be parsed",
+ "compose.up":"Up","compose.down":"Down","compose.upStarting":"Starting — pulling missing images…","compose.viewImages":"View progress on the Images page","compose.upDone":"Started {n} service(s)","compose.deleteConfirm":"Delete project {name}? (containers are kept)","compose.portsHint":"Declared container ports — some may not be a web service",
+ "templates.title":"Template library","templates.subtitle":"Ready-made stacks — pick one, review it, then save it as a project","templates.search":"Search templates…",
+ "templates.filterAll":"All","templates.filterFree":"Free","templates.filterUnlocked":"Usable","templates.none":"No template matches","templates.services":"Services",
+ "templates.ports":"Ports","templates.notes":"Good to know","templates.yaml":"YAML","templates.use":"Use this template","templates.copyYaml":"Copy YAML","templates.locked":"Locked",
+ "templates.lockedHint":"This template is part of the template pack. Unlock it in the app to view and use the full YAML.","templates.pack":"Template pack",
+ "templates.packUnlocked":"Unlocked — every template is available","templates.packLocked":"Locked — free templates stay usable, premium ones unlock with the pack",
+ "templates.refresh":"Check unlock status","templates.refreshed":"Unlock status refreshed","templates.refreshFailed":"Could not reach Google Play — showing the last known status",
+ "audit.title":"Audit log (latest 200)","audit.time":"Time","audit.source":"Source","audit.action":"Action","audit.detail":"Detail","audit.export":"Export CSV",
+ "audit.actions.pull":"Pull","audit.actions.rmi":"Remove image","audit.actions.create":"Create","audit.actions.rm":"Remove","audit.actions.start":"Start","audit.actions.stop":"Stop",
+ "audit.actions.exec":"Exec","audit.actions.terminal":"Terminal","audit.actions.up":"Up","audit.actions.down":"Down","audit.actions.compose.create":"Create project","audit.actions.compose.update":"Update project","audit.actions.compose.delete":"Delete project",
+ "audit.actions.denied":"Denied (locked)","status.RUNNING":"Running","status.STOPPED":"Stopped","status.CREATED":"Created","status.PARTIAL":"Partial","status.EXITED":"Exited","status.FAILED":"Failed",
+ "stage.READY":"Ready","stage.FAILED":"Failed","errors.opFailed":"Operation failed: {msg}","errors.locked":"The remote console requires the template pack"
+},
+zh:{
+ "app.name":"Droid 容器","app.console":"控制台",
+ "nav.dash":"仪表盘","nav.images":"镜像","nav.containers":"容器","nav.compose":"编排","nav.templates":"模板库","nav.audit":"审计",
+ "common.loading":"加载中…","common.edit":"编辑","common.clear":"清空","common.none":"暂无内容","common.search":"搜索","common.copy":"复制","common.copied":"已复制",
+ "common.close":"关闭","common.cancel":"取消","common.confirm":"确认","common.delete":"删除","common.refresh":"刷新","common.save":"保存",
+ "common.language":"语言","common.followBrowser":"跟随浏览器","common.baseAddress":"访问地址",
+ "common.baseAddressHint":"用于模板与容器的直达链接","common.actions":"操作","common.loopback":"本机（手机）",
+ "common.pause":"暂停","common.resume":"继续","common.download":"保存日志","common.free":"免费",
+ "gate.title":"需要解锁模板包","gate.hint":"远程控制台属于模板包。解锁后即可在电脑浏览器里管理镜像、容器与编排。","gate.phone":"打开手机 App → 设置 → 解锁模板包，然后回到这里刷新。","gate.recheck":"重新检查",
+ "login.title":"远程控制台","login.hint":"输入手机上「设置 → 远程控制」里显示的 API Token","login.placeholder":"API Token","login.submit":"登录","login.error":"Token 校验失败，请重试",
+ "dash.title":"仪表盘","dash.containers":"容器","dash.running":"运行中","dash.images":"镜像","dash.storage":"存储占用","dash.device":"设备","dash.lan":"局域网地址","dash.pack":"模板包",
+ "images.pull":"拉取镜像","images.pullPlaceholder":"例如 alpine:3.20","images.pullBtn":"拉取","images.inventory":"镜像库存","images.pullStarted":"已开始拉取","images.deleteConfirm":"删除镜像 {ref}？","images.deleted":"镜像已删除",
+ "containers.title":"容器","containers.createTitle":"创建容器","containers.createName":"名称","containers.createImage":"镜像（例如 alpine:3.20）","containers.autoStart":"随 App 启动","containers.create":"创建","containers.created":"容器已创建",
+ "containers.name":"名称","containers.image":"镜像","containers.status":"状态","containers.ports":"Web 端口","containers.start":"启动","containers.stop":"停止","containers.logs":"日志","containers.deleteConfirm":"删除容器 {name}？",
+ "containers.execPlaceholder":"在容器内执行命令，如 uname -a","containers.execSend":"执行","containers.execSent":"命令已发送，输出显示在下方日志","containers.execHint":"无伪终端：输出写入容器日志","containers.download":"保存日志","containers.terminal":"终端",
+ "term.title":"终端 · {name}","term.connecting":"正在连接容器…","term.connect_fail":"票据获取失败","term.exit":"会话已结束（退出码 {code}）","term.closed":"连接已断开",
+ "compose.title":"编排项目","compose.project":"项目","compose.services":"服务","compose.state":"状态","compose.newTitle":"新建项目","compose.editTitle":"编辑 · {name}",
+ "compose.namePlaceholder":"项目名","compose.nameRequired":"项目名与 YAML 必填","compose.saved":"项目已保存","compose.fromTemplate":"新建项目 · 来自模板 {id}","compose.parseError":"该项目的 YAML 无法解析","compose.yamlPlaceholder":"services:\n  web:\n    image: alpine:3.20\n    command: sh -c 'while true; do date; sleep 5; done'",
+ "compose.up":"启动","compose.down":"停止","compose.upStarting":"启动中 · 正在拉取缺失镜像…","compose.viewImages":"去「镜像」页查看进度","compose.upDone":"已启动 {n} 个服务","compose.deleteConfirm":"删除项目 {name}？（不删容器）","compose.portsHint":"正文声明的容器端口——部分端口可能不是 Web 服务",
+ "templates.title":"模板库","templates.subtitle":"预置好的常用组合：选一个、确认内容，保存为项目即可运行","templates.search":"搜索模板…",
+ "templates.filterAll":"全部","templates.filterFree":"免费","templates.filterUnlocked":"可用","templates.none":"没有匹配的模板","templates.services":"服务",
+ "templates.ports":"端口","templates.notes":"使用提示","templates.yaml":"YAML","templates.use":"用此模板","templates.copyYaml":"复制 YAML","templates.locked":"未解锁",
+ "templates.lockedHint":"该模板属于模板包。解锁后才能查看并使用完整 YAML。","templates.pack":"模板包",
+ "templates.packUnlocked":"已解锁：全部模板可用","templates.packLocked":"未解锁：免费模板始终可用，其余模板解锁后可见",
+ "templates.refresh":"检查解锁状态","templates.refreshed":"解锁状态已刷新","templates.refreshFailed":"无法连接 Google Play，显示的是上次结果",
+ "audit.title":"审计日志（最近 200 条）","audit.time":"时间","audit.source":"来源","audit.action":"操作","audit.detail":"详情","audit.export":"导出 CSV",
+ "audit.actions.pull":"拉取","audit.actions.rmi":"删镜像","audit.actions.create":"创建","audit.actions.rm":"删除","audit.actions.start":"启动","audit.actions.stop":"停止",
+ "audit.actions.exec":"执行","audit.actions.terminal":"终端","audit.actions.up":"启动","audit.actions.down":"停止","audit.actions.compose.create":"建项目","audit.actions.compose.update":"改项目","audit.actions.compose.delete":"删项目",
+ "audit.actions.denied":"已拒绝（未解锁）","status.RUNNING":"运行中","status.STOPPED":"已停止","status.CREATED":"已创建","status.PARTIAL":"部分运行","status.EXITED":"已退出","status.FAILED":"失败",
+ "stage.READY":"完成","stage.FAILED":"失败","errors.opFailed":"操作失败：{msg}","errors.locked":"远程控制台需要解锁模板包"
+},
+ru:{
+ "app.name":"Droid Containers","app.console":"Консоль",
+ "nav.dash":"Обзор","nav.images":"Образы","nav.containers":"Контейнеры","nav.compose":"Стеки","nav.templates":"Шаблоны","nav.audit":"Журнал",
+ "common.loading":"Загрузка…","common.edit":"Изменить","common.clear":"Очистить","common.none":"Пока пусто","common.search":"Поиск","common.copy":"Копировать","common.copied":"Скопировано",
+ "common.close":"Закрыть","common.cancel":"Отмена","common.confirm":"Подтвердить","common.delete":"Удалить","common.refresh":"Обновить","common.save":"Сохранить",
+ "common.language":"Язык","common.followBrowser":"Как в браузере","common.baseAddress":"Базовый адрес",
+ "common.baseAddressHint":"Используется в прямых ссылках на сервисы","common.actions":"Действия","common.loopback":"Этот телефон",
+ "common.pause":"Пауза","common.resume":"Продолжить","common.download":"Сохранить лог","common.free":"Бесплатно",
+ "gate.title":"Нужен набор шаблонов","gate.hint":"Удалённая консоль входит в набор шаблонов. Разблокируйте его в приложении, чтобы управлять образами, контейнерами и стеками из браузера.","gate.phone":"Откройте приложение → Настройки → набор шаблонов, затем вернитесь и обновите страницу.","gate.recheck":"Проверить снова",
+ "login.title":"Удалённая консоль","login.hint":"Введите API-токен с телефона: Настройки → Удалённое управление","login.placeholder":"API-токен","login.submit":"Войти","login.error":"Не удалось проверить токен, попробуйте снова",
+ "dash.title":"Обзор","dash.containers":"Контейнеры","dash.running":"Запущено","dash.images":"Образы","dash.storage":"Хранилище","dash.device":"Устройство","dash.lan":"LAN-адреса","dash.pack":"Набор шаблонов",
+ "images.pull":"Загрузить образ","images.pullPlaceholder":"например alpine:3.20","images.pullBtn":"Загрузить","images.inventory":"Загруженные образы","images.pullStarted":"Загрузка началась","images.deleteConfirm":"Удалить образ {ref}?","images.deleted":"Образ удалён",
+ "containers.title":"Контейнеры","containers.createTitle":"Создать контейнер","containers.createName":"Имя","containers.createImage":"Образ (например alpine:3.20)","containers.autoStart":"Запускать с приложением","containers.create":"Создать","containers.created":"Контейнер создан",
+ "containers.name":"Имя","containers.image":"Образ","containers.status":"Статус","containers.ports":"Веб-порты","containers.start":"Запустить","containers.stop":"Остановить","containers.logs":"Логи","containers.deleteConfirm":"Удалить контейнер {name}?",
+ "containers.execPlaceholder":"Команда в контейнере, например uname -a","containers.execSend":"Выполнить","containers.execSent":"Команда отправлена — вывод появится в логе ниже","containers.execHint":"Без псевдо-терминала: вывод пишется в лог контейнера","containers.download":"Сохранить лог","containers.terminal":"Терминал",
+ "term.title":"Терминал · {name}","term.connecting":"Подключение к контейнеру…","term.connect_fail":"Не удалось получить билет","term.exit":"Сеанс завершён (код {code})","term.closed":"Соединение закрыто",
+ "compose.title":"Проекты стека","compose.project":"Проект","compose.services":"Сервисы","compose.state":"Состояние","compose.newTitle":"Новый проект","compose.editTitle":"Редактирование · {name}",
+ "compose.namePlaceholder":"Имя проекта","compose.nameRequired":"Укажите имя проекта и YAML","compose.saved":"Проект сохранён","compose.fromTemplate":"Новый проект · из шаблона {id}","compose.parseError":"YAML проекта не удалось разобрать","compose.yamlPlaceholder":"services:\n  web:\n    image: alpine:3.20\n    command: sh -c 'while true; do date; sleep 5; done'",
+ "compose.up":"Запустить","compose.down":"Остановить","compose.upStarting":"Запуск — загрузка недостающих образов…","compose.viewImages":"Прогресс на странице образов","compose.upDone":"Запущено служб: {n}","compose.deleteConfirm":"Удалить проект {name}? (контейнеры останутся)","compose.portsHint":"Порты, объявленные в YAML — некоторые могут не быть веб-сервисом",
+ "templates.title":"Библиотека шаблонов","templates.subtitle":"Готовые наборы: выберите, проверьте и сохраните как проект","templates.search":"Поиск шаблонов…",
+ "templates.filterAll":"Все","templates.filterFree":"Бесплатные","templates.filterUnlocked":"Доступные","templates.none":"Шаблоны не найдены","templates.services":"Сервисы",
+ "templates.ports":"Порты","templates.notes":"Полезно знать","templates.yaml":"YAML","templates.use":"Использовать шаблон","templates.copyYaml":"Копировать YAML","templates.locked":"Заблокирован",
+ "templates.lockedHint":"Этот шаблон входит в набор шаблонов. Разблокируйте его в приложении, чтобы увидеть и использовать полный YAML.","templates.pack":"Набор шаблонов",
+ "templates.packUnlocked":"Разблокировано — доступны все шаблоны","templates.packLocked":"Заблокировано — бесплатные шаблоны доступны, остальные появятся после разблокировки",
+ "templates.refresh":"Проверить разблокировку","templates.refreshed":"Статус обновлён","templates.refreshFailed":"Google Play недоступен — показан последний известный статус",
+ "audit.title":"Журнал (последние 200)","audit.time":"Время","audit.source":"Источник","audit.action":"Действие","audit.detail":"Подробности","audit.export":"Экспорт CSV",
+ "audit.actions.pull":"Загрузка","audit.actions.rmi":"Удаление образа","audit.actions.create":"Создание","audit.actions.rm":"Удаление","audit.actions.start":"Запуск","audit.actions.stop":"Остановка",
+ "audit.actions.exec":"Команда","audit.actions.terminal":"Терминал","audit.actions.up":"Запуск","audit.actions.down":"Остановка","audit.actions.compose.create":"Создание проекта","audit.actions.compose.update":"Изменение проекта","audit.actions.compose.delete":"Удаление проекта",
+ "audit.actions.denied":"Отклонено (нет разблокировки)","status.RUNNING":"Работает","status.STOPPED":"Остановлен","status.CREATED":"Создан","status.PARTIAL":"Частично","status.EXITED":"Завершён","status.FAILED":"Ошибка",
+ "stage.READY":"Готово","stage.FAILED":"Ошибка","errors.opFailed":"Не удалось: {msg}","errors.locked":"Для консоли нужен набор шаблонов"
+},
+ja:{
+ "app.name":"ドロイドコンテナ","app.console":"コンソール",
+ "nav.dash":"ダッシュボード","nav.images":"イメージ","nav.containers":"コンテナー","nav.compose":"スタック","nav.templates":"テンプレート","nav.audit":"監査ログ",
+ "common.loading":"読み込み中…","common.edit":"編集","common.clear":"クリア","common.none":"まだありません","common.search":"検索","common.copy":"コピー","common.copied":"コピーしました",
+ "common.close":"閉じる","common.cancel":"キャンセル","common.confirm":"確認","common.delete":"削除","common.refresh":"更新","common.save":"保存",
+ "common.language":"言語","common.followBrowser":"ブラウザーに合わせる","common.baseAddress":"接続先アドレス",
+ "common.baseAddressHint":"サービスへの直接リンクに使います","common.actions":"操作","common.loopback":"この端末",
+ "common.pause":"一時停止","common.resume":"再開","common.download":"ログを保存","common.free":"無料",
+ "gate.title":"テンプレートパックが必要です","gate.hint":"リモートコンソールはテンプレートパックに含まれます。ロック解除するとブラウザーからイメージ・コンテナー・スタックを管理できます。","gate.phone":"スマホのアプリ → 設定 → テンプレートパック でロック解除し、この画面を再読み込みしてください。","gate.recheck":"再チェック",
+ "login.title":"リモートコンソール","login.hint":"スマホの「設定 → リモート操作」に表示される API トークンを入力してください","login.placeholder":"API トークン","login.submit":"ログイン","login.error":"トークンを確認できませんでした。もう一度お試しください",
+ "dash.title":"ダッシュボード","dash.containers":"コンテナー","dash.running":"実行中","dash.images":"イメージ","dash.storage":"ストレージ","dash.device":"端末","dash.lan":"LAN アドレス","dash.pack":"テンプレートパック",
+ "images.pull":"イメージを取得","images.pullPlaceholder":"例 alpine:3.20","images.pullBtn":"取得","images.inventory":"取得済みイメージ","images.pullStarted":"取得を開始しました","images.deleteConfirm":"イメージ {ref} を削除しますか？","images.deleted":"イメージを削除しました",
+ "containers.title":"コンテナー","containers.createTitle":"コンテナーを作成","containers.createName":"名前","containers.createImage":"イメージ（例 alpine:3.20）","containers.autoStart":"アプリ起動時に開始","containers.create":"作成","containers.created":"コンテナーを作成しました",
+ "containers.name":"名前","containers.image":"イメージ","containers.status":"状態","containers.ports":"Web ポート","containers.start":"開始","containers.stop":"停止","containers.logs":"ログ","containers.deleteConfirm":"コンテナー {name} を削除しますか？",
+ "containers.execPlaceholder":"コンテナー内でコマンドを実行（例 uname -a）","containers.execSend":"実行","containers.execSent":"コマンドを送信しました — 出力は下のログに表示されます","containers.execHint":"擬似端末なし：出力はコンテナーのログに書き込まれます","containers.download":"ログを保存","containers.terminal":"ターミナル",
+ "term.title":"ターミナル · {name}","term.connecting":"コンテナーに接続中…","term.connect_fail":"チケットの取得に失敗しました","term.exit":"セッション終了（終了コード {code}）","term.closed":"接続が切断されました",
+ "compose.title":"スタックプロジェクト","compose.project":"プロジェクト","compose.services":"サービス","compose.state":"状態","compose.newTitle":"新規プロジェクト","compose.editTitle":"編集 · {name}",
+ "compose.namePlaceholder":"プロジェクト名","compose.yamlPlaceholder":"services:\n  web:\n    image: alpine:3.20\n    command: sh -c 'while true; do date; sleep 5; done'","compose.nameRequired":"プロジェクト名と YAML は必須です","compose.saved":"プロジェクトを保存しました","compose.fromTemplate":"新規プロジェクト · テンプレート {id} から","compose.parseError":"このプロジェクトの YAML を解析できません",
+ "compose.up":"起動","compose.down":"停止","compose.upStarting":"起動中 — 不足イメージを取得中…","compose.viewImages":"「イメージ」ページで進行状況を確認","compose.upDone":"{n} 個のサービスを起動しました","compose.deleteConfirm":"プロジェクト {name} を削除しますか？（コンテナーは残ります）","compose.portsHint":"YAML で宣言されたポート — 一部は Web サービスではありません",
+ "templates.title":"テンプレートライブラリ","templates.subtitle":"よく使う構成をまとめました。選んで確認し、プロジェクトとして保存するだけです","templates.search":"テンプレートを検索…",
+ "templates.filterAll":"すべて","templates.filterFree":"無料","templates.filterUnlocked":"利用可能","templates.none":"一致するテンプレートがありません","templates.services":"サービス",
+ "templates.ports":"ポート","templates.notes":"使い方のヒント","templates.yaml":"YAML","templates.use":"このテンプレートを使う","templates.copyYaml":"YAML をコピー","templates.locked":"ロック中",
+ "templates.lockedHint":"このテンプレートはテンプレートパックに含まれます。ロック解除後に完全な YAML を表示・利用できます。","templates.pack":"テンプレートパック",
+ "templates.packUnlocked":"ロック解除済み — すべてのテンプレートを利用できます","templates.packLocked":"未解除 — 無料テンプレートは常に利用でき、他は解除後に表示されます",
+ "templates.refresh":"ロック状態を確認","templates.refreshed":"ロック状態を更新しました","templates.refreshFailed":"Google Play に接続できません — 最後に確認した状態を表示しています",
+ "audit.title":"監査ログ（直近 200 件）","audit.time":"時刻","audit.source":"ソース","audit.action":"操作","audit.detail":"詳細","audit.export":"CSV を書き出す",
+ "audit.actions.pull":"取得","audit.actions.rmi":"イメージ削除","audit.actions.create":"作成","audit.actions.rm":"削除","audit.actions.start":"開始","audit.actions.stop":"停止",
+ "audit.actions.exec":"実行","audit.actions.terminal":"ターミナル","audit.actions.up":"起動","audit.actions.down":"停止","audit.actions.compose.create":"プロジェクト作成","audit.actions.compose.update":"プロジェクト更新","audit.actions.compose.delete":"プロジェクト削除",
+ "audit.actions.denied":"拒否（未解除）","status.RUNNING":"実行中","status.STOPPED":"停止中","status.CREATED":"作成済み","status.PARTIAL":"一部実行","status.EXITED":"終了","status.FAILED":"失敗",
+ "stage.READY":"完了","stage.FAILED":"失敗","errors.opFailed":"操作に失敗しました：{msg}","errors.locked":"リモートコンソールにはテンプレートパックが必要です"
+}};
+
+const LANG_KEY = "andc_lang";
+let LANG = (function pick() {
+  const saved = localStorage.getItem(LANG_KEY);
+  if (saved && saved !== "auto" && I18N[saved]) return saved;
+  return detectBrowserLang();
+})();
+function detectBrowserLang() {
+  const tags = navigator.languages || [navigator.language || "en"];
+  for (const raw of tags) {
+    const tag = String(raw).toLowerCase();
+    const hit = Object.keys(I18N).find(k => tag === k || tag.startsWith(k + "-"));
+    if (hit) return hit;
+  }
+  return "en";
+}
+function T(key, vars) {
+  let s = (I18N[LANG] && I18N[LANG][key]) || I18N.en[key] || key;
+  if (vars) for (const k in vars) s = s.split("{" + k + "}").join(String(vars[k]));
+  return s;
+}
+function tr(prefix, value) { const k = prefix + value; return T(k) === k ? value : T(k); }
+function applyI18n() {
+  document.documentElement.lang = LANG;
+  document.title = T("app.name") + " · " + T("app.console");
+  document.querySelectorAll("[data-i18n]").forEach(el => { el.textContent = T(el.dataset.i18n); });
+  document.querySelectorAll("[data-i18n-ph]").forEach(el => { el.placeholder = T(el.dataset.i18nPh); });
+}
+function setLang(v) {
+  if (v === "auto") localStorage.removeItem(LANG_KEY); else localStorage.setItem(LANG_KEY, v);
+  LANG = v !== "auto" && I18N[v] ? v : detectBrowserLang();
+  applyI18n(); buildNav(); buildLangSel(); go(cur, curArg);
+}
+function buildLangSel() {
+  const sel = document.getElementById("langsel");
+  sel.innerHTML = "";
+  [["auto", T("common.followBrowser")], ["en", "English"], ["zh", "中文"], ["ru", "Русский"], ["ja", "日本語"]]
+    .forEach(([v, label]) => { const o = document.createElement("option"); o.value = v; o.textContent = label; sel.appendChild(o); });
+  sel.value = localStorage.getItem(LANG_KEY) || "auto";
+}
+
+/* ============================================================ 基础工具 ===== */
+const GATE = JSON.parse(document.getElementById("gate").textContent || "{}");
+let TK = localStorage.getItem("andc_tk") || "";
+let cur = "dash", curArg = null, poller = null, sseCtl = null;
+
+function esc(s) { return (s || "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+function fmtSize(b) { if (!b) return "0 B"; const u = ["B", "KB", "MB", "GB"]; let i = 0; while (b >= 1024 && i < 3) { b /= 1024; i++; } return b.toFixed(1) + " " + u[i]; }
+function relTime(ms) {
+  const diff = Date.now() - ms, abs = Math.abs(diff);
+  const rtf = new Intl.RelativeTimeFormat(LANG, { numeric: "auto" });
+  if (abs < 60000) return rtf.format(Math.round(-diff / 1000), "second");
+  if (abs < 3600000) return rtf.format(Math.round(-diff / 60000), "minute");
+  if (abs < 86400000) return rtf.format(Math.round(-diff / 3600000), "hour");
+  return new Date(ms).toLocaleString(LANG);
+}
+function apiUrl(p, extra) {
+  const u = new URL("/api/v1" + p, location.origin);
+  Object.entries(extra || {}).forEach(([k, v]) => u.searchParams.set(k, v));
+  u.searchParams.set("lang", LANG);
+  return u.pathname + u.search;
+}
+function api(p, opt) {
+  const o = opt || {};
+  // 合并而不是覆盖：调用方传的 headers（如 Content-Type）不得抹掉 Authorization
+  const init = Object.assign({}, o, { headers: Object.assign({ Authorization: "Bearer " + TK }, o.headers) });
+  return fetch(apiUrl(p), init).then(async r => {
+    if (r.status === 401) { showLogin(); throw new Error(T("login.error")); }
+    if (r.status === 402) { showGate(); throw new Error(T("errors.locked")); }
+    if (!r.ok) {
+      let msg = "HTTP " + r.status;
+      try { const j = await r.json(); if (j && j.message) msg = j.message; } catch (e) { /* 形式不限 */ }
+      throw new Error(msg);
+    }
+    return r.json();
+  }).catch(e => {
+    const m = e && e.message;
+    if (m && m !== "unauthorized" && m !== T("errors.locked")) toast(T("errors.opFailed", { msg: m }), "err");
+    throw e;
+  });
+}
+function post(p, body) { return api(p, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body || {}) }); }
+function del(p, extra) { return fetch(apiUrl(p, extra), { method: "DELETE", headers: { Authorization: "Bearer " + TK } }).then(async r => { if (!r.ok) { let msg = "HTTP " + r.status; try { const j = await r.json(); if (j.message) msg = j.message; } catch (e) {} throw new Error(msg); } return r.json(); }); }
+function copyText(text) {
+  const done = () => toast(T("common.copied"), "ok");
+  if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(text).then(done).catch(() => legacyCopy(text, done));
+  legacyCopy(text, done);
+}
+function legacyCopy(text, done) {
+  const ta = document.createElement("textarea"); ta.value = text; document.body.appendChild(ta); ta.select();
+  try { document.execCommand("copy"); done(); } catch (e) { /* 忽略 */ } ta.remove();
+}
+function toast(msg, kind) {
+  const el = document.createElement("div"); el.className = "toast " + (kind || ""); el.textContent = msg;
+  document.getElementById("toasts").appendChild(el); setTimeout(() => el.remove(), 3600);
+}
+function confirmDialog(text) {
+  return modal(T("common.confirm"), '<p class="mut">' + esc(text) + '</p>',
+    [{ label: T("common.cancel"), value: false }, { label: T("common.confirm"), value: true, danger: true }]);
+}
+function modal(title, bodyHtml, buttons) {
+  return new Promise(resolve => {
+    const wrap = document.createElement("div"); wrap.className = "overlay";
+    wrap.innerHTML = '<div class="card"><h2>' + esc(title) + '</h2><div style="margin:10px 0">' + bodyHtml + '</div><div class="row" style="justify-content:flex-end"></div></div>';
+    const bar = wrap.querySelector(".row");
+    (buttons || [{ label: T("common.cancel"), value: false }, { label: T("common.confirm"), value: true, primary: true }]).forEach(b => {
+      const btn = document.createElement("button"); btn.className = "act" + (b.primary ? " pri" : "") + (b.danger ? " dgr" : "");
+      btn.textContent = b.label; btn.onclick = () => { wrap.remove(); resolve(b.value); }; bar.appendChild(btn);
+    });
+    wrap.addEventListener("click", e => { if (e.target === wrap) { wrap.remove(); resolve(false); } });
+    document.getElementById("modalroot").appendChild(wrap);
+  });
+}
+function h(html) { document.getElementById("main").innerHTML = html; }
+
+/* ============================================================ 路由 ===== */
+const PAGES = {
+  dash: { label: "nav.dash", render: pageDash },
+  images: { label: "nav.images", render: pageImages },
+  containers: { label: "nav.containers", render: pageContainers },
+  compose: { label: "nav.compose", render: pageCompose },
+  templates: { label: "nav.templates", render: pageTemplates },
+  audit: { label: "nav.audit", render: pageAudit },
+};
+function buildNav() {
+  const nav = document.getElementById("nav"); nav.innerHTML = "";
+  Object.entries(PAGES).forEach(([id, def]) => {
+    const b = document.createElement("button"); b.textContent = T(def.label); b.dataset.p = id;
+    b.onclick = () => go(id); nav.appendChild(b);
+  });
+  document.querySelectorAll("#nav button").forEach(b => b.classList.toggle("on", b.dataset.p === cur));
+}
+function go(p, arg) {
+  cur = p; curArg = arg || null; stopStreams(); buildNav(); PAGES[p].render(curArg);
+}
+function stopStreams() { if (poller) { clearInterval(poller); poller = null; } if (sseCtl) { sseCtl.abort(); sseCtl = null; } }
+function h(html) { document.getElementById("main").innerHTML = html; }
+
+/* ============================================================ 动作（事件委托，避免拼 onclick） ===== */
+const ACTIONS = {
+  "login.submit": () => doLogin(),
+  "gate.recheck": () => location.reload(),
+  "nav.create": () => { const el = document.getElementById("createcard"); if (el) el.style.display = ""; },
+  "img.pull": () => pullImage(),
+  "img.rm": ref => rmImage(ref),
+  "c.start": id => cact("start", id),
+  "c.stop": id => cact("stop", id),
+  "c.logs": (arg, el) => showLog(arg, el.dataset.name),
+  "c.term": (arg, el) => openTerminalModal(arg, el.dataset.name),
+  "c.term.close": () => closeTerminalModal(),
+  "c.rm": id => rmContainer(id),
+  "c.create": () => createContainer(),
+  "c.exec": () => execCmd(),
+  "c.log.close": () => closeLog(),
+  "c.log.clear": () => { const el = document.getElementById("logs"); if (el) el.textContent = ""; },
+  "c.log.copy": () => { const el = document.getElementById("logs"); if (el) copyText(el.textContent); },
+  "c.log.save": () => downloadLogs(),
+  "c.log.pause": () => { logPaused = !logPaused; const b = document.querySelector('[data-act="c.log.pause"]'); if (b) b.textContent = logPaused ? T("common.resume") : T("common.pause"); },
+  "p.up": id => pact("up", id),
+  "up.gotoImages": () => go("images"),
+  "p.down": id => pact("down", id),
+  "p.edit": id => editProject(id),
+  "p.rm": id => rmProject(id),
+  "p.save": () => saveProject(),
+  "p.reset": () => resetForm(),
+  "tpl.open": id => openTemplate(id),
+  "tpl.use": id => useTemplate(id),
+  "tpl.copy": id => copyTemplateYaml(id),
+  "tpl.close": () => { const el = document.getElementById("drw"); if (el) el.remove(); },
+  "tpl.refresh": () => refreshEntitlement(),
+  "audit.export": () => exportAudit(),
+};
+document.addEventListener("click", e => {
+  const el = e.target.closest("[data-act]");
+  if (!el) return;
+  const fn = ACTIONS[el.dataset.act];
+  if (fn) { e.preventDefault(); fn(el.dataset.arg, el); }
+});
+document.addEventListener("keydown", e => { if (e.key === "Enter" && e.target.id === "execcmd") execCmd(); });
+
+/* ============================================================ 登录 / 门禁 ===== */
+function showGate() {
+  document.getElementById("gatepage").hidden = false;
+  document.getElementById("login").hidden = true;
+  document.getElementById("shell").hidden = true;
+  stopStreams();
+}
+function showLogin() {
+  document.getElementById("gatepage").hidden = true;
+  document.getElementById("login").hidden = false;
+  document.getElementById("shell").hidden = true;
+}
+function boot() {
+  if (GATE && GATE.unlocked === false) { showGate(); return; }
+  document.getElementById("gatepage").hidden = true;
+  document.getElementById("login").hidden = true;
+  document.getElementById("shell").hidden = false;
+  applyI18n(); buildNav(); buildLangSel();
+  document.getElementById("langsel").onchange = e => setLang(e.target.value);
+  document.getElementById("baseaddr").onchange = e => { localStorage.setItem("andc_base", e.target.value); if (cur === "containers" || cur === "compose" || cur === "templates") rerender(); };
+  api("/settings").then(s => {
+    const sel = document.getElementById("baseaddr"); const cur0 = localStorage.getItem("andc_base");
+    sel.innerHTML = '<option value="127.0.0.1">' + T("common.loopback") + "</option>" +
+      (s.lanAddresses || []).map(ip => '<option value="' + esc(ip) + '">http://' + esc(ip) + "</option>").join("");
+    sel.value = cur0 && (s.lanAddresses || []).includes(cur0) ? cur0 : ((s.lanAddresses || [])[0] || "127.0.0.1");
+    localStorage.setItem("andc_base", sel.value);
+  }).catch(() => {});
+  go(cur);
+}
+async function doLogin() {
+  TK = document.getElementById("tk").value.trim();
+  const err = document.getElementById("lerr");
+  try { await api("/settings"); localStorage.setItem("andc_tk", TK); err.textContent = ""; boot(); }
+  catch (e) { err.textContent = T("login.error"); }
+}
+
+/* ============================================================ 仪表盘 ===== */
+async function pageDash() {
+  h('<div class="card"><h2>' + T("dash.title") + '</h2><div id="d"><p class="mut">' + T("common.loading") + '</p></div></div>');
+  const [imgs, cs, settings] = await Promise.all([api("/images"), api("/containers"), api("/settings")]);
+  const running = cs.filter(c => c.status === "RUNNING").length;
+  const total = imgs.reduce((s, i) => s + (i.sizeBytes || 0), 0);
+  const pack = settings.entitlement || {};
+  document.getElementById("d").innerHTML =
+    '<div class="stat"><div><b>' + cs.length + '</b><span class="mut">' + T("dash.containers") + '</span></div>' +
+    '<div><b>' + running + '</b><span class="mut">' + T("dash.running") + '</span></div>' +
+    '<div><b>' + imgs.length + '</b><span class="mut">' + T("dash.images") + '</span></div>' +
+    '<div><b>' + fmtSize(total) + '</b><span class="mut">' + T("dash.storage") + '</span></div></div>' +
+    '<div class="row" style="margin-top:12px"><span class="tag ' + (pack.unlocked ? "ok" : "mut") + '">' + T("dash.pack") + ": " + esc(EntitlementStateText(pack.state)) + '</span>' +
+    '<span class="tag">' + esc(settings.device || "") + '</span></div>' +
+    '<p class="mut" style="margin-top:8px">' + T("dash.lan") + ": " + esc((settings.lanAddresses || []).join(" / ") || "—") + '</p>' +
+    '<div class="row" style="margin-top:12px"><button class="act pri" data-act="nav.templates">' + T("nav.templates") + '</button><button class="act" data-act="nav.containers">' + T("nav.containers") + '</button></div>';
+}
+ACTIONS["nav.templates"] = () => go("templates");
+ACTIONS["nav.containers"] = () => go("containers");
+function EntitlementStateText(v) { const k = "pack." + v; return T(k) === k ? v : T(k); }
+
+/* ============================================================ 镜像 ===== */
+function pageImages() {
+  h('<div class="card"><h2>' + T("images.pull") + '</h2><div class="row"><input id="pullref" data-i18n-ph="images.pullPlaceholder" style="flex:1;min-width:200px"><button class="act pri" data-act="img.pull">' + T("images.pullBtn") + '</button></div><div id="prog"></div></div>' +
+    '<div class="card"><h2>' + T("images.inventory") + '</h2><div id="ilist"><p class="mut">' + T("common.loading") + '</p></div></div>');
+  applyI18n(); loadImages(); startProgressSse();
+}
+async function loadImages() {
+  const imgs = await api("/images");
+  const el = document.getElementById("ilist"); if (!el) return;
+  el.innerHTML = imgs.length ?
+    "<table><tr><th>" + T("containers.image") + "</th><th>" + T("dash.storage") + "</th><th></th></tr>" + imgs.map(i =>
+      "<tr><td>" + esc(i.ref) + '</td><td>' + fmtSize(i.sizeBytes) + '</td><td><button class="act dgr" data-act="img.rm" data-arg="' + esc(i.ref) + '">' + T("common.delete") + "</button></td></tr>").join("") + "</table>" :
+    '<p class="mut">' + T("common.none") + "</p>";
+}
+async function rmImage(ref) {
+  if (!(await confirmDialog(T("images.deleteConfirm", { ref })))) return;
+  try { await del("/images", { ref, confirm: "true" }); toast(T("images.deleted"), "ok"); loadImages(); } catch (e) {}
+}
+async function pullImage() {
+  const ref = document.getElementById("pullref").value.trim(); if (!ref) return;
+  try { await post("/images/pull", { ref }); toast(T("images.pullStarted"), "ok"); } catch (e) {}
+}
+function startProgressSse() {
+  sseCtl = new AbortController();
+  fetch("/api/v1/stream/progress", { headers: { Authorization: "Bearer " + TK }, signal: sseCtl.signal }).then(r => {
+    const rd = r.body.getReader(), dec = new TextDecoder(); let buf = "";
+    function read() { rd.read().then(({ done, value }) => {
+      if (done) return; buf += dec.decode(value, { stream: true });
+      let idx; while ((idx = buf.indexOf("\n\n")) >= 0) {
+        const frame = buf.slice(0, idx); buf = buf.slice(idx + 2);
+        const m = frame.match(/data: (.*)/);
+        if (m && frame.includes("event: progress")) renderProgress(JSON.parse(m[1]));
+      }
+      read();
+    }); }
+    read();
+  }).catch(() => {});
+}
+function renderProgress(states) {
+  const el = document.getElementById("prog"); if (!el) return;
+  el.innerHTML = Object.entries(states).map(([ref, p]) => {
+    const pct = p.totalBytes ? Math.round(p.downloadedBytes / p.totalBytes * 100) : (p.done ? 100 : 0);
+    return '<div style="margin-top:10px"><div class="row"><b style="font-size:13px">' + esc(ref) + '</b>' +
+      '<span class="tag ' + (p.done ? (p.stage === "FAILED" ? "err" : "ok") : "") + '">' + esc(tr("stage.", p.stage)) + '</span>' +
+      '<span class="mut">' + fmtSize(p.downloadedBytes) + " / " + fmtSize(p.totalBytes) + '</span></div>' +
+      '<div class="bar"><i style="width:' + pct + '%"></i></div></div>';
+  }).join("");
+  if (Object.values(states).some(p => p.done)) loadImages();
+}
+
+/* ============================================================ 容器 ===== */
+let logTimer = null, logPaused = false, logOffset = 0, logId = "";
+function pageContainers() {
+  h('<div class="card"><h2>' + T("containers.title") + '<span class="spacer"></span><button class="act pri" data-act="nav.create">' + T("containers.create") + '</button></h2><div id="clist"><p class="mut">' + T("common.loading") + "</p></div></div>" +
+    '<div class="card" id="createcard" style="display:none"><h2>' + T("containers.createTitle") + "</h2>" +
+    '<div class="row" style="margin-bottom:8px"><input id="cname" data-i18n-ph="containers.createName" style="flex:1;min-width:140px"><input id="cimage" data-i18n-ph="containers.createImage" style="flex:1.4;min-width:200px"><label class="mut" style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="cauto" style="width:auto"> ' + T("containers.autoStart") + "</label></div>" +
+    '<button class="act pri" data-act="c.create">' + T("containers.create") + "</button></div>" +
+    '<div class="card" id="logcard" style="display:none"><h2 id="logtitle"></h2>' +
+    '<div class="row" style="margin-bottom:8px"><input id="execcmd" data-i18n-ph="containers.execPlaceholder" style="flex:1;min-width:200px"><button class="act pri" data-act="c.exec">' + T("containers.execSend") + "</button>" +
+    '<button class="act" data-act="c.log.pause">' + T("common.pause") + '</button><button class="act" data-act="c.log.clear">' + T("common.delete") + "</button>" +
+    '<button class="act" data-act="c.log.copy">' + T("common.copy") + '</button><button class="act" data-act="c.log.save">' + T("containers.download") + "</button>" +
+    '<button class="act" data-act="c.log.close">' + T("common.close") + "</button></div>" +
+    '<p class="mut" style="margin:0 0 8px">' + T("containers.execHint") + '</p><div id="logs"></div></div>');
+  applyI18n(); loadContainers();
+  poller = setInterval(() => { if (!document.hidden) loadContainers(); }, 5000);
+}
+function portLinks(ports, running) {
+  if (!ports || !ports.length) return '<span class="mut">—</span>';
+  const base = localStorage.getItem("andc_base") || "127.0.0.1";
+  return ports.map(p => running
+    ? '<a href="http://' + esc(base) + ":" + p + '" target="_blank" rel="noopener">' + esc(base) + ":" + p + "</a>"
+    : esc(base + ":" + p)).join('<span class="mut"> · </span>');
+}
+async function loadContainers() {
+  const el = document.getElementById("clist"); if (!el) return;
+  const cs = await api("/containers");
+  el.innerHTML = cs.length ? "<table><tr><th>" + T("containers.name") + "</th><th>" + T("containers.image") + "</th><th>" +
+    T("containers.status") + "</th><th>" + T("containers.ports") + "</th><th>" + T("common.actions") + "</th></tr>" + cs.map(c => {
+    const running = c.status === "RUNNING";
+    const sub = c.serviceName ? '<div class="mut">' + esc(c.serviceName) + "</div>" : "";
+    return "<tr><td><b>" + esc(c.name) + "</b>" + sub + "</td><td>" + esc(c.image) + "</td>" +
+      '<td><span class="tag ' + (running ? "ok" : "err") + '">' + esc(tr("status.", c.status)) + "</span></td>" +
+      '<td style="max-width:300px">' + portLinks(c.ports, running) + "</td>" +
+      '<td><div class="row">' +
+      (running ? '<button class="act" data-act="c.stop" data-arg="' + esc(c.id) + '">' + T("containers.stop") + "</button>"
+               : '<button class="act pri" data-act="c.start" data-arg="' + esc(c.id) + '">' + T("containers.start") + "</button>") +
+      '<button class="act" data-act="c.logs" data-arg="' + esc(c.id) + '" data-name="' + esc(c.name) + '">' + T("containers.logs") + "</button>" +
+      '<button class="act" data-act="c.term" data-arg="' + esc(c.id) + '" data-name="' + esc(c.name) + '">' + T("containers.terminal") + "</button>" +
+      '<button class="act dgr" data-act="c.rm" data-arg="' + esc(c.id) + '">' + T("common.delete") + "</button></div></td></tr>";
+  }).join("") + "</table>" : '<p class="mut">' + T("common.none") + "</p>";
+}
+async function cact(a, id) { try { await post("/containers/" + id + "/" + a); loadContainers(); } catch (e) {} }
+async function rmContainer(id) {
+  if (!(await confirmDialog(T("containers.deleteConfirm", { name: id })))) return;
+  try { await del("/containers/" + id, { confirm: "true" }); closeLog(); loadContainers(); } catch (e) {}
+}
+async function createContainer() {
+  const name = document.getElementById("cname").value.trim(), image = document.getElementById("cimage").value.trim();
+  const auto = document.getElementById("cauto").checked;
+  if (!name || !image) { toast(T("compose.nameRequired"), "err"); return; }
+  try {
+    await post("/containers", { name, image, autoStart: auto });
+    toast(T("containers.created"), "ok");
+    document.getElementById("createcard").style.display = "none"; loadContainers();
+  } catch (e) {}
+}
+function showLog(id, name) {
+  const card = document.getElementById("logcard"); card.style.display = ""; card.dataset.id = id;
+  document.getElementById("logtitle").textContent = T("containers.logs") + " · " + (name || id);
+  const el = document.getElementById("logs"); el.textContent = ""; logOffset = 0; logPaused = false; logId = id;
+  if (logTimer) clearInterval(logTimer);
+  const tick = async () => {
+    if (logPaused) return;
+    try {
+      const r = await api("/containers/" + id + "/logs?offset=" + logOffset);
+      if (r.lines.length) {
+        el.textContent += r.lines.join("\n") + "\n";
+        if (el.textContent.length > 200000) el.textContent = el.textContent.slice(-120000);
+        el.scrollTop = el.scrollHeight; logOffset = r.offset;
+      }
+    } catch (e) { if (logTimer) { clearInterval(logTimer); logTimer = null; } }
+  };
+  tick(); logTimer = setInterval(tick, 1500);
+}
+function closeLog() { document.getElementById("logcard").style.display = "none"; if (logTimer) { clearInterval(logTimer); logTimer = null; } }
+async function execCmd() {
+  const id = document.getElementById("logcard").dataset.id;
+  const input = document.getElementById("execcmd"), cmd = input.value.trim(); if (!cmd || !id) return;
+  try {
+    await post("/containers/" + id + "/exec", { command: cmd });
+    const el = document.getElementById("logs");
+    el.textContent += "\n$ " + cmd + "\n"; el.scrollTop = el.scrollHeight;
+    input.value = ""; toast(T("containers.execSent"), "ok");
+  } catch (e) {}
+}
+function downloadLogs() {
+  const el = document.getElementById("logs"); if (!el) return;
+  const blob = new Blob([el.textContent], { type: "text/plain" });
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = (logId || "container") + ".log"; a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+/* ============================================================ 编排 ===== */
+function pageCompose(arg) {
+  h('<div class="card"><h2>' + T("compose.title") + '</h2><div id="plist"><p class="mut">' + T("common.loading") + "</p></div><div id=\"upstatus\" style=\"display:none\"></div></div>" +
+    '<div class="card"><h2 id="ytitle">' + T("compose.newTitle") + "</h2>" +
+    '<div class="row" style="margin-bottom:8px"><input id="pname" data-i18n-ph="compose.namePlaceholder" style="flex:1;min-width:160px"></div>' +
+    '<textarea id="pyaml" data-i18n-ph="compose.yamlPlaceholder"></textarea>' +
+    '<p class="mut" id="phint" style="margin:6px 0 0"></p>' +
+    '<div class="row" style="margin-top:10px"><button class="act pri" data-act="p.save">' + T("common.save") + '</button><button class="act" data-act="p.reset">' + T("common.clear") + "</button></div></div>");
+  applyI18n(); loadProjects();
+  if (arg && arg.fromTemplate) {
+    document.getElementById("pname").value = arg.name || "";
+    document.getElementById("pyaml").value = arg.yaml || "";
+    document.getElementById("ytitle").textContent = T("compose.fromTemplate", { id: arg.fromTemplate });
+    document.getElementById("phint").textContent = T("compose.portsHint");
+  }
+}
+async function loadProjects() {
+  const el = document.getElementById("plist"); if (!el) return;
+  const ps = await api("/compose/projects");
+  el.innerHTML = ps.length ? "<table><tr><th>" + T("compose.project") + "</th><th>" + T("compose.services") + "</th><th>" +
+    T("compose.state") + "</th><th>" + T("templates.ports") + "</th><th>" + T("common.actions") + "</th></tr>" + ps.map(p => {
+    const running = p.state === "RUNNING";
+    const ports = (p.httpPorts && p.httpPorts.length ? p.httpPorts : p.ports) || [];
+    const err = p.parseError ? '<div class="mut" style="color:var(--warn)">' + T("compose.parseError") + "</div>" : "";
+    return "<tr><td><b>" + esc(p.name) + "</b>" + err + "</td><td>" + p.serviceCount + "</td>" +
+      '<td><span class="tag ' + (p.state === "RUNNING" ? "ok" : (p.state === "PARTIAL" ? "" : "err")) + '">' + esc(tr("status.", p.state)) + "</span></td>" +
+      '<td style="max-width:300px">' + portLinks(ports, running) + "</td>" +
+      '<td><div class="row">' +
+      '<button class="act pri" data-act="p.up" data-arg="' + esc(p.id) + '"' + (upBusy ? " disabled" : "") + ">" + (upBusy === p.id ? T("common.loading") : T("compose.up")) + "</button>" +
+      '<button class="act" data-act="p.down" data-arg="' + esc(p.id) + '">' + T("compose.down") + "</button>" +
+      '<button class="act" data-act="p.edit" data-arg="' + esc(p.id) + '">' + T("common.edit") + "</button>" +
+      '<button class="act dgr" data-act="p.rm" data-arg="' + esc(p.id) + '">' + T("common.delete") + "</button></div></td></tr>";
+  }).join("") + "</table>" : '<p class="mut">' + T("common.none") + "</p>";
+}
+let editId = null;
+async function editProject(id) {
+  const ps = await api("/compose/projects");
+  const p = ps.find(x => x.id === id); if (!p) return;
+  editId = id; document.getElementById("pname").value = p.name;
+  document.getElementById("pyaml").value = p.yaml;
+  document.getElementById("ytitle").textContent = T("compose.editTitle", { name: p.name });
+  window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+}
+function resetForm() {
+  editId = null; document.getElementById("pname").value = ""; document.getElementById("pyaml").value = "";
+  document.getElementById("ytitle").textContent = T("compose.newTitle"); document.getElementById("phint").textContent = "";
+}
+async function saveProject() {
+  const name = document.getElementById("pname").value.trim(), yaml = document.getElementById("pyaml").value;
+  if (!name || !yaml) { toast(T("compose.nameRequired"), "err"); return; }
+  try {
+    if (editId) await api("/compose/" + editId, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, yaml }) });
+    else await post("/compose", { name, yaml });
+    toast(T("compose.saved"), "ok"); resetForm(); loadProjects();
+  } catch (e) {}
+}
+let upBusy = null, upTimer = null;
+async function pact(a, id) {
+  if (a === "up") return upProject(id);
+  try { await post("/compose/" + id + "/" + a); loadProjects(); } catch (e) {}
+}
+/** up 是同步长请求（缺镜像时先下载），期间轮询 /pull-states 把进度实时画在编排页上。 */
+async function upProject(id) {
+  if (upBusy) return;
+  upBusy = id; loadProjects();
+  try {
+    renderUpStatus({});
+    upTimer = setInterval(pollUpProgress, 1500); pollUpProgress();
+    const r = await post("/compose/" + id + "/up");
+    toast(T("compose.upDone", { n: (r.startedServices || []).length }), "ok");
+  } catch (e) {
+  } finally {
+    if (upTimer) { clearInterval(upTimer); upTimer = null; }
+    upBusy = null;
+    const el = document.getElementById("upstatus"); if (el) { el.style.display = "none"; el.innerHTML = ""; }
+    loadProjects();
+  }
+}
+async function pollUpProgress() {
+  try { const s = await api("/pull-states"); if (Object.keys(s).length) renderUpStatus(s); } catch (e) {}
+}
+function renderUpStatus(states) {
+  const el = document.getElementById("upstatus"); if (!el) return;
+  const rows = Object.entries(states || {}).map(([ref, p]) => {
+    const pct = p.totalBytes ? Math.round(p.downloadedBytes / p.totalBytes * 100) : (p.done ? 100 : 0);
+    return '<div style="margin-top:8px"><div class="row"><span style="font-size:12px">' + esc(ref) + "</span>" +
+      '<span class="tag ' + (p.done ? (p.stage === "FAILED" ? "err" : "ok") : "") + '">' + esc(tr("stage.", p.stage)) + "</span>" +
+      '<span class="mut">' + fmtSize(p.downloadedBytes) + " / " + fmtSize(p.totalBytes) + "</span></div>" +
+      '<div class="bar"><i style="width:' + pct + '%"></i></div></div>';
+  }).join("");
+  el.style.display = "";
+  el.innerHTML = '<div class="row" style="margin-bottom:2px"><span class="tag">' + T("compose.upStarting") + '</span><a href="#" data-act="up.gotoImages">' + T("compose.viewImages") + "</a></div>" + rows;
+}
+async function rmProject(id) {
+  if (!(await confirmDialog(T("compose.deleteConfirm", { name: id })))) return;
+  try { await del("/compose/" + id, { confirm: "true" }); loadProjects(); } catch (e) {}
+}
+
+/* ============================================================ 模板库 ===== */
+let tplCache = null;
+function pageTemplates() {
+  h('<div class="card"><h2>' + T("templates.title") + '<span class="spacer"></span><button class="act" data-act="tpl.refresh">' + T("templates.refresh") + "</button></h2>" +
+    '<p class="mut">' + T("templates.subtitle") + '</p><div class="row" style="margin-top:10px">' +
+    '<input id="tplq" data-i18n-ph="templates.search" style="flex:1;min-width:160px" oninput="renderTemplates()">' +
+    '<select id="tplfilter" style="width:auto" onchange="renderTemplates()">' +
+    '<option value="all">' + T("templates.filterAll") + '</option><option value="free">' + T("templates.filterFree") + '</option><option value="ok">' + T("templates.filterUnlocked") + "</option></select></div>" +
+    '<div id="packbar" style="margin-top:10px"></div></div>' +
+    '<div id="tpllist"><p class="mut">' + T("common.loading") + "</p></div>");
+  applyI18n(); loadTemplates();
+}
+async function loadTemplates() {
+  try {
+    const [data, settings] = await Promise.all([api("/templates"), api("/settings")]);
+    tplCache = data;
+    const pack = (settings.entitlement || {});
+    const bar = document.getElementById("packbar");
+    if (bar) bar.innerHTML = '<span class="tag ' + (pack.unlocked ? "ok" : "mut") + '">' + T("templates.pack") + ": " +
+      esc(pack.unlocked ? T("templates.packUnlocked") : T("templates.packLocked")) + "</span>";
+    renderTemplates();
+  } catch (e) {}
+}
+function renderTemplates() {
+  const data = tplCache; if (!data) return;
+  const listEl = document.getElementById("tpllist"); if (!listEl) return;
+  const q = (document.getElementById("tplq") || {}).value || "";
+  const f = (document.getElementById("tplfilter") || {}).value || "all";
+  const needle = q.toLowerCase();
+  const list = data.templates.filter(t =>
+    (f === "all" || (f === "free" ? !t.premium : !t.locked)) &&
+    (!needle || (t.id + " " + t.name + " " + t.desc).toLowerCase().includes(needle)));
+  const catName = id => { const c = data.categories.find(x => x.id === id); return (c && c.name) || id; };
+  let html = "";
+  data.categories.forEach(cat => {
+    const items = list.filter(t => t.category === cat.id);
+    if (!items.length) return;
+    html += '<div class="card"><h2>' + esc(catName(cat.id)) + '</h2><div class="tplgrid">' + items.map(tplCard).join("") + "</div></div>";
+  });
+  listEl.innerHTML = html || '<div class="card"><p class="mut">' + T("templates.none") + "</p></div>";
+}
+function tplCard(t) {
+  const badges = '<span class="tag">' + esc(t.riskLabel) + "</span>" +
+    (t.locked ? '<span class="tag mut">' + T("templates.locked") + "</span>"
+              : t.premium ? '<span class="tag gold">Pro</span>' : '<span class="tag ok">' + T("common.free") + "</span>");
+  return '<div class="tpl" data-act="tpl.open" data-arg="' + esc(t.id) + '">' +
+    '<div class="name">' + esc(t.name) + "</div>" +
+    '<div class="badges">' + badges + "</div>" +
+    '<div class="desc">' + esc(t.desc || "") + "</div>" +
+    '<div class="mut">' + T("templates.services") + ": " + t.services.length + " · " + T("templates.ports") + ": " +
+      (t.webPorts.length ? t.webPorts.join(", ") : "—") + "</div></div>";
+}
+function openTemplate(id) {
+  const t = tplCache.templates.find(x => x.id === id); if (!t) return;
+  const drw = document.createElement("div"); drw.className = "drw"; drw.id = "drw";
+  const services = t.services.map(s =>
+    '<div class="kv"><b>' + esc(s.name) + "</b><span>" + esc(s.image) + (s.ports && s.ports.length ? " · " + esc(s.ports.join(", ")) : "") + "</span></div>").join("");
+  const notes = t.notes.map(n => '<div class="kv"><b>·</b><span>' + esc(n.text) + "</span></div>").join("");
+  const body =
+    '<div class="badges"><span class="tag">' + esc(t.riskLabel) + "</span>" +
+    (t.locked ? '<span class="tag mut">' + T("templates.locked") + "</span>"
+              : t.premium ? '<span class="tag gold">Pro</span>' : '<span class="tag ok">' + T("common.free") + "</span>") + "</div>" +
+    '<p style="margin:10px 0">' + esc(t.desc || "") + "</p>" +
+    "<h3>" + T("templates.services") + "</h3>" + services +
+    (notes ? "<h3>" + T("templates.notes") + "</h3>" + notes : "") +
+    (t.compose
+      ? "<h3>" + T("templates.yaml") + '</h3><div class="row" style="margin-bottom:8px">' +
+        '<button class="act" data-act="tpl.copy" data-arg="' + esc(t.id) + '">' + T("templates.copyYaml") + "</button>" +
+        '<button class="act pri" data-act="tpl.use" data-arg="' + esc(t.id) + '">' + T("templates.use") + "</button></div>" +
+        '<pre id="tplyaml" style="background:var(--code);padding:10px;border-radius:8px;font-family:var(--mono);font-size:12px;white-space:pre-wrap;max-height:320px;overflow:auto">' + esc(t.compose) + "</pre>"
+      : '<div class="card" style="margin-top:12px"><p class="mut">' + T("templates.lockedHint") + "</p></div>") +
+    '<div class="row" style="margin-top:14px"><button class="act" data-act="tpl.close">' + T("common.close") + "</button></div>";
+  drw.innerHTML = "<div>" +
+    '<div class="row"><h3 style="flex:1;font-size:16px;margin:0">' + esc(t.name) + '</h3><button class="act" data-act="tpl.close">' + T("common.close") + "</button></div>" + body + "</div>";
+  document.body.appendChild(drw);
+  drw.addEventListener("click", e => { if (e.target === drw) drw.remove(); });
+}
+function useTemplate(id) {
+  const t = tplCache.templates.find(x => x.id === id); if (!t) return;
+  if (t.locked || !t.compose) { toast(T("templates.lockedHint"), "err"); return; }
+  const el = document.getElementById("drw"); if (el) el.remove();
+  go("compose", { fromTemplate: t.id, name: t.id, yaml: t.compose, webPorts: t.webPorts });
+}
+function copyTemplateYaml(id) {
+  const t = tplCache.templates.find(x => x.id === id); if (!t) return;
+  if (t.locked || !t.compose) { toast(T("templates.lockedHint"), "err"); return; }
+  copyText(t.compose);
+}
+async function refreshEntitlement() {
+  try {
+    const r = await post("/entitlement/refresh");
+    toast(r.stale ? T("templates.refreshFailed") : T("templates.refreshed"), r.stale ? "err" : "ok");
+    const data = await api("/templates"); tplCache = data;
+    const bar = document.getElementById("packbar");
+    if (bar) bar.innerHTML = '<span class="tag ' + (r.unlocked ? "ok" : "mut") + '">' + T("templates.pack") + ": " +
+      esc(r.unlocked ? T("templates.packUnlocked") : T("templates.packLocked")) + "</span>";
+    renderTemplates();
+  } catch (e) {}
+}
+
+/* ============================================================ 审计 ===== */
+let auditRows = [];
+async function pageAudit() {
+  h('<div class="card"><h2>' + T("audit.title") + '<span class="spacer"></span><button class="act" data-act="audit.export">' + T("audit.export") + "</button></h2>" +
+    '<div class="row" style="margin-bottom:8px"><input id="aq" data-i18n-ph="common.search" style="flex:1;min-width:160px" oninput="renderAudit()"></div>' +
+    '<div id="alist"><p class="mut">' + T("common.loading") + "</p></div></div>");
+  applyI18n(); auditRows = await api("/audit"); renderAudit();
+}
+function renderAudit() {
+  const el = document.getElementById("alist"); if (!el) return;
+  const q = (document.getElementById("aq") || {}).value || "";
+  const rows = auditRows.filter(e => !q || (e.action + " " + e.detail + " " + e.source).toLowerCase().includes(q.toLowerCase()));
+  el.innerHTML = rows.length ? "<table><tr><th>" + T("audit.time") + "</th><th>" + T("audit.source") + "</th><th>" +
+    T("audit.action") + "</th><th>" + T("audit.detail") + "</th></tr>" + rows.map(e =>
+    "<tr><td title=\"" + esc(new Date(e.time).toLocaleString(LANG)) + '">' + esc(relTime(e.time)) + "</td><td>" + esc(e.source) + "</td>" +
+    '<td><span class="tag ' + (e.success ? "ok" : "err") + '">' + esc(tr("audit.actions.", e.action)) + "</span></td><td>" + esc(e.detail) + "</td></tr>").join("") + "</table>" :
+    '<p class="mut">' + T("common.none") + "</p>";
+}
+function exportAudit() {
+  const csv = "time,source,action,detail,success\n" + auditRows.map(e =>
+    [new Date(e.time).toISOString(), e.source, e.action, '"' + String(e.detail).replace(/"/g, '""') + '"', e.success].join(",")).join("\n");
+  const blob = new Blob([csv], { type: "text/csv" });
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "audit.csv"; a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+/* ============================================================ 容器终端（xterm.js + WebSocket） ===== */
+let termLibPromise = null, activeTerm = null;
+function loadTermLib() {
+  if (!termLibPromise) {
+    termLibPromise = new Promise((resolve, reject) => {
+      const css = document.createElement("link"); css.rel = "stylesheet"; css.href = "/term/xterm.min.css";
+      document.head.appendChild(css);
+      const s1 = document.createElement("script"); s1.src = "/term/xterm.min.js";
+      s1.onload = () => {
+        const s2 = document.createElement("script"); s2.src = "/term/addon-fit.min.js";
+        s2.onload = resolve; s2.onerror = () => reject(new Error("fit addon")); document.head.appendChild(s2);
+      };
+      s1.onerror = () => reject(new Error("xterm"));
+      document.head.appendChild(s1);
+    });
+  }
+  return termLibPromise;
+}
+async function openTerminalModal(id, name) {
+  try { await loadTermLib(); } catch (e) { toast(T("errors.opFailed", { msg: e.message }), "err"); return; }
+  if (activeTerm) closeTerminalModal();
+  const ov = document.createElement("div"); ov.className = "termov"; ov.id = "termov";
+  ov.innerHTML = '<div class="termhead"><b id="termtitle"></b><span class="tag mut" id="termstat"></span>' +
+    '<button class="act" data-act="c.term.close">' + T("common.close") + "</button></div>" +
+    '<div class="termhost"><div id="termbox"></div></div>';
+  document.body.appendChild(ov);
+  ov.querySelector("#termtitle").textContent = T("term.title", { name: name || id });
+  const stat = ov.querySelector("#termstat"); stat.textContent = T("term.connecting");
+  const term = new Terminal({
+    cursorBlink: true, fontSize: 14, fontFamily: "var(--mono)", scrollback: 5000,
+    theme: { background: "#0d1117", foreground: "#e6edf3", cursor: "#e6edf3" },
+  });
+  const fit = new FitAddon.FitAddon();
+  term.loadAddon(fit);
+  term.open(ov.querySelector("#termbox"));
+  fit.fit();
+  term.focus();
+
+  const proto = location.protocol === "https:" ? "wss" : "ws";
+  // 两段式鉴权：先 POST 换一次性短时票据，WS URL 只出示票据（长期 token 不进 URL）
+  let ticket = null;
+  try {
+    const r = await api("/terminal-ticket", { method: "POST" });
+    ticket = r && r.ticket;
+  } catch (e) {}
+  if (!ticket) { stat.textContent = T("term.connect_fail"); return; }
+  const ws = new WebSocket(proto + "://" + location.host +
+    "/api/v1/containers/" + encodeURIComponent(id) + "/terminal?ticket=" + encodeURIComponent(ticket) +
+    "&cols=" + term.cols + "&rows=" + term.rows);
+  ws.binaryType = "arraybuffer";
+  activeTerm = { ws, term, fit, ov, onResize: () => {
+    try { fit.fit(); if (ws.readyState === 1) ws.send(JSON.stringify({ type: "resize", cols: term.cols, rows: term.rows })); } catch (e) {}
+  } };
+  window.addEventListener("resize", activeTerm.onResize);
+  ws.onopen = () => { stat.textContent = ""; term.focus(); };
+  ws.onmessage = e => {
+    if (e.data instanceof ArrayBuffer) { term.write(new Uint8Array(e.data)); return; }
+    try {
+      const msg = JSON.parse(e.data);
+      if (msg.type === "exit") term.write("\r\n\x1b[33m" + T("term.exit", { code: msg.code }) + "\x1b[0m\r\n");
+    } catch (err) {}
+  };
+  ws.onclose = () => { stat.textContent = T("term.closed"); };
+  ws.onerror = () => { stat.textContent = T("term.closed"); };
+  term.onData(d => { if (ws.readyState === 1) ws.send(new TextEncoder().encode(d)); });
+}
+function closeTerminalModal() {
+  if (!activeTerm) return;
+  window.removeEventListener("resize", activeTerm.onResize);
+  try { activeTerm.ws.close(); } catch (e) {}
+  activeTerm.term.dispose();
+  const ov = document.getElementById("termov"); if (ov) ov.remove();
+  activeTerm = null;
+}
+
+/* ============================================================ 启动 ===== */
+if (TK) boot(); else showLogin();
+applyI18n(); buildLangSel();
+</script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 检查更新（仅 cn 渠道源集，global 不打包） -->
+    <string name="settings_update_title">Проверить обновления</string>
+    <string name="settings_update_desc">Проверить новые версии в GitHub Releases</string>
+    <string name="settings_update_checking">Проверка…</string>
+    <string name="settings_update_dialog_title">Доступна новая версия %1$s</string>
+    <string name="settings_update_dialog_no_changelog">Для этого релиза нет списка изменений.</string>
+    <string name="settings_update_dialog_download">Перейти к загрузке</string>
+    <string name="settings_update_dialog_later">Позже</string>
+    <string name="settings_update_latest_title">Актуальная версия</string>
+    <string name="settings_update_latest_text">У вас уже установлена последняя версия.</string>
+    <string name="settings_update_failed_title">Не удалось проверить обновления</string>
+    <string name="settings_update_failed_reason">Причина: %1$s</string>
+    <string name="settings_update_ok">ОК</string>
+</resources>

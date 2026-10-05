@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="images_title">镜像</string>
+    <string name="images_subtitle">拉取过的镜像保存在设备上，容器直接复用。</string>
+    <plurals name="images_count">
+        <item quantity="other">%1$d 个镜像</item>
+    </plurals>
+    <string name="images_input_hint">镜像引用</string>
+    <string name="images_pull">拉取</string>
+    <string name="images_inventory_title">已下载</string>
+    <string name="images_empty_inventory">还没有镜像。输入引用开始拉取。</string>
+    <string name="images_stage_resolving">解析清单</string>
+    <string name="images_stage_downloading">下载层</string>
+    <string name="images_stage_extracting">解压层</string>
+    <string name="images_stage_done">完成</string>
+    <string name="images_stage_failed">拉取失败</string>
+    <string name="images_delete">删除</string>
+
+    <!-- ==================== 编排功能推荐 ==================== -->
+
+    <string name="images_recommend_compose_title">让编排帮你拉取镜像</string>
+    <string name="images_recommend_compose_desc">在编排项目里写好服务后点一次「Up」，用到的镜像会自动下载，不必在这里一个个手动拉取。</string>
+    <string name="images_import">导入 docker save 存档（.tar）</string>
+    <string name="images_importing">导入中…</string>
+    <string name="images_import_success">已导入：%1$s</string>
+    <string name="images_import_failed_empty">所选文件为空</string>
+    <string name="images_import_failed">导入失败：%1$s</string>
+</resources>

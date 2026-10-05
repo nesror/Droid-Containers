@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Droid 容器</string>
+    <string name="nav_dashboard">仪表盘</string>
+    <string name="nav_images">镜像</string>
+    <string name="nav_containers">容器</string>
+    <string name="nav_compose">编排</string>
+    <string name="nav_settings">设置</string>
+    <string name="notif_channel_name">镜像同步</string>
+    <string name="notif_pull_started">开始拉取</string>
+    <string name="notif_pull_running">正在拉取镜像</string>
+    <string name="notif_pull_done">拉取完成</string>
+    <string name="notif_pull_failed">拉取失败</string>
+    <string name="notif_remote_channel">远程控制</string>
+    <string name="notif_remote_title">远程控制运行中</string>
+    <string name="notif_remote_starting">启动中…</string>
+    <string name="notif_remote_failed">启动失败：%1$s</string>
+    <string name="notif_runtime_channel">容器运行时</string>
+    <string name="notif_runtime_title">容器后台运行中</string>
+    <string name="notif_runtime_text">%1$d 个容器正在后台运行</string>
+    <string name="notif_runtime_starting">容器运行时启动中…</string>
+    <string name="notif_runtime_stop_all">全部停止</string>
+</resources>

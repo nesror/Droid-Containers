@@ -1,0 +1,28 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+build/
+.kotlin/
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+*.keystore
+*.jks
+# 签名密码（开源方案 §8-⑤）：本地保留，但绝不入 Git——公开快照会带走整个子树的 tracked 文件
+keystore.properties
+
+# Engine binaries (produced by tool/fetch_proot_runtime.py, not committed)
+#core/engine/src/main/jniLibs/
+# WorkBuddy session data (memory logs, temp build output) — not project source
+# Note: use `/*` (not `/`) so the memory/ re-inclusion rule below works
+.workbuddy/*
+!.workbuddy/memory/

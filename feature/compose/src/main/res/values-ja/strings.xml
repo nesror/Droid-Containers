@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="compose_title">Compose</string>
+    <string name="compose_new_project">新規プロジェクト</string>
+    <string name="compose_subtitle">1 つの compose ファイルで複数コンテナの構成を定義できます。</string>
+    <plurals name="compose_project_count">
+        <item quantity="other">%1$d 件のプロジェクト</item>
+    </plurals>
+    <string name="compose_editor_new_title">新規プロジェクト</string>
+    <string name="compose_editor_edit_title">プロジェクトを編集</string>
+    <string name="compose_project_name">プロジェクト名</string>
+    <string name="compose_yaml">compose YAML</string>
+    <string name="compose_import">YAML を読み込む</string>
+    <string name="compose_sample">サンプルを挿入</string>
+    <string name="compose_save">保存</string>
+    <string name="compose_cancel">キャンセル</string>
+    <string name="compose_confirm">確認</string>
+    <string name="compose_edit">編集</string>
+    <string name="compose_delete">削除</string>
+    <string name="compose_detail">詳細</string>
+    <string name="compose_back">戻る</string>
+    <string name="compose_up">すべて起動</string>
+    <string name="compose_down">すべて停止</string>
+    <plurals name="compose_service_count">
+        <item quantity="other">サービス %1$d 件</item>
+    </plurals>
+    <string name="compose_parse_ok">解析OK · サービス：%1$s</string>
+    <string name="compose_parse_error">解析エラー：%1$s</string>
+    <string name="compose_issues">互換性の注意</string>
+    <string name="compose_line">%1$d 行目</string>
+    <string name="compose_empty">プロジェクトがありません。内蔵サンプルから始めるか、compose YAML を読み込んでください。</string>
+    <string name="compose_state_running">すべて実行中</string>
+    <string name="compose_state_partial">一部実行中</string>
+    <string name="compose_state_stopped">停止</string>
+    <string name="compose_state_not_created">未作成</string>
+    <string name="compose_state_starting">起動中</string>
+    <string name="compose_open_browser">ブラウザ</string>
+    <string name="compose_ports_url">http://127.0.0.1:%1$d</string>
+    <string name="compose_service_image">イメージ：%1$s</string>
+    <string name="compose_service_depends">依存：%1$s</string>
+    <string name="compose_service_ports">ポート（参考）：%1$s</string>
+    <string name="compose_running">実行中</string>
+    <string name="compose_stopped">停止</string>
+    <string name="compose_start">起動</string>
+    <string name="compose_stop">停止</string>
+    <string name="compose_logs">ログ</string>
+    <string name="compose_hide_logs">ログを閉じる</string>
+    <string name="compose_not_created_hint">コンテナ未作成です。「すべて起動」で作成・起動します。</string>
+    <string name="compose_ports_note">ポート変換は行いません。サービスがポート N を待ち受ける場合、127.0.0.1:N で直接アクセスできます。</string>
+    <string name="compose_delete_confirm_title">プロジェクトを削除</string>
+    <string name="compose_delete_confirm_message">「%1$s」のすべてのコンテナを停止して削除します。</string>
+    <string name="compose_import_failed">読み込みに失敗しました：%1$s</string>
+    <string name="compose_import_failed_empty">読み込みに失敗しました：ファイルが空です</string>
+    <string name="compose_parse_unknown">不明な解析エラー</string>
+
+    <!-- ==================== テンプレートライブラリ ==================== -->
+
+    <string name="compose_templates_entry">テンプレート</string>
+    <string name="compose_templates_title">テンプレートライブラリ</string>
+    <string name="compose_templates_subtitle">すぐに使える構成を用意しました。選べばすぐに起動できます。</string>
+    <string name="compose_templates_free_hint">自分で書きたい方へ: YAML の編集と読み込みは無料のままです。テンプレートは近道にすぎません。</string>
+    <string name="compose_templates_unlock_all">すべてのテンプレートを購入</string>
+    <string name="compose_tpl_category_other">その他</string>
+    <string name="compose_tpl_badge_free">無料</string>
+    <string name="compose_tpl_badge_pro">Pro</string>
+    <string name="compose_tpl_locked_hint">テンプレートパックを購入するとこのテンプレートを使えます。</string>
+    <string name="compose_tpl_services_label">含まれるサービス</string>
+    <string name="compose_tpl_notes_label">ご利用にあたって</string>
+    <string name="compose_tpl_yaml_preview">YAML プレビュー</string>
+    <string name="compose_tpl_use">このテンプレートを使う</string>
+    <string name="compose_tpl_use_dialog_title">プロジェクト名を入力</string>
+    <string name="compose_tpl_use_dialog_desc">テンプレートは新しいプロジェクトとして複製されます。保存前に YAML を自由に編集できます。</string>
+    <string name="compose_tpl_unknown_name">テンプレート</string>
+    <string name="compose_tpl_service_ports">ポート: %1$s</string>
+    <string name="compose_tpl_yaml_copy">YAML をコピー</string>
+    <string name="compose_tpl_yaml_copied">YAML をクリップボードにコピーしました</string>
+
+
+
+    <!-- ==================== テンプレートパック（買い切り） ==================== -->
+
+    <string name="pro_title">テンプレートパック</string>
+    <string name="pro_subtitle">買い切りの購入で、ライブラリ内のすべてのテンプレートが使えます。</string>
+    <string name="pro_benefit_all">ライブラリ内のすべてのテンプレート</string>
+    <string name="pro_benefit_future">今後のバージョンで追加されるテンプレート</string>
+    <string name="pro_benefit_permanent">買い切りで、Google Play アカウントに紐づきます。サブスクリプションではありません。</string>
+    <string name="pro_price">価格: %1$s</string>
+    <string name="pro_price_loading">価格を読み込み中…</string>
+    <string name="pro_buy">購入する</string>
+    <string name="pro_restore">購入を復元</string>
+    <string name="pro_owned">購入済み</string>
+    <string name="pro_purchased_toast">ありがとうございます。すべてのテンプレートが利用可能になりました。</string>
+    <string name="pro_offline_note">購入状態は端末に保存されるため、オフラインでも利用できます。</string>
+    <string name="pro_error_unavailable">この端末では Google Play を利用できないため、ここでは購入できません。独自の compose YAML を無料で作成・読み込みできます。</string>
+    <string name="pro_error_network">Google Play に接続できませんでした。ネットワークを確認して再度お試しください。</string>
+    <string name="pro_error_item_unavailable">この商品は現在ご利用いただけません。しばらくしてからお試しください。</string>
+    <string name="pro_error_already_owned">すでに購入済みです。「購入を復元」をタップすると有効になります。</string>
+    <string name="pro_error_cancelled">購入はキャンセルされました。いつでも購入できます。</string>
+    <string name="pro_error_nothing_to_restore">この Google Play アカウントには購入履歴が見つかりませんでした。以前にテンプレートパックを購入した場合は、同じアカウントでサインインしているかご確認ください。</string>
+    <string name="pro_error_generic">購入を完了できませんでした: %1$s</string>
+</resources>

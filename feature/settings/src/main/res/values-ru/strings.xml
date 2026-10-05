@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">Настройки</string>
+    <string name="settings_mirrors_title">Зеркала реестров</string>
+    <string name="settings_mirrors_hint">По одному хосту на строку</string>
+    <string name="settings_mirrors_probe">Проверить и отсортировать по задержке</string>
+    <string name="settings_mirrors_probing">Проверка…</string>
+    <string name="settings_mirrors_probe_rtt">%1$s — %2$d мс</string>
+    <string name="settings_mirrors_probe_unreachable">%1$s — недоступен</string>
+    <string name="settings_dns_title">DNS контейнера</string>
+    <string name="settings_dns_hint">DNS-сервер, например 1.1.1.1</string>
+    <string name="settings_autostart_title">Автозапуск контейнеров</string>
+    <string name="settings_autostart_subtitle">Запускать контейнеры с флагом автозапуска при старте приложения</string>
+    <string name="settings_save">Сохранить</string>
+    <string name="settings_saved">Сохранено</string>
+    <string name="settings_save_empty">Зеркала и DNS не могут быть пустыми</string>
+    <string name="settings_remote_title">Удалённое управление</string>
+    <string name="settings_remote_risk">Устройства в локальной сети смогут обращаться к движку контейнеров по HTTP. Включайте только в доверенной сети.</string>
+    <string name="settings_remote_locked_hint">Удалённое управление входит в набор шаблонов: после разблокировки управляйте образами, контейнерами и стеками из браузера.</string>
+    <string name="settings_remote_locked_paused">Служба приостановлена: набор шаблонов не разблокирован, веб-консоль не запущена.</string>
+    <string name="settings_remote_unlock">Разблокировать набор шаблонов</string>
+    <string name="settings_remote_web">Веб-консоль</string>
+    <string name="settings_remote_port_hint">Порт (1024–65535)</string>
+    <string name="settings_remote_port_invalid">Порт должен быть в диапазоне 1024–65535</string>
+    <string name="settings_remote_restart_hint">После смены порта выключите и включите переключатель</string>
+    <string name="settings_remote_token">Токен доступа</string>
+    <string name="settings_remote_token_copy">Копировать</string>
+    <string name="settings_remote_token_copied">Скопировано</string>
+    <string name="settings_remote_token_reset">Сбросить</string>
+    <string name="settings_remote_lan">Адрес в локальной сети</string>
+    <string name="settings_remote_lan_unavailable">Адрес в локальной сети не найден</string>
+    <string name="settings_remote_docker">Docker API (без аутентификации)</string>
+    <string name="settings_remote_docker_risk">docker CLI / Portainer не могут передать токен: порт без аутентификации. Только доверенная локальная сеть.</string>
+    <string name="settings_remote_docker_lan">Доступ по LAN</string>
+    <string name="settings_remote_docker_lan_risk">Выкл.: порт принимает только подключения с этого устройства (adb forward работает). Вкл.: любое устройство в той же сети может управлять контейнерами без аутентификации.</string>
+    <string name="settings_remote_docker_lan_confirm_title">Открыть Docker API в локальной сети?</string>
+    <string name="settings_remote_docker_lan_confirm_text">Порт Docker API не имеет аутентификации (docker CLI не может передавать токены). При доступе по LAN любое устройство в этой сети сможет создавать и запускать контейнеры и выполнять в них команды. Включайте только в доверенной частной сети.</string>
+    <string name="settings_remote_docker_lan_confirm_ok">Открыть в LAN</string>
+    <string name="settings_remote_audit">Журнал аудита</string>
+    <string name="settings_remote_audit_empty">Записей пока нет</string>
+    <string name="settings_remote_audit_time">Время</string>
+    <string name="settings_feedback_title">Обратная связь</string>
+    <string name="settings_feedback_desc">Экспортируйте журналы работы и отправьте их разработчику для диагностики проблем.</string>
+    <string name="settings_export_logs">Экспортировать журналы</string>
+    <string name="settings_exporting">Экспорт…</string>
+    <string name="settings_export_empty">Журналов пока нет</string>
+    <string name="settings_export_share_title">Отправить журналы</string>
+    <string name="close">Закрыть</string>
+
+    <!-- 首次启动后台保活引导 -->
+    <string name="onboarding_title">Работа контейнеров в фоне</string>
+    <string name="onboarding_desc">Android и особенно прошивки китайских производителей агрессивно останавливают фоновые приложения. Контейнеры и Docker-сервис продолжают работать, только если приложению разрешено оставаться в фоне. Выполните три шага ниже (позже их можно изменить в настройках).</string>
+    <string name="onboarding_step_notifications">Уведомления</string>
+    <string name="onboarding_step_notifications_desc">Показывать постоянное уведомление службы поддержания (обязательно на Android 13+).</string>
+    <string name="onboarding_step_battery">Отключить оптимизацию батареи</string>
+    <string name="onboarding_step_battery_desc">Выведите приложение из-под оптимизации батареи (Doze), чтобы контейнеры работали при выключенном экране.</string>
+    <string name="onboarding_step_vendor">Настройки автозапуска производителя</string>
+    <string name="onboarding_step_vendor_desc">Откройте настройки фона вашей системы и разрешите приложению автозапуск и работу в фоне.</string>
+    <string name="onboarding_ready_title">Всё готово</string>
+    <string name="onboarding_ready_desc">Эти настройки можно изменить в любой момент: Настройки → Работа в фоне. Пока видно уведомление службы поддержания, контейнеры продолжают работать в фоне.</string>
+    <string name="onboarding_status_granted">Разрешено</string>
+    <string name="onboarding_action_allow">Разрешить</string>
+    <string name="onboarding_action_request_battery">Запросить</string>
+    <string name="onboarding_action_open_vendor">Открыть настройки</string>
+    <string name="onboarding_next">Далее</string>
+    <string name="onboarding_done">Начать работу</string>
+
+    <!-- 设置：后台运行保活 -->
+    <string name="settings_keepalive_title">Работа в фоне</string>
+    <string name="settings_keepalive_desc">Пока контейнеры работают, приложение держит foreground-службу для их поддержания. Для прошивок китайских производителей дополнительно нужны разрешения ниже.</string>
+    <string name="settings_keepalive_battery_ok">Оптимизация батареи: отключена для приложения</string>
+    <string name="settings_keepalive_battery_bad">Оптимизация батареи: включена, фоновые контейнеры могут быть остановлены</string>
+    <string name="settings_keepalive_battery_allow">Отключить оптимизацию батареи</string>
+    <string name="settings_keepalive_battery_done">Отключена</string>
+    <string name="settings_keepalive_service_active">Служба поддержания активна: контейнеров работает: %1$d</string>
+    <string name="settings_keepalive_service_idle">Нет запущенных контейнеров — служба поддержания завершается автоматически</string>
+    <string name="settings_keepalive_vendor_open">Настройки автозапуска производителя</string>
+    <string name="settings_keepalive_replay">Показать инструкцию снова</string>
+
+    <!-- 厂商 ROM 名称 -->
+    <string name="keepalive_vendor_name_xiaomi">MIUI / HyperOS (Xiaomi, Redmi, POCO)</string>
+    <string name="keepalive_vendor_name_huawei">HarmonyOS / EMUI (HUAWEI)</string>
+    <string name="keepalive_vendor_name_honor">MagicOS (HONOR)</string>
+    <string name="keepalive_vendor_name_oppo">ColorOS (OPPO, OnePlus, realme)</string>
+    <string name="keepalive_vendor_name_vivo">OriginOS / Funtouch (vivo, iQOO)</string>
+    <string name="keepalive_vendor_name_meizu">Flyme (Meizu)</string>
+    <string name="keepalive_vendor_name_samsung">One UI (Samsung)</string>
+    <string name="keepalive_vendor_name_other">Android (близко к чистой системе)</string>
+
+    <!-- 各厂商后台配置步骤与注意事项 -->
+    <string name="keepalive_vendor_steps_xiaomi">• Безопасность → Автозапуск: разрешите приложению\n• Безопасность → Экономия батареи → Для приложений → это приложение → Без ограничений\n• Недавние: долгое нажатие на карточку → Закрепить\n• В некоторых версиях дополнительно включите «Разрешить фоновую активность» в настройках батареи приложения</string>
+    <string name="keepalive_vendor_steps_huawei">• Настройки → Батарея → Запуск приложений → это приложение → Управление вручную: включите Автозапуск, Косвенный запуск, Работа в фоне\n• Отключите режим экономии и режим сна\n• Недавние: потяните карточку вниз, чтобы закрепить</string>
+    <string name="keepalive_vendor_steps_honor">• Настройки → Батарея → Запуск приложений → это приложение → Управление вручную: включите Автозапуск, Косвенный запуск, Работа в фоне\n• Недавние: потяните карточку вниз, чтобы закрепить</string>
+    <string name="keepalive_vendor_steps_oppo">• Телефонный мастер → Разрешения → Автозапуск: разрешите Автозапуск и Связанный запуск\n• Настройки → Батарея → Дополнительно → Оптимизация расхода батареи → это приложение → Не оптимизировать\n• О приложении → Расход батареи → Разрешить фоновую активность\n• Недавние: потяните карточку вниз, чтобы закрепить</string>
+    <string name="keepalive_vendor_steps_vivo">• i Менеджер → Менеджер приложений → Автозапуск: разрешите Автозапуск и Связанный запуск\n• Настройки → Батарея → Управление фоновым расходом → разрешите Высокий фоновый расход\n• Недавние: потяните карточку вниз, чтобы закрепить</string>
+    <string name="keepalive_vendor_steps_meizu">• Телефонный мастер → Права → Фоновый режим: разрешите Фоновую работу и Автозапуск\n• Батарея → отключите спящий режим для приложения\n• Недавние: закрепите карточку приложения</string>
+    <string name="keepalive_vendor_steps_samsung">• Настройки → Батарея → Ограничения фона: уберите приложение из «Спящие» и «Глубоко спящие»\n• Настройки → Батарея → Управление питанием приложений → это приложение → Без ограничений\n• Недавние: закрепите карточку приложения</string>
+    <string name="keepalive_vendor_steps_other">• Выдайте исключение из оптимизации батареи (шаг 2 выше)\n• Если система предоставляет переключатель автозапуска/фона — включите его для приложения\n• Если лончер поддерживает закрепление — закрепите приложение в списке недавних</string>
+    <string name="keepalive_note_common">Совет: не смахивайте приложение из недавних (это принудительная остановка) и не отключайте постоянное уведомление. Если контейнеры всё равно останавливаются в фоне, проверьте шаги выше.</string>
+    <!-- 设置：二级页面 -->
+    <string name="settings_back">Назад</string>
+    <string name="settings_group_general">Основные</string>
+    <string name="settings_group_advanced">Дополнительно</string>
+    <string name="settings_group_about">О приложении и помощь</string>
+    <string name="settings_entry_nav">Открыть</string>
+
+    <!-- 设置：容器设置二级页 -->
+    <string name="settings_container_title">Настройки контейнеров</string>
+    <string name="settings_container_desc">Зеркала реестров и DNS контейнера</string>
+
+    <!-- 设置：远程控制二级页 -->
+    <string name="settings_remote_desc">Веб-консоль и Docker API в локальной сети</string>
+
+    <!-- 设置：后台运行二级页 -->
+    <string name="settings_keepalive_entry_desc">Оптимизация батареи и автозапуск производителя</string>
+
+    <!-- 设置：帮助与反馈二级页 -->
+    <string name="settings_help_title">Помощь и обратная связь</string>
+    <string name="settings_help_desc">Руководства, сообщения об ошибках и журналы</string>
+    <string name="settings_help_guide">Руководство пользователя</string>
+    <string name="settings_help_guide_desc">Документация, руководства и FAQ на официальном сайте</string>
+    <string name="settings_help_issues">Сообщить о проблеме</string>
+    <string name="settings_help_issues_desc">Создайте issue на GitHub об ошибке или предложении</string>
+    <string name="settings_help_logs">Экспорт журналов работы</string>
+    <string name="settings_help_logs_desc">Приложите журналы к обращению, чтобы ускорить диагностику</string>
+    <string name="settings_help_open_failed">Нет приложения для открытия этой ссылки</string>
+
+    <!-- 设置：分享应用二级页 -->
+    <string name="settings_share_title">Поделиться приложением</string>
+    <string name="settings_share_desc">Отправьте ссылку на скачивание друзьям</string>
+    <string name="settings_share_url_label">Страница загрузки</string>
+    <string name="settings_share_copy">Копировать ссылку</string>
+    <string name="settings_share_copied">Ссылка скопирована</string>
+    <string name="settings_share_send">Поделиться</string>
+    <string name="settings_share_open">Открыть страницу загрузки</string>
+    <string name="settings_share_text">Droid Containers — запуск Docker-контейнеров на Android-смартфоне (без root).\nСкачать: %1$s</string>
+    <string name="settings_share_chooser">Поделиться через</string>
+
+    <!-- 设置：概览页状态摘要 -->
+    <string name="settings_summary_off">Выключено</string>
+    <string name="settings_summary_remote_web">Веб-консоль :%1$d</string>
+    <string name="settings_summary_remote_docker">Docker API :%1$d</string>
+    <string name="settings_summary_remote_both">Web :%1$d · Docker :%2$d</string>
+    <string name="settings_summary_battery_ok">Исключено</string>
+    <string name="settings_summary_battery_bad">Не исключено</string>
+    <string name="settings_about_version">Версия %1$s (сборка %2$d)</string>
+</resources>

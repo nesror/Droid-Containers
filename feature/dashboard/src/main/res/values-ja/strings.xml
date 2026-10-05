@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dashboard_title">ダッシュボード</string>
+    <string name="dashboard_subtitle">この端末で動いているものの概要。</string>
+    <string name="dashboard_running">実行中</string>
+    <string name="dashboard_total">全コンテナ数</string>
+    <string name="dashboard_storage">ストレージ使用量</string>
+    <string name="dashboard_empty">コンテナはまだありません。「イメージ」タブからイメージを取得して始めましょう。</string>
+    <string name="dashboard_images">イメージ数</string>
+    <string name="dashboard_recent">最近のコンテナ</string>
+</resources>
+

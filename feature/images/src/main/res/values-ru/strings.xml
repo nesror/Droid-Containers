@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="images_title">Образы</string>
+    <string name="images_subtitle">Загруженные образы хранятся на устройстве и переиспользуются контейнерами.</string>
+    <plurals name="images_count">
+        <item quantity="one">%1$d образ</item>
+        <item quantity="few">%1$d образа</item>
+        <item quantity="many">%1$d образов</item>
+        <item quantity="other">%1$d образа</item>
+    </plurals>
+    <string name="images_input_hint">Ссылка на образ</string>
+    <string name="images_pull">Загрузить</string>
+    <string name="images_inventory_title">Загружено</string>
+    <string name="images_empty_inventory">Образов пока нет. Введите ссылку выше и загрузите.</string>
+    <string name="images_stage_resolving">разбор манифеста</string>
+    <string name="images_stage_downloading">загрузка слоёв</string>
+    <string name="images_stage_extracting">распаковка</string>
+    <string name="images_stage_done">готово</string>
+    <string name="images_stage_failed">ошибка</string>
+    <string name="images_delete">Удалить</string>
+
+    <!-- ==================== Рекомендация оркестрации ==================== -->
+
+    <string name="images_recommend_compose_title">Пусть Compose скачает образы за вас</string>
+    <string name="images_recommend_compose_desc">Опишите сервисы в проекте Compose и нажмите «Up» — все нужные образы скачаются автоматически, вручную загружать их здесь не придётся.</string>
+    <string name="images_import">Импорт архива docker save (.tar)</string>
+    <string name="images_importing">Импорт…</string>
+    <string name="images_import_success">Импортировано: %1$s</string>
+    <string name="images_import_failed_empty">Выбранный файл пуст</string>
+    <string name="images_import_failed">Ошибка импорта: %1$s</string>
+</resources>

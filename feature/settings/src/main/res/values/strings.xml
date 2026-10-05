@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">Settings</string>
+    <string name="settings_mirrors_title">Registry mirrors</string>
+    <string name="settings_mirrors_hint">One mirror host per line</string>
+    <string name="settings_mirrors_probe">Probe &amp; sort by latency</string>
+    <string name="settings_mirrors_probing">Probing…</string>
+    <string name="settings_mirrors_probe_rtt">%1$s — %2$d ms</string>
+    <string name="settings_mirrors_probe_unreachable">%1$s — unreachable</string>
+    <string name="settings_dns_title">Container DNS</string>
+    <string name="settings_dns_hint">DNS server, e.g. 1.1.1.1</string>
+    <string name="settings_autostart_title">Auto-start containers</string>
+    <string name="settings_autostart_subtitle">Start containers marked auto-start when the app launches</string>
+    <string name="settings_save">Save</string>
+    <string name="settings_saved">Saved</string>
+    <string name="settings_save_empty">Mirrors and DNS cannot be empty</string>
+    <string name="settings_remote_title">Remote control</string>
+    <string name="settings_remote_risk">Devices on the LAN can reach the container engine over HTTP. Use only on trusted networks.</string>
+    <string name="settings_remote_locked_hint">Remote control is part of the template pack. Unlock it to manage images, containers and stacks from your browser.</string>
+    <string name="settings_remote_locked_paused">Paused: the template pack is not unlocked, so the web console is not running.</string>
+    <string name="settings_remote_unlock">Unlock the template pack</string>
+    <string name="settings_remote_web">Web console</string>
+    <string name="settings_remote_port_hint">Port (1024–65535)</string>
+    <string name="settings_remote_port_invalid">Port must be 1024–65535</string>
+    <string name="settings_remote_restart_hint">Toggle off/on after changing the port to apply</string>
+    <string name="settings_remote_token">Access token</string>
+    <string name="settings_remote_token_copy">Copy</string>
+    <string name="settings_remote_token_copied">Copied</string>
+    <string name="settings_remote_token_reset">Reset</string>
+    <string name="settings_remote_lan">LAN address</string>
+    <string name="settings_remote_lan_unavailable">No LAN address detected</string>
+    <string name="settings_remote_docker">Docker API (no auth)</string>
+    <string name="settings_remote_docker_risk">docker CLI / Portainer cannot send a token: this port is unauthenticated. Trusted LAN only.</string>
+    <string name="settings_remote_docker_lan">LAN access</string>
+    <string name="settings_remote_docker_lan_risk">Off: this port only accepts connections from this device (adb forward still works). On: any device on the same network can control containers without authentication.</string>
+    <string name="settings_remote_docker_lan_confirm_title">Expose Docker API to LAN?</string>
+    <string name="settings_remote_docker_lan_confirm_text">The Docker API port carries no authentication (docker CLI cannot send tokens). With LAN access on, every device on this network can create, start and run commands in your containers. Only continue on a trusted private network.</string>
+    <string name="settings_remote_docker_lan_confirm_ok">Expose to LAN</string>
+    <string name="settings_remote_audit">Audit log</string>
+    <string name="settings_remote_audit_empty">No entries yet</string>
+    <string name="settings_remote_audit_time">time</string>
+    <string name="settings_feedback_title">Feedback</string>
+    <string name="settings_feedback_desc">Export runtime logs and send them to the developer to help diagnose issues.</string>
+    <string name="settings_export_logs">Export logs</string>
+    <string name="settings_exporting">Exporting…</string>
+    <string name="settings_export_empty">No logs recorded yet</string>
+    <string name="settings_export_share_title">Send logs via</string>
+    <string name="close">Close</string>
+
+    <!-- 首次启动后台保活引导 -->
+    <string name="onboarding_title">Keep containers running in the background</string>
+    <string name="onboarding_desc">Android and especially Chinese vendor ROMs stop background apps aggressively. Containers and the Docker service keep running only when the app is allowed to stay in the background. Complete the three steps below (you can change them later in Settings).</string>
+    <string name="onboarding_step_notifications">Notifications</string>
+    <string name="onboarding_step_notifications_desc">Show the persistent notification of the keep-alive foreground service (required on Android 13+).</string>
+    <string name="onboarding_step_battery">Ignore battery optimizations</string>
+    <string name="onboarding_step_battery_desc">Exempt the app from Doze and battery restrictions so containers keep running with the screen off.</string>
+    <string name="onboarding_step_vendor">Vendor autostart settings</string>
+    <string name="onboarding_step_vendor_desc">Open your system\'s background settings and allow this app to auto-start and run in the background.</string>
+    <string name="onboarding_ready_title">All set</string>
+    <string name="onboarding_ready_desc">You can review these settings anytime in Settings → Background running. Containers keep running while the keep-alive notification is visible.</string>
+    <string name="onboarding_status_granted">Granted</string>
+    <string name="onboarding_action_allow">Allow</string>
+    <string name="onboarding_action_request_battery">Request</string>
+    <string name="onboarding_action_open_vendor">Open settings</string>
+    <string name="onboarding_next">Next</string>
+    <string name="onboarding_done">Start using the app</string>
+
+    <!-- 设置：后台运行保活 -->
+    <string name="settings_keepalive_title">Background running</string>
+    <string name="settings_keepalive_desc">While containers are running, the app hosts a foreground service to keep them alive. Chinese vendor ROMs still need the permissions below.</string>
+    <string name="settings_keepalive_battery_ok">Battery optimization: exempted</string>
+    <string name="settings_keepalive_battery_bad">Battery optimization: NOT exempted, background containers may be stopped</string>
+    <string name="settings_keepalive_battery_allow">Exempt battery optimization</string>
+    <string name="settings_keepalive_battery_done">Exempted</string>
+    <string name="settings_keepalive_service_active">Foreground keep-alive service active: %1$d container(s) running</string>
+    <string name="settings_keepalive_service_idle">No containers running — the keep-alive service exits automatically</string>
+    <string name="settings_keepalive_vendor_open">Vendor autostart settings</string>
+    <string name="settings_keepalive_replay">View the background guide again</string>
+
+    <!-- 厂商 ROM 名称 -->
+    <string name="keepalive_vendor_name_xiaomi">MIUI / HyperOS (Xiaomi, Redmi, POCO)</string>
+    <string name="keepalive_vendor_name_huawei">HarmonyOS / EMUI (HUAWEI)</string>
+    <string name="keepalive_vendor_name_honor">MagicOS (HONOR)</string>
+    <string name="keepalive_vendor_name_oppo">ColorOS (OPPO, OnePlus, realme)</string>
+    <string name="keepalive_vendor_name_vivo">OriginOS / Funtouch (vivo, iQOO)</string>
+    <string name="keepalive_vendor_name_meizu">Flyme (Meizu)</string>
+    <string name="keepalive_vendor_name_samsung">One UI (Samsung)</string>
+    <string name="keepalive_vendor_name_other">Android (near-stock system)</string>
+
+    <!-- 各厂商后台配置步骤与注意事项 -->
+    <string name="keepalive_vendor_steps_xiaomi">• Security app → Autostart: allow this app\n• Security app → Battery saver → App battery saver → this app → No restrictions\n• Recents: long-press the app card → Lock\n• MIUI/HyperOS may additionally require "Allow background activity" in app battery settings</string>
+    <string name="keepalive_vendor_steps_huawei">• Settings → Battery → App launch → this app → Manage manually → enable Auto-launch, Secondary launch, Run in background\n• Disable Power Saving Mode and Sleep mode\n• Recents: pull down the app card to lock it</string>
+    <string name="keepalive_vendor_steps_honor">• Settings → Battery → App launch → this app → Manage manually → enable Auto-launch, Secondary launch, Run in background\n• Recents: pull down the app card to lock it</string>
+    <string name="keepalive_vendor_steps_oppo">• Security (Phone Manager) → Privacy permissions → Startup manager: allow Autostart and Associated start\n• Settings → Battery → More settings → Optimize battery use → this app → Don\'t optimize\n• App info → Battery usage → Allow background activity\n• Recents: pull down the app card to lock it</string>
+    <string name="keepalive_vendor_steps_vivo">• i Manager → App manager → Autostart manager: allow Autostart and Associated start\n• Settings → Battery → Background power consumption management → allow High background power consumption\n• Recents: pull down the app card to lock it</string>
+    <string name="keepalive_vendor_steps_meizu">• Phone Manager → Permissions → Background management: allow Background running and Autostart\n• Battery → disable App sleep for this app\n• Recents: lock the app card</string>
+    <string name="keepalive_vendor_steps_samsung">• Settings → Battery → Background usage limits: remove this app from Sleeping apps and Deep sleeping apps\n• Settings → Battery → App power management → this app → Unrestricted\n• Recents: lock the app card</string>
+    <string name="keepalive_vendor_steps_other">• Grant the battery optimization exemption (Step 2 above)\n• If your system offers an autostart or background permission switch, enable it for this app\n• Keep the app card locked in Recents if your launcher supports it</string>
+    <string name="keepalive_note_common">Tip: do not swipe this app away from Recents to force-stop it, and keep the foreground notification enabled. If containers still stop in the background, recheck the steps above.</string>
+
+    <!-- 设置：二级页面 -->
+    <string name="settings_back">Back</string>
+    <string name="settings_group_general">General</string>
+    <string name="settings_group_advanced">Advanced</string>
+    <string name="settings_group_about">About &amp; help</string>
+    <string name="settings_entry_nav">Open</string>
+
+    <!-- 设置：容器设置二级页 -->
+    <string name="settings_container_title">Container settings</string>
+    <string name="settings_container_desc">Registry mirrors and container DNS</string>
+
+    <!-- 设置：远程控制二级页 -->
+    <string name="settings_remote_desc">Web console and Docker API on the LAN</string>
+
+    <!-- 设置：后台运行二级页 -->
+    <string name="settings_keepalive_entry_desc">Battery optimization and vendor autostart</string>
+
+    <!-- 设置：帮助与反馈二级页 -->
+    <string name="settings_help_title">Help &amp; feedback</string>
+    <string name="settings_help_desc">Guides, bug reports and runtime logs</string>
+    <string name="settings_help_guide">User guide</string>
+    <string name="settings_help_guide_desc">Documentation, tutorials and FAQ on the official site</string>
+    <string name="settings_help_issues">Report an issue</string>
+    <string name="settings_help_issues_desc">Open a GitHub issue for a bug or a feature request</string>
+    <string name="settings_help_logs">Export runtime logs</string>
+    <string name="settings_help_logs_desc">Attach the exported logs to your report to speed up diagnosis</string>
+    <string name="settings_help_open_failed">No app available to open this link</string>
+
+    <!-- 设置：分享应用二级页 -->
+    <string name="settings_share_title">Share app</string>
+    <string name="settings_share_desc">Send the download link to friends</string>
+    <string name="settings_share_url_label">Download page</string>
+    <string name="settings_share_copy">Copy link</string>
+    <string name="settings_share_copied">Link copied</string>
+    <string name="settings_share_send">Share</string>
+    <string name="settings_share_open">Open download page</string>
+    <string name="settings_share_text">Droid Containers — run Docker containers on your Android phone (no root required).\nDownload: %1$s</string>
+    <string name="settings_share_chooser">Share via</string>
+
+    <!-- 设置：概览页状态摘要 -->
+    <string name="settings_summary_off">Off</string>
+    <string name="settings_summary_remote_web">Web console :%1$d</string>
+    <string name="settings_summary_remote_docker">Docker API :%1$d</string>
+    <string name="settings_summary_remote_both">Web :%1$d · Docker :%2$d</string>
+    <string name="settings_summary_battery_ok">Exempted</string>
+    <string name="settings_summary_battery_bad">Not exempted</string>
+    <string name="settings_about_version">Version %1$s (build %2$d)</string>
+</resources>

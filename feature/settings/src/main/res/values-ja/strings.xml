@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">設定</string>
+    <string name="settings_mirrors_title">レジストリミラー</string>
+    <string name="settings_mirrors_hint">1 行に 1 ホスト</string>
+    <string name="settings_mirrors_probe">測定して遅延順に並べ替え</string>
+    <string name="settings_mirrors_probing">測定中…</string>
+    <string name="settings_mirrors_probe_rtt">%1$s — %2$d ミリ秒</string>
+    <string name="settings_mirrors_probe_unreachable">%1$s — 到達不能</string>
+    <string name="settings_dns_title">コンテナ DNS</string>
+    <string name="settings_dns_hint">DNS サーバー、例: 1.1.1.1</string>
+    <string name="settings_autostart_title">コンテナ自動起動</string>
+    <string name="settings_autostart_subtitle">アプリ起動時に自動起動フラグ付きコンテナを開始します</string>
+    <string name="settings_save">保存</string>
+    <string name="settings_saved">保存しました</string>
+    <string name="settings_save_empty">ミラーと DNS は空にできません</string>
+    <string name="settings_remote_title">リモート操作</string>
+    <string name="settings_remote_risk">LAN 内のデバイスから HTTP 経由でコンテナエンジンへアクセス可能になります。信頼できるネットワークでのみ有効にしてください。</string>
+    <string name="settings_remote_locked_hint">リモート操作はテンプレートパックに含まれます。ロック解除後はブラウザーからイメージ・コンテナー・スタックを管理できます。</string>
+    <string name="settings_remote_locked_paused">サービスは一時停止中です。テンプレートパックが未解除のため、Web コンソールは起動していません。</string>
+    <string name="settings_remote_unlock">テンプレートパックをロック解除</string>
+    <string name="settings_remote_web">Web コンソール</string>
+    <string name="settings_remote_port_hint">ポート（1024–65535）</string>
+    <string name="settings_remote_port_invalid">ポートは 1024–65535 の範囲で指定してください</string>
+    <string name="settings_remote_restart_hint">ポート変更後はスイッチを OFF→ON し直すと反映されます</string>
+    <string name="settings_remote_token">アクセストークン</string>
+    <string name="settings_remote_token_copy">コピー</string>
+    <string name="settings_remote_token_copied">コピーしました</string>
+    <string name="settings_remote_token_reset">リセット</string>
+    <string name="settings_remote_lan">LAN アドレス</string>
+    <string name="settings_remote_lan_unavailable">LAN アドレスを検出できません</string>
+    <string name="settings_remote_docker">Docker API（認証なし）</string>
+    <string name="settings_remote_docker_risk">docker CLI / Portainer はトークンを送れません：このポートは認証なしです。信頼できる LAN のみで使用してください。</string>
+    <string name="settings_remote_docker_lan">LAN アクセス</string>
+    <string name="settings_remote_docker_lan_risk">オフ：このポートは端末自身からの接続のみ受け付けます（adb forward は影響なし）。オン：同じネットワーク上の任意の機器が認証なしでコンテナを操作できます。</string>
+    <string name="settings_remote_docker_lan_confirm_title">Docker API を LAN に公開しますか？</string>
+    <string name="settings_remote_docker_lan_confirm_text">Docker API ポートには認証がありません（docker CLI はトークンを送れません）。LAN アクセスを有効にすると、同じネットワーク上のどの機器でもコンテナの作成・起動・コマンド実行が可能になります。信頼できるプライベートネットワークでのみ有効にしてください。</string>
+    <string name="settings_remote_docker_lan_confirm_ok">LAN に公開する</string>
+    <string name="settings_remote_audit">監査ログ</string>
+    <string name="settings_remote_audit_empty">記録はまだありません</string>
+    <string name="settings_remote_audit_time">時刻</string>
+    <string name="settings_feedback_title">フィードバック</string>
+    <string name="settings_feedback_desc">実行ログを書き出して開発者に送ると、問題の調査に役立ちます。</string>
+    <string name="settings_export_logs">ログを書き出す</string>
+    <string name="settings_exporting">書き出し中…</string>
+    <string name="settings_export_empty">書き出せるログはまだありません</string>
+    <string name="settings_export_share_title">ログを送信</string>
+    <string name="close">閉じる</string>
+
+    <!-- 首次启动后台保活引导 -->
+    <string name="onboarding_title">コンテナをバックグラウンドで動かし続ける</string>
+    <string name="onboarding_desc">Android、特に中国メーカーの独自 UI はバックグラウンドアプリを積極的に停止します。コンテナと Docker サービスを動かし続けるには、バックグラウンド実行の許可が必要です。以下の 3 ステップを完了してください（後から設定で変更できます）。</string>
+    <string name="onboarding_step_notifications">通知権限</string>
+    <string name="onboarding_step_notifications_desc">常駐サービスの通知を表示します（Android 13 以降は必須）。</string>
+    <string name="onboarding_step_battery">電池の最適化を無効にする</string>
+    <string name="onboarding_step_battery_desc">アプリを電池最適化（Doze）の対象外にし、画面オフでもコンテナが停止しないようにします。</string>
+    <string name="onboarding_step_vendor">メーカーの自動起動設定</string>
+    <string name="onboarding_step_vendor_desc">システムのバックグラウンド設定を開き、このアプリの自動起動とバックグラウンド実行を許可してください。</string>
+    <string name="onboarding_ready_title">準備完了</string>
+    <string name="onboarding_ready_desc">これらの設定は「設定 → バックグラウンド実行」でいつでも変更できます。維持サービスの通知が表示されている間、コンテナはバックグラウンドで動き続けます。</string>
+    <string name="onboarding_status_granted">許可済み</string>
+    <string name="onboarding_action_allow">許可</string>
+    <string name="onboarding_action_request_battery">申請</string>
+    <string name="onboarding_action_open_vendor">設定を開く</string>
+    <string name="onboarding_next">次へ</string>
+    <string name="onboarding_done">使い始める</string>
+
+    <!-- 设置：后台运行保活 -->
+    <string name="settings_keepalive_title">バックグラウンド実行</string>
+    <string name="settings_keepalive_desc">コンテナ実行中はフォアグラウンドサービスで維持します。中国メーカーの独自 UI では、以下の権限も手動で許可する必要があります。</string>
+    <string name="settings_keepalive_battery_ok">電池の最適化：対象外です</string>
+    <string name="settings_keepalive_battery_bad">電池の最適化：対象です。バックグラウンドのコンテナが停止する可能性があります</string>
+    <string name="settings_keepalive_battery_allow">電池最適化の対象外を申請</string>
+    <string name="settings_keepalive_battery_done">対象外</string>
+    <string name="settings_keepalive_service_active">維持サービス実行中：実行中のコンテナ %1$d 個</string>
+    <string name="settings_keepalive_service_idle">実行中のコンテナなし — 維持サービスは自動的に終了します</string>
+    <string name="settings_keepalive_vendor_open">メーカーの自動起動設定</string>
+    <string name="settings_keepalive_replay">バックグラウンドガイドをもう一度見る</string>
+
+    <!-- 厂商 ROM 名称 -->
+    <string name="keepalive_vendor_name_xiaomi">MIUI / HyperOS（Xiaomi、Redmi、POCO）</string>
+    <string name="keepalive_vendor_name_huawei">HarmonyOS / EMUI（HUAWEI）</string>
+    <string name="keepalive_vendor_name_honor">MagicOS（HONOR）</string>
+    <string name="keepalive_vendor_name_oppo">ColorOS（OPPO、OnePlus、realme）</string>
+    <string name="keepalive_vendor_name_vivo">OriginOS / Funtouch（vivo、iQOO）</string>
+    <string name="keepalive_vendor_name_meizu">Flyme（Meizu）</string>
+    <string name="keepalive_vendor_name_samsung">One UI（Samsung）</string>
+    <string name="keepalive_vendor_name_other">Android（標準に近いシステム）</string>
+
+    <!-- 各厂商后台配置步骤与注意事项 -->
+    <string name="keepalive_vendor_steps_xiaomi">• セキュリティ → 自動起動：このアプリを許可\n• セキュリティ → 省電力 → アプリごとの省電力 → このアプリ → 制限なし\n• 最近のタスク：カードを長押し → ロック\n• 機種によっては「バックグラウンド活動を許可」も必要です</string>
+    <string name="keepalive_vendor_steps_huawei">• 設定 → バッテリー → アプリの起動 → このアプリ → 手動管理：自動起動・関連起動・バックグラウンド活動をすべてオン\n• 省電力モードとスリープをオフ\n• 最近のタスク：カードを下にスワイプしてロック</string>
+    <string name="keepalive_vendor_steps_honor">• 設定 → バッテリー → アプリの起動 → このアプリ → 手動管理：自動起動・関連起動・バックグラウンド活動をすべてオン\n• 最近のタスク：カードを下にスワイプしてロック</string>
+    <string name="keepalive_vendor_steps_oppo">• フォンマネージャー → 権限 → 自動起動マネージャー：自動起動と関連起動を許可\n• 設定 → バッテリー → 詳細設定 → 電池最適化 → このアプリ → 最適化しない\n• アプリ情報 → 電池使用量 → バックグラウンド活動を許可\n• 最近のタスク：カードを下にスワイプしてロック</string>
+    <string name="keepalive_vendor_steps_vivo">• i マネージャー → アプリマネージャー → 自動起動マネージャー：自動起動と関連起動を許可\n• 設定 → バッテリー → バックグラウンド電力管理 → 高いバックグラウンド消費を許可\n• 最近のタスク：カードを下にスワイプしてロック</string>
+    <string name="keepalive_vendor_steps_meizu">• フォンマネージャー → 権限 → バックグラウンド管理：バックグラウンド実行と自動起動を許可\n• バッテリー → このアプリのスリープを無効\n• 最近のタスク：カードをロック</string>
+    <string name="keepalive_vendor_steps_samsung">• 設定 → バッテリー → バックグラウンド使用量の制限：このアプリを「スリープ」「ディープスリープ」から外す\n• 設定 → バッテリー → アプリ電力管理 → このアプリ → 制限なし\n• 最近のタスク：カードをロック</string>
+    <string name="keepalive_vendor_steps_other">• 電池最適化の対象外を許可（上のステップ 2）\n• システムに自動起動・バックグラウンド権限のスイッチがあればオン\n• ランチャーが対応していれば最近のタスクでロック</string>
+    <string name="keepalive_note_common">ヒント：最近のタスクからスワイプして強制停止しないでください。フォアグラウンド通知も有効のままにしてください。それでもバックグラウンドで停止する場合は、上記の手順を再確認してください。</string>
+    <!-- 设置：二级页面 -->
+    <string name="settings_back">戻る</string>
+    <string name="settings_group_general">一般</string>
+    <string name="settings_group_advanced">詳細設定</string>
+    <string name="settings_group_about">アプリ情報とヘルプ</string>
+    <string name="settings_entry_nav">開く</string>
+
+    <!-- 设置：容器设置二级页 -->
+    <string name="settings_container_title">コンテナ設定</string>
+    <string name="settings_container_desc">レジストリミラーとコンテナ DNS</string>
+
+    <!-- 设置：远程控制二级页 -->
+    <string name="settings_remote_desc">LAN 上の Web コンソールと Docker API</string>
+
+    <!-- 设置：后台运行二级页 -->
+    <string name="settings_keepalive_entry_desc">バッテリー最適化とメーカー自動起動</string>
+
+    <!-- 设置：帮助与反馈二级页 -->
+    <string name="settings_help_title">ヘルプとフィードバック</string>
+    <string name="settings_help_desc">使い方・不具合報告・実行ログ</string>
+    <string name="settings_help_guide">使い方</string>
+    <string name="settings_help_guide_desc">公式サイトのドキュメント・チュートリアル・FAQ</string>
+    <string name="settings_help_issues">不具合を報告</string>
+    <string name="settings_help_issues_desc">GitHub で不具合や要望を Issue として報告できます</string>
+    <string name="settings_help_logs">実行ログを書き出す</string>
+    <string name="settings_help_logs_desc">ログを添付すると原因の特定が早くなります</string>
+    <string name="settings_help_open_failed">このリンクを開けるアプリがありません</string>
+
+    <!-- 设置：分享应用二级页 -->
+    <string name="settings_share_title">アプリを共有</string>
+    <string name="settings_share_desc">ダウンロード先を友達に共有します</string>
+    <string name="settings_share_url_label">ダウンロードページ</string>
+    <string name="settings_share_copy">リンクをコピー</string>
+    <string name="settings_share_copied">リンクをコピーしました</string>
+    <string name="settings_share_send">共有</string>
+    <string name="settings_share_open">ダウンロードページを開く</string>
+    <string name="settings_share_text">Droid Containers — Android スマホで Docker コンテナを実行（root 不要）。\nダウンロード：%1$s</string>
+    <string name="settings_share_chooser">共有先</string>
+
+    <!-- 设置：概览页状态摘要 -->
+    <string name="settings_summary_off">オフ</string>
+    <string name="settings_summary_remote_web">Web コンソール :%1$d</string>
+    <string name="settings_summary_remote_docker">Docker API :%1$d</string>
+    <string name="settings_summary_remote_both">Web :%1$d · Docker :%2$d</string>
+    <string name="settings_summary_battery_ok">除外済み</string>
+    <string name="settings_summary_battery_bad">未除外</string>
+    <string name="settings_about_version">バージョン %1$s（ビルド %2$d）</string>
+</resources>

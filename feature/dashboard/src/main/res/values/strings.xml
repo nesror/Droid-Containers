@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dashboard_title">Dashboard</string>
+    <string name="dashboard_subtitle">Everything running on this device at a glance.</string>
+    <string name="dashboard_running">Running</string>
+    <string name="dashboard_total">Total containers</string>
+    <string name="dashboard_storage">Storage usage</string>
+    <string name="dashboard_empty">No containers yet. Pull an image from the Images tab to get started.</string>
+    <string name="dashboard_images">Images</string>
+    <string name="dashboard_recent">Recent containers</string>
+</resources>
+

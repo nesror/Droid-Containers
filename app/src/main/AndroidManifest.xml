@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <!-- 容器运行时保活：specialUse 前台服务（targetSdk 35+ dataSync 有 ~6h 上限，容器需长期驻留） -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <!-- 引导用户把应用加入电池优化白名单（系统弹用户确认框，非静默授权） -->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
+    <!-- 前台服务配套 CPU/网络保活：息屏后持 PARTIAL_WAKE_LOCK + WifiLock，避免 Doze 期间入站连接无响应 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:name=".ContainerApp"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:enableOnBackInvokedCallback="true"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:windowSoftInputMode="adjustResize"
+        android:theme="@style/Theme.AndroidContainerMaster">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".DataSyncService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync">
+            <intent-filter>
+                <action android:name="cn.yzapp.androidcontainer.action.PULL" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".ServerService"
+            android:exported="false"
+            android:stopWithTask="false"
+            android:foregroundServiceType="specialUse">
+            <intent-filter>
+                <action android:name="cn.yzapp.androidcontainer.action.REMOTE_START" />
+                <action android:name="cn.yzapp.androidcontainer.action.REMOTE_STOP" />
+            </intent-filter>
+            <!-- API 34+ 要求对 specialUse 用途作声明（远程控制 HTTP 服务长驻）；
+                 dataSync 在 Android 15+ 有 ~6h 上限且超时静默停服，远程控制同样需要长期驻留 -->
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="remote-control-server" />
+        </service>
+
+        <!-- 容器运行时保活前台服务：有 RUNNING 容器时常驻，全部停止后自退 -->
+        <service
+            android:name=".ContainerRuntimeService"
+            android:exported="false"
+            android:stopWithTask="false"
+            android:foregroundServiceType="specialUse">
+            <intent-filter>
+                <action android:name="cn.yzapp.androidcontainer.action.RUNTIME_START" />
+                <action android:name="cn.yzapp.androidcontainer.action.RUNTIME_STOP" />
+                <action android:name="cn.yzapp.androidcontainer.action.RUNTIME_STOP_ALL" />
+            </intent-filter>
+            <!-- API 34+ 要求对 specialUse 用途作声明（容器运行时进程托管） -->
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="container-runtime" />
+        </service>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+    </application>
+
+</manifest>

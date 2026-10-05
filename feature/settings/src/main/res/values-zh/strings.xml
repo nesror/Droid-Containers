@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">设置</string>
+    <string name="settings_mirrors_title">镜像源</string>
+    <string name="settings_mirrors_hint">每行一个镜像源主机</string>
+    <string name="settings_mirrors_probe">测速并按延迟排序</string>
+    <string name="settings_mirrors_probing">测速中…</string>
+    <string name="settings_mirrors_probe_rtt">%1$s — %2$d 毫秒</string>
+    <string name="settings_mirrors_probe_unreachable">%1$s — 不可达</string>
+    <string name="settings_dns_title">容器 DNS</string>
+    <string name="settings_dns_hint">DNS 服务器，如 1.1.1.1</string>
+    <string name="settings_autostart_title">自启容器</string>
+    <string name="settings_autostart_subtitle">应用启动时自动拉起标记为自启的容器</string>
+    <string name="settings_save">保存</string>
+    <string name="settings_saved">已保存</string>
+    <string name="settings_save_empty">镜像源和 DNS 不能为空</string>
+    <string name="settings_remote_title">远程控制</string>
+    <string name="settings_remote_risk">局域网内设备可通过 HTTP 访问本机容器引擎，请仅在可信网络开启。</string>
+    <string name="settings_remote_locked_hint">远程控制属于模板包：解锁后即可在电脑浏览器里管理镜像、容器与编排。</string>
+    <string name="settings_remote_locked_paused">服务已暂停：模板包未解锁，Web 控制台当前不会启动。</string>
+    <string name="settings_remote_unlock">解锁模板包</string>
+    <string name="settings_remote_web">Web 控制台</string>
+    <string name="settings_remote_port_hint">端口（1024–65535）</string>
+    <string name="settings_remote_port_invalid">端口需在 1024–65535 之间</string>
+    <string name="settings_remote_restart_hint">修改端口后需关闭再开启开关生效</string>
+    <string name="settings_remote_token">访问令牌</string>
+    <string name="settings_remote_token_copy">复制</string>
+    <string name="settings_remote_token_copied">已复制</string>
+    <string name="settings_remote_token_reset">重置</string>
+    <string name="settings_remote_lan">局域网地址</string>
+    <string name="settings_remote_lan_unavailable">未检测到局域网地址</string>
+    <string name="settings_remote_docker">Docker API（无鉴权）</string>
+    <string name="settings_remote_docker_risk">docker CLI / Portainer 无法携带令牌：该端口无鉴权，仅限可信局域网。</string>
+    <string name="settings_remote_docker_lan">局域网访问</string>
+    <string name="settings_remote_docker_lan_risk">关闭：该端口只接受本机连接（adb forward 不受影响）。开启：同一网络内任意设备都可在无鉴权状态下控制容器。</string>
+    <string name="settings_remote_docker_lan_confirm_title">将 Docker API 暴露到局域网？</string>
+    <string name="settings_remote_docker_lan_confirm_text">Docker API 端口无鉴权（docker CLI 无法携带令牌）。开启局域网访问后，同一网络内的任何设备都可以创建、启动容器并在其中执行命令。请仅在可信的私人网络中开启。</string>
+    <string name="settings_remote_docker_lan_confirm_ok">暴露到局域网</string>
+    <string name="settings_remote_audit">审计日志</string>
+    <string name="settings_remote_audit_empty">暂无记录</string>
+    <string name="settings_remote_audit_time">时间</string>
+    <string name="settings_feedback_title">问题反馈</string>
+    <string name="settings_feedback_desc">导出运行日志并发送给开发者，便于排查问题。</string>
+    <string name="settings_export_logs">导出日志</string>
+    <string name="settings_exporting">正在导出…</string>
+    <string name="settings_export_empty">暂无可导出的日志</string>
+    <string name="settings_export_share_title">发送日志</string>
+    <string name="close">关闭</string>
+
+    <!-- 首次启动后台保活引导 -->
+    <string name="onboarding_title">让容器在后台持续运行</string>
+    <string name="onboarding_desc">Android 系统以及国内厂商定制 ROM 会积极查杀后台应用。只有授予后台运行权限，容器与 Docker 服务才能在退后台后继续运行。请完成以下三步（之后可在设置中随时修改）。</string>
+    <string name="onboarding_step_notifications">通知权限</string>
+    <string name="onboarding_step_notifications_desc">显示保活前台服务的常驻通知（Android 13 及以上必须授权）。</string>
+    <string name="onboarding_step_battery">忽略电池优化</string>
+    <string name="onboarding_step_battery_desc">将应用加入电池优化白名单，避免熄屏后进入 Doze 模式导致容器被冻结或停止。</string>
+    <string name="onboarding_step_vendor">厂商自启动设置</string>
+    <string name="onboarding_step_vendor_desc">打开本机系统的后台设置页，允许本应用自启动并在后台运行。</string>
+    <string name="onboarding_ready_title">一切就绪</string>
+    <string name="onboarding_ready_desc">以上配置可随时在「设置 → 后台运行」中查看或修改。保活通知显示期间，容器会持续在后台运行。</string>
+    <string name="onboarding_status_granted">已授权</string>
+    <string name="onboarding_action_allow">允许</string>
+    <string name="onboarding_action_request_battery">申请</string>
+    <string name="onboarding_action_open_vendor">打开设置</string>
+    <string name="onboarding_next">下一步</string>
+    <string name="onboarding_done">开始使用</string>
+
+    <!-- 设置：后台运行保活 -->
+    <string name="settings_keepalive_title">后台运行</string>
+    <string name="settings_keepalive_desc">容器运行期间，应用会以前台服务托管保活；国内厂商定制 ROM 还需手动授予以下权限。</string>
+    <string name="settings_keepalive_battery_ok">电池优化：已加白</string>
+    <string name="settings_keepalive_battery_bad">电池优化：未加白，后台容器可能被系统停止</string>
+    <string name="settings_keepalive_battery_allow">申请电池优化白名单</string>
+    <string name="settings_keepalive_battery_done">已加白</string>
+    <string name="settings_keepalive_service_active">保活前台服务运行中：%1$d 个容器正在运行</string>
+    <string name="settings_keepalive_service_idle">当前没有运行中的容器，保活服务会自动退出</string>
+    <string name="settings_keepalive_vendor_open">厂商自启设置</string>
+    <string name="settings_keepalive_replay">重新查看后台运行引导</string>
+
+    <!-- 厂商 ROM 名称 -->
+    <string name="keepalive_vendor_name_xiaomi">MIUI / HyperOS（小米、Redmi、POCO）</string>
+    <string name="keepalive_vendor_name_huawei">HarmonyOS / EMUI（华为）</string>
+    <string name="keepalive_vendor_name_honor">MagicOS（荣耀）</string>
+    <string name="keepalive_vendor_name_oppo">ColorOS（OPPO、一加、realme）</string>
+    <string name="keepalive_vendor_name_vivo">OriginOS / Funtouch（vivo、iQOO）</string>
+    <string name="keepalive_vendor_name_meizu">Flyme（魅族）</string>
+    <string name="keepalive_vendor_name_samsung">One UI（三星）</string>
+    <string name="keepalive_vendor_name_other">Android（类原生系统）</string>
+
+    <!-- 各厂商后台配置步骤与注意事项 -->
+    <string name="keepalive_vendor_steps_xiaomi">• 安全中心 → 自启动管理：允许本应用\n• 安全中心 → 省电策略 → 应用智能省电 → 本应用 → 无限制\n• 最近任务：长按应用卡片 → 加锁\n• 部分机型还需在应用省电策略中开启"允许后台运行"</string>
+    <string name="keepalive_vendor_steps_huawei">• 设置 → 电池 → 启动管理 → 本应用 → 手动管理：自启动、关联启动、后台活动三项全开\n• 关闭省电模式与休眠时长限制\n• 最近任务：下拉应用卡片加锁</string>
+    <string name="keepalive_vendor_steps_honor">• 设置 → 电池 → 启动管理 → 本应用 → 手动管理：自启动、关联启动、后台活动三项全开\n• 最近任务：下拉应用卡片加锁</string>
+    <string name="keepalive_vendor_steps_oppo">• 手机管家 → 权限与隐私 → 自启动管理：允许自启动与关联启动\n• 设置 → 电池 → 更多设置 → 优化电池使用 → 本应用 → 不优化\n• 应用信息 → 耗电管理 → 允许后台运行\n• 最近任务：下拉应用卡片加锁</string>
+    <string name="keepalive_vendor_steps_vivo">• i 管家 → 应用管理 → 自启动管理：允许自启动与关联启动\n• 设置 → 电池 → 后台耗电管理 → 允许后台高耗电\n• 最近任务：下拉应用卡片加锁</string>
+    <string name="keepalive_vendor_steps_meizu">• 手机管家 → 权限管理 → 后台管理：允许后台运行与自启动\n• 电池 → 关闭本应用的应用待机\n• 最近任务：锁定应用卡片</string>
+    <string name="keepalive_vendor_steps_samsung">• 设置 → 电池 → 后台使用限制：将本应用移出"深度休眠应用"与"休眠应用"\n• 设置 → 电池 → 应用电量管理 → 本应用 → 未受限\n• 最近任务：锁定应用卡片</string>
+    <string name="keepalive_vendor_steps_other">• 完成上方第 2 步的电池优化白名单\n• 若系统提供自启动/后台权限开关，请为本应用开启\n• 如启动器支持，请在最近任务中锁定本应用</string>
+    <string name="keepalive_note_common">提示：请勿在最近任务中划掉本应用（会强制停止），并保持前台服务常驻通知开启。若容器仍在后台被停止，请回到上方步骤逐项检查。</string>
+
+    <!-- 设置：二级页面 -->
+    <string name="settings_back">返回</string>
+    <string name="settings_group_general">通用</string>
+    <string name="settings_group_advanced">高级</string>
+    <string name="settings_group_about">关于与帮助</string>
+    <string name="settings_entry_nav">打开</string>
+
+    <!-- 设置：容器设置二级页 -->
+    <string name="settings_container_title">容器设置</string>
+    <string name="settings_container_desc">镜像源与容器 DNS</string>
+
+    <!-- 设置：远程控制二级页 -->
+    <string name="settings_remote_desc">局域网 Web 控制台与 Docker API</string>
+
+    <!-- 设置：后台运行二级页 -->
+    <string name="settings_keepalive_entry_desc">电池优化白名单与厂商自启设置</string>
+
+    <!-- 设置：帮助与反馈二级页 -->
+    <string name="settings_help_title">帮助与反馈</string>
+    <string name="settings_help_desc">使用帮助、问题反馈与运行日志</string>
+    <string name="settings_help_guide">使用帮助</string>
+    <string name="settings_help_guide_desc">官网文档、教程与常见问题</string>
+    <string name="settings_help_issues">问题反馈</string>
+    <string name="settings_help_issues_desc">在 GitHub 上提交 Bug 或功能建议</string>
+    <string name="settings_help_logs">导出运行日志</string>
+    <string name="settings_help_logs_desc">反馈问题时附上日志，便于快速定位</string>
+    <string name="settings_help_open_failed">没有可打开该链接的应用</string>
+
+    <!-- 设置：分享应用二级页 -->
+    <string name="settings_share_title">分享应用</string>
+    <string name="settings_share_desc">把下载地址分享给朋友</string>
+    <string name="settings_share_url_label">下载地址</string>
+    <string name="settings_share_copy">复制链接</string>
+    <string name="settings_share_copied">链接已复制</string>
+    <string name="settings_share_send">分享给好友</string>
+    <string name="settings_share_open">打开下载页</string>
+    <string name="settings_share_text">Droid 容器 —— 在 Android 手机上运行 Docker 容器（免 root）。\n下载地址：%1$s</string>
+    <string name="settings_share_chooser">分享到</string>
+
+    <!-- 设置：概览页状态摘要 -->
+    <string name="settings_summary_off">已关闭</string>
+    <string name="settings_summary_remote_web">Web 控制台 :%1$d</string>
+    <string name="settings_summary_remote_docker">Docker API :%1$d</string>
+    <string name="settings_summary_remote_both">Web :%1$d · Docker :%2$d</string>
+    <string name="settings_summary_battery_ok">已加白</string>
+    <string name="settings_summary_battery_bad">未加白</string>
+    <string name="settings_about_version">版本 %1$s（构建 %2$d）</string>
+</resources>

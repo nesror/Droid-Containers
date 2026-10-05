@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<!-- App 内置终端页（WebView + JS 桥）：与 Web 控制台 /term 静态资产共用同一套 xterm.js 文件。
+     桥协议（feature/containers TerminalBridge）：
+     JS → 原生：AndroidTerm.onReady(cols,rows) / writeB64(b64) / resize(cols,rows)
+     原生 → JS：window.__termWrite(b64) / __termExit(code) / __termError(b64) -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="xterm.min.css">
+<style>
+html,body{margin:0;padding:0;height:100%;background:#0d1117;overflow:hidden}
+#box{width:100%;height:100%}
+</style>
+</head>
+<body>
+<div id="box"></div>
+<script src="xterm.min.js"></script>
+<script src="addon-fit.min.js"></script>
+<script>
+"use strict";
+var term = new Terminal({
+  cursorBlink: true,
+  fontSize: 13,
+  scrollback: 5000,
+  theme: { background: "#0d1117", foreground: "#e6edf3", cursor: "#e6edf3" },
+});
+var fit = new FitAddon.FitAddon();
+term.loadAddon(fit);
+term.open(document.getElementById("box"));
+function doFit() { try { fit.fit(); } catch (e) { /* 容器尺寸未就绪时忽略 */ } }
+doFit();
+
+var enc = new TextEncoder();
+function bytesToB64(bytes) {
+  var s = "";
+  for (var i = 0; i < bytes.length; i++) s += String.fromCharCode(bytes[i]);
+  return btoa(s);
+}
+term.onData(function (d) {
+  if (window.AndroidTerm) AndroidTerm.writeB64(bytesToB64(enc.encode(d)));
+});
+term.onResize(function (size) {
+  if (window.AndroidTerm) AndroidTerm.resize(size.cols, size.rows);
+});
+window.addEventListener("resize", function () {
+  doFit();
+  if (window.AndroidTerm) AndroidTerm.resize(term.cols, term.rows);
+});
+
+function writeB64(b64str) {
+  var bin = atob(b64str);
+  var bytes = new Uint8Array(bin.length);
+  for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  term.write(bytes);
+}
+window.__termWrite = writeB64;
+window.__termExit = function (code) {
+  term.write("\r\n\x1b[33mexit " + code + "\x1b[0m\r\n");
+};
+window.__termError = writeB64;
+
+if (window.AndroidTerm) AndroidTerm.onReady(term.cols, term.rows);
+</script>
+</body>
+</html>

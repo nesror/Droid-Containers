@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="containers_title">Containers</string>
+    <string name="containers_subtitle">Single containers you run one by one.</string>
+    <plurals name="containers_count">
+        <item quantity="one">%1$d container</item>
+        <item quantity="other">%1$d containers</item>
+    </plurals>
+    <string name="containers_create">New container</string>
+    <string name="containers_cancel">Cancel</string>
+    <string name="containers_name">Container name</string>
+    <string name="containers_image">Image reference</string>
+    <string name="containers_start">Start</string>
+    <string name="containers_stop">Stop</string>
+    <string name="containers_delete">Delete</string>
+    <string name="containers_logs">Logs</string>
+    <string name="containers_hide_logs">Hide logs</string>
+    <string name="containers_running">Running</string>
+    <string name="containers_stopped">Stopped</string>
+    <string name="containers_empty">No containers yet. Pull an image first, then create one here.</string>
+    <string name="containers_autostart">Auto-start with app</string>
+    <string name="containers_exec_hint">Command</string>
+    <string name="containers_exec_send">Send</string>
+    <string name="containers_terminal">Terminal</string>
+    <string name="term_keys_toggle_keyboard">Show / hide keyboard</string>
+    <string name="containers_docker_hint">Create from docker command</string>
+    <string name="containers_docker_placeholder">docker run -d --name web -p 8080:80 nginx</string>
+    <string name="containers_docker_paste">Paste</string>
+    <string name="containers_docker_parse">Parse &amp; fill</string>
+    <string name="containers_docker_parse_ok">Command parsed. Name, image and auto-start filled below.</string>
+    <string name="containers_docker_unsupported">Unsupported options ignored: %1$s</string>
+    <string name="containers_docker_parse_fail">Not a valid docker run command.</string>
+    <string name="containers_open_browser">Browser</string>
+    <string name="containers_ports_title">Container web pages</string>
+    <string name="containers_ports_empty">No ports saved yet. Enter the port your web service listens on.</string>
+    <string name="containers_ports_hint">Port number</string>
+    <string name="containers_ports_open">Open</string>
+    <string name="containers_ports_remove">Remove port</string>
+    <string name="containers_ports_url">http://127.0.0.1:%1$d</string>
+
+    <!-- ==================== Compose recommendation ==================== -->
+
+    <string name="containers_recommend_compose_title">Try Compose orchestration</string>
+    <string name="containers_recommend_compose_desc">Run several services together as one stack. Their images are pulled automatically, so a single Up gets everything running.</string>
+    <string name="containers_compose_managed">Managed by a Compose project</string>
+</resources>
+

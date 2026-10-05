@@ -1,0 +1,27 @@
+id: hello-world
+category: other
+order: 1000
+risk: verified
+premium: false
+name:
+  en: Hello World
+  zh: 你好世界
+  ru: Привет, мир
+  ja: ハローワールド
+desc:
+  en: A minimal nginx web server serving a static welcome page on port 8080. Use this template as the starting point to learn how template files are written.
+  zh: 在 8080 端口提供静态欢迎页的最小 nginx 服务。把它当作学习模板编写的起点。
+  ru: Минимальный веб-сервер nginx со статической страницей приветствия на порту 8080. Используйте как отправную точку для написания своих шаблонов.
+  ja: ポート 8080 で静的ウェルカムページを配信する最小限の nginx サーバー。テンプレート作成の出発点としてご利用ください。
+notes:
+  - port_direct
+webPorts:
+  - 8080
+compose: |
+  services:
+    hello:
+      image: nginx:alpine
+      restart: unless-stopped
+      ports:
+        - "8080:8080"
+      command: /bin/sh -c "sed -i 's/listen       80;/listen       8080;/' /etc/nginx/conf.d/default.conf && echo '<h1>Hello from Droid Containers!</h1>' > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'"

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="compose_title">Compose</string>
+    <string name="compose_new_project">Новый проект</string>
+    <string name="compose_subtitle">Описывайте стек из нескольких контейнеров в одном compose-файле.</string>
+    <plurals name="compose_project_count">
+        <item quantity="one">%1$d проект</item>
+        <item quantity="few">%1$d проекта</item>
+        <item quantity="many">%1$d проектов</item>
+        <item quantity="other">%1$d проекта</item>
+    </plurals>
+    <string name="compose_editor_new_title">Новый проект</string>
+    <string name="compose_editor_edit_title">Изменение проекта</string>
+    <string name="compose_project_name">Имя проекта</string>
+    <string name="compose_yaml">compose YAML</string>
+    <string name="compose_import">Импорт YAML</string>
+    <string name="compose_sample">Вставить пример</string>
+    <string name="compose_save">Сохранить</string>
+    <string name="compose_cancel">Отмена</string>
+    <string name="compose_confirm">Подтвердить</string>
+    <string name="compose_edit">Изменить</string>
+    <string name="compose_delete">Удалить</string>
+    <string name="compose_detail">Подробнее</string>
+    <string name="compose_back">Назад</string>
+    <string name="compose_up">Запустить все</string>
+    <string name="compose_down">Остановить все</string>
+    <plurals name="compose_service_count">
+        <item quantity="one">%1$d сервис</item>
+        <item quantity="few">%1$d сервиса</item>
+        <item quantity="many">%1$d сервисов</item>
+        <item quantity="other">%1$d сервиса</item>
+    </plurals>
+    <string name="compose_parse_ok">Разбор успешен · сервисы: %1$s</string>
+    <string name="compose_parse_error">Ошибка разбора: %1$s</string>
+    <string name="compose_issues">Замечания по совместимости</string>
+    <string name="compose_line">Стр. %1$d</string>
+    <string name="compose_empty">Проектов пока нет. Начните со встроенного примера или импортируйте compose YAML.</string>
+    <string name="compose_state_running">Все запущены</string>
+    <string name="compose_state_partial">Частично запущены</string>
+    <string name="compose_state_stopped">Остановлено</string>
+    <string name="compose_state_not_created">Не создано</string>
+    <string name="compose_state_starting">Запуск</string>
+    <string name="compose_open_browser">Браузер</string>
+    <string name="compose_ports_url">http://127.0.0.1:%1$d</string>
+    <string name="compose_service_image">Образ: %1$s</string>
+    <string name="compose_service_depends">Зависит от: %1$s</string>
+    <string name="compose_service_ports">Порты (только справка): %1$s</string>
+    <string name="compose_running">Работает</string>
+    <string name="compose_stopped">Остановлен</string>
+    <string name="compose_start">Запустить</string>
+    <string name="compose_stop">Остановить</string>
+    <string name="compose_logs">Логи</string>
+    <string name="compose_hide_logs">Скрыть логи</string>
+    <string name="compose_not_created_hint">Контейнер ещё не создан — нажмите «Запустить все».</string>
+    <string name="compose_ports_note">Порты не пробрасываются: сервис на порту N доступен по 127.0.0.1:N.</string>
+    <string name="compose_delete_confirm_title">Удалить проект</string>
+    <string name="compose_delete_confirm_message">Все контейнеры «%1$s» будут остановлены и удалены.</string>
+    <string name="compose_import_failed">Ошибка импорта: %1$s</string>
+    <string name="compose_import_failed_empty">Ошибка импорта: файл пуст</string>
+    <string name="compose_parse_unknown">Неизвестная ошибка разбора</string>
+
+    <!-- ==================== Библиотека шаблонов ==================== -->
+
+    <string name="compose_templates_entry">Шаблоны</string>
+    <string name="compose_templates_title">Библиотека шаблонов</string>
+    <string name="compose_templates_subtitle">Готовые наборы: выберите подходящий и запустите за минуту.</string>
+    <string name="compose_templates_free_hint">Хотите написать сами? Редактирование и импорт YAML остаются бесплатными — шаблоны лишь экономят время.</string>
+    <string name="compose_templates_unlock_all">Открыть все шаблоны</string>
+    <string name="compose_tpl_category_other">Другое</string>
+    <string name="compose_tpl_badge_free">Бесплатно</string>
+    <string name="compose_tpl_badge_pro">Pro</string>
+    <string name="compose_tpl_locked_hint">Купите набор шаблонов, чтобы использовать этот шаблон.</string>
+    <string name="compose_tpl_services_label">Сервисы</string>
+    <string name="compose_tpl_notes_label">Полезно знать</string>
+    <string name="compose_tpl_yaml_preview">Просмотр YAML</string>
+    <string name="compose_tpl_use">Использовать шаблон</string>
+    <string name="compose_tpl_use_dialog_title">Назовите проект</string>
+    <string name="compose_tpl_use_dialog_desc">Шаблон будет скопирован в новый проект; перед сохранением YAML можно изменить.</string>
+    <string name="compose_tpl_unknown_name">Шаблон</string>
+    <string name="compose_tpl_service_ports">Порты: %1$s</string>
+    <string name="compose_tpl_yaml_copy">Скопировать YAML</string>
+    <string name="compose_tpl_yaml_copied">YAML скопирован в буфер обмена</string>
+
+
+
+    <!-- ==================== Набор шаблонов (разовая покупка) ==================== -->
+
+    <string name="pro_title">Набор шаблонов</string>
+    <string name="pro_subtitle">Разовая покупка открывает все шаблоны библиотеки.</string>
+    <string name="pro_benefit_all">Все шаблоны библиотеки</string>
+    <string name="pro_benefit_future">Шаблоны, добавленные в будущих версиях</string>
+    <string name="pro_benefit_permanent">Бессрочно и привязано к вашему аккаунту Google Play. Это не подписка.</string>
+    <string name="pro_price">Цена: %1$s</string>
+    <string name="pro_price_loading">Загрузка цены…</string>
+    <string name="pro_buy">Разблокировать</string>
+    <string name="pro_restore">Восстановить покупку</string>
+    <string name="pro_owned">Разблокировано</string>
+    <string name="pro_purchased_toast">Спасибо! Все шаблоны разблокированы.</string>
+    <string name="pro_offline_note">Статус покупки хранится на устройстве, поэтому шаблоны работают и офлайн.</string>
+    <string name="pro_error_unavailable">Google Play недоступен на этом устройстве, поэтому покупку здесь совершить нельзя. Вы по-прежнему можете бесплатно писать или импортировать свой compose YAML.</string>
+    <string name="pro_error_network">Не удалось связаться с Google Play. Проверьте сеть и повторите попытку.</string>
+    <string name="pro_error_item_unavailable">Этот товар сейчас недоступен для вашего аккаунта. Попробуйте позже.</string>
+    <string name="pro_error_already_owned">Вы уже приобрели этот товар — нажмите «Восстановить покупку».</string>
+    <string name="pro_error_cancelled">Покупка отменена. Вы можете разблокировать шаблоны в любой момент.</string>
+    <string name="pro_error_nothing_to_restore">Для этого аккаунта Google Play покупка не найдена. Если вы покупали набор шаблонов ранее, убедитесь, что вошли в тот же аккаунт.</string>
+    <string name="pro_error_generic">Не удалось завершить покупку: %1$s</string>
+</resources>

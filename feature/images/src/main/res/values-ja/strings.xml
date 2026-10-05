@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="images_title">イメージ</string>
+    <string name="images_subtitle">取得したイメージは端末に保存され、コンテナから再利用されます。</string>
+    <plurals name="images_count">
+        <item quantity="other">%1$d 個のイメージ</item>
+    </plurals>
+    <string name="images_input_hint">イメージ参照</string>
+    <string name="images_pull">取得</string>
+    <string name="images_inventory_title">ダウンロード済み</string>
+    <string name="images_empty_inventory">まだイメージはありません。参照を入力して取得しましょう。</string>
+    <string name="images_stage_resolving">マニフェスト解析</string>
+    <string name="images_stage_downloading">レイヤー取得</string>
+    <string name="images_stage_extracting">展開</string>
+    <string name="images_stage_done">完了</string>
+    <string name="images_stage_failed">失敗</string>
+    <string name="images_delete">削除</string>
+
+    <!-- ==================== 編成機能のおすすめ ==================== -->
+
+    <string name="images_recommend_compose_title">イメージの取得は Compose におまかせ</string>
+    <string name="images_recommend_compose_desc">Compose プロジェクトでサービスを定義して「Up」を押すと、必要なイメージが自動でダウンロードされます。ここで1つずつ取得する必要はありません。</string>
+    <string name="images_import">docker save アーカイブを読み込む（.tar）</string>
+    <string name="images_importing">読み込み中…</string>
+    <string name="images_import_success">読み込み完了：%1$s</string>
+    <string name="images_import_failed_empty">選択したファイルが空です</string>
+    <string name="images_import_failed">読み込み失敗：%1$s</string>
+</resources>

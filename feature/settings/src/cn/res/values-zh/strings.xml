@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 检查更新（仅 cn 渠道源集，global 不打包） -->
+    <string name="settings_update_title">检查更新</string>
+    <string name="settings_update_desc">检查 GitHub Releases 上的新版本</string>
+    <string name="settings_update_checking">检查中…</string>
+    <string name="settings_update_dialog_title">发现新版本 %1$s</string>
+    <string name="settings_update_dialog_no_changelog">该版本未提供更新日志。</string>
+    <string name="settings_update_dialog_download">前往下载</string>
+    <string name="settings_update_dialog_later">以后再说</string>
+    <string name="settings_update_latest_title">已是最新版本</string>
+    <string name="settings_update_latest_text">当前已是最新版本，无需更新。</string>
+    <string name="settings_update_failed_title">检查更新失败</string>
+    <string name="settings_update_failed_reason">原因：%1$s</string>
+    <string name="settings_update_ok">确定</string>
+</resources>

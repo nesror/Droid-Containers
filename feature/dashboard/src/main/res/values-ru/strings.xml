@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dashboard_title">Панель</string>
+    <string name="dashboard_subtitle">Всё, что работает на этом устройстве, — на одном экране.</string>
+    <string name="dashboard_running">Запущено</string>
+    <string name="dashboard_total">Всего контейнеров</string>
+    <string name="dashboard_storage">Хранилище</string>
+    <string name="dashboard_empty">Контейнеров пока нет. Загрузите образ на вкладке «Образы», чтобы начать.</string>
+    <string name="dashboard_images">Образы</string>
+    <string name="dashboard_recent">Недавние контейнеры</string>
+</resources>
+

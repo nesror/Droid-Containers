@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- API 28+：配合 edge-to-edge 允许窗口延伸进刘海区，横屏不再被刘海切出一块黑边；
+     水平方向的刘海避让由 Compose 侧 safeDrawing 水平 insets 处理（Navigation.kt / SecondaryScaffold）。 -->
+<resources>
+    <style name="Theme.AndroidContainerMaster" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+    </style>
+</resources>

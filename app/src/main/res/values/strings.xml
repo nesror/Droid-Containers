@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Droid Containers</string>
+    <string name="nav_dashboard">Dashboard</string>
+    <string name="nav_images">Images</string>
+    <string name="nav_containers">Containers</string>
+    <string name="nav_compose">Compose</string>
+    <string name="nav_settings">Settings</string>
+    <string name="notif_channel_name">Image sync</string>
+    <string name="notif_pull_started">Pull started</string>
+    <string name="notif_pull_running">Pulling image</string>
+    <string name="notif_pull_done">Pull finished</string>
+    <string name="notif_pull_failed">Pull failed</string>
+    <string name="notif_remote_channel">Remote control</string>
+    <string name="notif_remote_title">Remote control running</string>
+    <string name="notif_remote_starting">Starting…</string>
+    <string name="notif_remote_failed">Failed to start: %1$s</string>
+    <string name="notif_runtime_channel">Container runtime</string>
+    <string name="notif_runtime_title">Containers running</string>
+    <string name="notif_runtime_text">%1$d container(s) running in background</string>
+    <string name="notif_runtime_starting">Starting container runtime…</string>
+    <string name="notif_runtime_stop_all">Stop all</string>
+</resources>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dashboard_title">仪表盘</string>
+    <string name="dashboard_subtitle">一眼看清设备上正在运行的内容。</string>
+    <string name="dashboard_running">运行中</string>
+    <string name="dashboard_total">全部容器</string>
+    <string name="dashboard_storage">存储用量</string>
+    <string name="dashboard_empty">暂无容器。先到「镜像」页拉取镜像即可开始。</string>
+    <string name="dashboard_images">镜像数</string>
+    <string name="dashboard_recent">最近容器</string>
+</resources>
+
