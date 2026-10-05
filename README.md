@@ -1,4 +1,4 @@
-# Android容器大师 (Droid Containers)
+# Droid 容器 (Droid Containers)
 
 > Google Play 应用名：**Droid Containers**（en/ru）、Droid 容器（zh）、ドロイドコンテナ（ja）
 
@@ -164,7 +164,7 @@ proot 运行时二进制由 [`tool/fetch_proot_runtime.py`](tool/fetch_proot_run
 
 本项目源码以 [PolyForm Noncommercial 1.0.0](LICENSE) 许可发布：**可自由使用、修改、分发，但不得用于商业目的**；商业使用请联系作者另行授权。
 
-- 应用名（Droid Containers / Android容器大师）与图标**不随源码授权**，重新分发的构建产物不得冒用该品牌上架应用商店。
+- 应用名（Droid 容器 / Droid Containers）与图标**不随源码授权**，重新分发的构建产物不得冒用该品牌上架应用商店。
 - 应用商店版内置的编排模板与签名密钥不随源码分发。
 
 ## 💬 反馈与支持

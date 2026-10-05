@@ -155,7 +155,7 @@ object AppLogger {
             val out = File(dir, "acm-logs-${System.currentTimeMillis()}.txt")
             out.outputStream().use { outStream ->
                 val writer = outStream.bufferedWriter()
-                writer.appendLine("== Android Container Master diagnostics ==")
+                writer.appendLine("== Droid Containers diagnostics ==")
                 writer.appendLine("time: ${timeFormat.format(java.time.Instant.now())}")
                 writer.appendLine("version: $appVersionName ($appVersionCode)")
                 writer.appendLine("device: ${Build.MANUFACTURER} ${Build.MODEL}")

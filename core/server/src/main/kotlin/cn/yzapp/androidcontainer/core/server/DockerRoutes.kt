@@ -35,7 +35,7 @@ internal fun Route.dockerApi(images: ImageRepository, containers: ContainerRepos
         call.response.dockerHeaders()
         call.respondText(
             buildJsonObject {
-                put("Platform", buildJsonObject { put("Name", "Android Container Master (proot)") })
+                put("Platform", buildJsonObject { put("Name", "Droid Containers (proot)") })
                 put("Components", buildJsonArray {
                     add(buildJsonObject {
                         put("Name", "Engine")
