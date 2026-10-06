@@ -1,175 +1,177 @@
-# Droid 容器 (Droid Containers)
+# Droid Containers (Droid 容器)
 
-> Google Play 应用名：**Droid Containers**（en/ru）、Droid 容器（zh）、ドロイドコンテナ（ja）
+English | [简体中文](README.zh-CN.md)
 
-在 Android 设备上**无需 root、无需 Termux**，以独立 App 的形态拉取、管理、运行 Docker 镜像的容器工具。
+> Google Play listing name: **Droid Containers** (en/ru), Droid 容器 (zh), ドロイドコンテナ (ja)
 
-基于 **proot 用户态容器**（ptrace 实现文件系统隔离），将 Docker 风格的命令语义（pull / run / ps / logs / exec / rm / compose）带入原生 Android App，UI 遵循 Google 推荐架构，全程 Jetpack Compose + Material 3。
+Run Docker images on Android **without root and without Termux** — a standalone app that pulls, manages and runs containers.
 
-## 📲 下载安装（欢迎使用正式版）
+Built on **proot user-space containers** (filesystem isolation via ptrace), it brings Docker-style command semantics (pull / run / ps / logs / exec / rm / compose) to a native Android app, following Google's recommended architecture with Jetpack Compose + Material 3 throughout.
 
-欢迎下载 Google Play 正式版使用——开箱即用、内置 **22 个真机验证过的编排模板**（Home Assistant、n8n、code-server、Vaultwarden 等），无需自行构建：
+## 📲 Download (try the release build)
 
-| 渠道 | 链接 |
+Grab the official Google Play build — ready to use, with **22 orchestration templates verified on real devices** (Home Assistant, n8n, code-server, Vaultwarden and more), no need to build it yourself:
+
+| Channel | Link |
 | --- | --- |
-| 🟢 **Google Play（推荐）** | [play.google.com/store/apps/details?id=cn.yzapp.androidcontainer](https://play.google.com/store/apps/details?id=cn.yzapp.androidcontainer) |
-| 🌐 官网（教程 / 隐私政策 / 反馈） | [https://191005.xyz/](https://191005.xyz/) |
+| 🟢 **Google Play (recommended)** | [play.google.com/store/apps/details?id=cn.yzapp.androidcontainer](https://play.google.com/store/apps/details?id=cn.yzapp.androidcontainer) |
+| 🌐 Website (tutorials / privacy policy / feedback) | [https://191005.xyz/](https://191005.xyz/) |
 
-> 本仓库源码构建的 APK 功能完整但**不含内置模板库**；正式版随版本持续更新，还请以商店渠道为准。
+> An APK built from this repository is fully functional but **ships without the built-in template catalog**; the store build is continuously updated, so prefer it for daily use.
 
-> 📄 模板编写规范见 [`docs/template_authoring_guide.md`](docs/template_authoring_guide.md)；字段齐全的示例模板见 [`core/engine/src/test/resources/examples/hello-world.yaml`](core/engine/src/test/resources/examples/hello-world.yaml)
+> 📄 Template authoring guide: [`docs/template_authoring_guide.md`](docs/template_authoring_guide.md); a fully annotated example template: [`core/engine/src/test/resources/examples/hello-world.yaml`](core/engine/src/test/resources/examples/hello-world.yaml)
 
-## ✨ 功能特性
+## ✨ Features
 
-| 功能 | 说明 |
+| Feature | Description |
 | --- | --- |
-| 🖼️ 镜像拉取 | 纯 Kotlin 实现 OCI Registry V2 客户端，逐层流式下载、断点续传、层缓存，拉取进度实时可见 |
-| 🔄 镜像源回退 | 内置多候选源（1ms / DaoCloud / 官方源等），失败自动切换下一个，支持自定义源置顶 |
-| 📦 容器管理 | 创建 / 启动 / 停止 / 删除容器，僵尸 RUNNING 状态自动校正，统一错误条 |
-| 💻 交互终端 | 基于 termux-app 的 terminal-view + terminal-emulator，容器内 `exec` 交互式 Shell |
-| 🧩 编排（compose） | App 内的 docker compose 等价物：YAML 描述一组服务，一键 up/down，依赖拓扑排序、失败回滚 |
-| 🌐 远程控制（M8） | App 内嵌 Ktor HTTP 服务（前台服务保活）：浏览器打开 `http://<手机IP>:<端口>`，输入 token 登录 Web 控制台（仪表盘/镜像/容器/编排/审计五页，拉取进度 SSE、日志跟随）；REST `/api/v1/*`（Bearer 鉴权） |
-| 🐳 Docker 兼容（M9） | Docker Engine API 子集（v1.43）：`docker -H tcp://<手机IP>:<端口> ps/run/stop/rm/pull/logs/exec`，Portainer 可作 Endpoint 直连；proot 语义差异（无命名空间、端口共享宿主栈）在 `/info` 以 `Proot:true` 明示 |
-| ⚙️ 设置 | DataStore 持久化：镜像源、DNS、自启策略、远程控制（Web/Docker 双开关、端口、API Token、审计日志） |
-| 🌍 四语言 | 默认英文，内置简体中文 / 俄语 / 日语 |
+| 🖼️ Image pull | OCI Registry V2 client in pure Kotlin: layered streaming download, resumable transfers, layer cache, live progress |
+| 🔄 Registry fallback | Built-in multi-registry candidates (1ms / DaoCloud / Docker Hub etc.), automatic failover, custom mirrors pinned on top |
+| 📦 Container management | Create / start / stop / remove containers, zombie RUNNING auto-correction, unified error banner |
+| 💻 Interactive terminal | termux-app `terminal-view` + `terminal-emulator`, interactive `exec` shell inside the container |
+| 🧩 Orchestration (compose) | A docker compose equivalent in-app: describe services in YAML, one-tap up/down, dependency topological sort, rollback on failure |
+| 🌐 Remote control (M8) | Embedded Ktor HTTP server (foreground-service keep-alive): open `http://<phone-ip>:<port>` in a browser, sign in with a token to the web console (dashboard / images / containers / compose / audit); REST `/api/v1/*` (Bearer auth) |
+| 🐳 Docker compatibility (M9) | Docker Engine API subset (v1.43): `docker -H tcp://<phone-ip>:<port> ps/run/stop/rm/pull/logs/exec`, works as a Portainer endpoint; proot semantics (no namespaces, ports shared with the host stack) are disclosed via `Proot:true` in `/info` |
+| ⚙️ Settings | DataStore persistence: registries, DNS, auto-start policy, remote control (Web/Docker switches, ports, API token, audit log) |
+| 🌍 Four languages | English by default, with Simplified Chinese / Russian / Japanese built in |
 
-## 📱 系统要求
+## 📱 System requirements
 
-- **Android 8.0+（API 26）**
-- **仅 64 位**：arm64-v8a / x86_64（主流镜像仅提供 64 位，32 位设备直接报 `unsupportedDevice`）
-- 无需 root
+- **Android 8.0+ (API 26)**
+- **64-bit only**: arm64-v8a / x86_64 (mainstream images ship 64-bit only; 32-bit devices fail with `unsupportedDevice`)
+- No root required
 
-## 🏗️ 架构
+## 🏗️ Architecture
 
-采用 Google 官方推荐架构（UI Layer → Domain Layer → Data Layer + 单向数据流 UDF）：
+Follows Google's recommended architecture (UI Layer → Domain Layer → Data Layer + unidirectional data flow):
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│ UI Layer（Compose + Material 3）                          │
-│   Screen（无状态） ←→ ViewModel（StateFlow 暴露 UI 状态）   │
+│ UI Layer (Compose + Material 3)                          │
+│   Screen (stateless) ←→ ViewModel (StateFlow UI state)   │
 ├─────────────────────────────────────────────────────────┤
-│ Domain Layer（UseCase：复杂业务编排，纯 Kotlin）            │
+│ Domain Layer (use cases: complex flows, pure Kotlin)     │
 ├─────────────────────────────────────────────────────────┤
-│ Data Layer（Repository 接口 + 实现，Hilt 注入）             │
+│ Data Layer (repository interfaces + impls, Hilt)         │
 ├─────────────────────────────────────────────────────────┤
-│ 容器引擎 core:engine（本项目核心资产）                      │
+│ Container engine core:engine (the core of this project)  │
 │   OciRegistryClient / TarExtractor / ProotRuntime        │
 │   / ContainerProcessManager / ComposeParser              │
 ├─────────────────────────────────────────────────────────┤
-│ 原生层：proot（jniLibs 分发）+ zstd-jni + Room/DataStore   │
+│ Native: proot (shipped via jniLibs) + zstd-jni + Room    │
 └─────────────────────────────────────────────────────────┘
 ```
 
-### 模块划分
+### Module layout
 
 ```
-├─ app/                        # 壳工程：导航、主题、Hilt 入口
+├─ app/                        # shell: navigation, theme, Hilt entry
 ├─ core/
-│  ├─ designsystem/            # Material 3 主题、通用组件（ProgressCard、LogViewer、Terminal）
-│  ├─ model/                   # 纯 Kotlin 数据模型（Image、Container、PullProgress…）
-│  ├─ common/                  # 调度器、Result 封装、ABI 检测等工具
-│  ├─ data/                    # Repository 实现 + Room + DataStore
-│  ├─ network/                 # OkHttp 基础配置（含镜像源回退调度）
-│  └─ engine/                  # ★ 容器引擎：OCI 拉取 / tar 解压 / proot 运行时
+│  ├─ designsystem/            # Material 3 theme, shared components (ProgressCard, LogViewer, Terminal)
+│  ├─ model/                   # pure-Kotlin data models (Image, Container, PullProgress…)
+│  ├─ common/                  # dispatchers, Result wrappers, ABI detection
+│  ├─ data/                    # repository impls + Room + DataStore
+│  ├─ network/                 # OkHttp base config (registry fallback scheduling)
+│  └─ engine/                  # ★ container engine: OCI pull / tar extraction / proot runtime
 └─ feature/
    ├─ dashboard/  ├─ images/  ├─ containers/  ├─ compose/  └─ settings/
 ```
 
-依赖方向：`feature → core:{data,model,designsystem,common} → core:engine`；`app` 组装全部。`core:model` 与 Domain 层保持纯 Kotlin（JVM 模块），便于单测。
+Dependency direction: `feature → core:{data,model,designsystem,common} → core:engine`; `app` assembles everything. `core:model` and the Domain layer stay pure Kotlin (JVM modules) for easy unit testing.
 
-## 🛠️ 技术栈
+## 🛠️ Tech stack
 
-| 维度 | 选型 |
+| Aspect | Choice |
 | --- | --- |
-| 语言 / 构建 | Kotlin 2.x，Version Catalog（`libs.versions.toml`），JVM 17 |
-| UI | Jetpack Compose + Material 3（NavigationSuiteScaffold 适配手机/平板/桌面） |
-| 架构组件 | ViewModel、Navigation 3、`collectAsStateWithLifecycle` |
+| Language / build | Kotlin 2.x, Version Catalog (`libs.versions.toml`), JVM 17 |
+| UI | Jetpack Compose + Material 3 (NavigationSuiteScaffold adapts to phone / tablet / desktop) |
+| Architecture components | ViewModel, Navigation 3, `collectAsStateWithLifecycle` |
 | DI | Hilt |
-| 异步 | Coroutines + Flow，拉取/解压进度用 `SharedFlow`（前台服务与 UI 共享） |
-| 持久化 | Room（镜像/容器/编排项目元数据）+ DataStore-Preferences（设置） |
-| 网络 | OkHttp + 手写 Registry V2 客户端 |
-| YAML | kaml（docker compose 解析） |
-| 终端 | termux-app 的 `terminal-view` + `terminal-emulator`（Apache-2.0） |
+| Async | Coroutines + Flow; pull/extract progress via `SharedFlow` (shared with the foreground service) |
+| Persistence | Room (image / container / compose-project metadata) + DataStore-Preferences (settings) |
+| Networking | OkHttp + hand-written Registry V2 client |
+| YAML | kaml (docker compose parsing) |
+| Terminal | termux-app `terminal-view` + `terminal-emulator` (Apache-2.0) |
 | zstd | `com.github.luben:zstd-jni` |
-| 测试 | JUnit + Turbine + Robolectric（引擎层文件操作） |
+| Testing | JUnit + Turbine + Robolectric (engine file operations) |
 
-## 🚀 构建
+## 🚀 Build
 
-环境要求：**JDK 17**、Android SDK（compileSdk 37）。
+Requirements: **JDK 17**, Android SDK (compileSdk 37).
 
 ```bash
-# Debug 构建（app 模块带渠道 flavor：global=Play 版，cn=国内版）
+# Debug build (the app module has a channel flavor: global = Play, cn = China)
 ./gradlew assembleGlobalDebug
 
-# 安装到已连接设备
+# Install on a connected device
 ./gradlew installGlobalDebug
 
-# 运行全部单测
+# Run all unit tests
 ./gradlew test
 ```
 
-> 💡 Windows 下若 `gradlew` 无执行位，可用 `sh ./gradlew ...` 调用。
+> 💡 On Windows, if `gradlew` lacks the executable bit, call it with `sh ./gradlew ...`.
 
-### 引擎相关的打包约束（重要）
+### Engine packaging constraints (important)
 
-proot 需要在运行时 `exec`，因此 `app` 模块必须配置（`core:engine` 内配置不会传导到 APK）：
+proot must `exec` at runtime, so the `app` module must configure (a `core:engine`-level setting does not propagate into the APK):
 
 ```kotlin
 packaging {
     jniLibs {
-        useLegacyPackaging = true                  // 必须解压到磁盘才能 exec
-        keepDebugSymbols += "**/libproot.so"       // 阻止 AGP strip 破坏可执行性
+        useLegacyPackaging = true                  // must be extracted to disk for exec
+        keepDebugSymbols += "**/libproot.so"       // keep AGP from stripping executability away
         keepDebugSymbols += "**/libproot_loader.so"
     }
 }
 ```
 
-proot 运行时二进制由 [`tool/fetch_proot_runtime.py`](tool/fetch_proot_runtime.py) 获取并预处理，**产物已随 jniLibs 入库**，常规构建无需再执行脚本。脚本所做的处理：
+The proot runtime binaries are fetched and preprocessed by [`tool/fetch_proot_runtime.py`](tool/fetch_proot_runtime.py); **the artifacts are committed under jniLibs**, so regular builds don't need to run the script. What it does:
 
-1. **ELF 动态依赖改名**：proot 的 `DT_NEEDED` 为 `libtalloc.so.2`，jniLibs 只认 `.so` 结尾——在 `.dynstr` 中原位改写为 `libtalloc.so`；
-2. **loader 路径覆盖**：编译期写死的 Termux loader 路径通过 `PROOT_LOADER` 环境变量指向 `nativeLibraryDir`；
-3. **架构校验**：按 ELF `e_machine` 校验，防止错误架构产物入库；
-4. proot 硬依赖 `libandroid-shmem.so`，脚本已一并处理。
+1. **ELF dynamic-dependency rename**: proot's `DT_NEEDED` is `libtalloc.so.2`, but jniLibs only accepts names ending in `.so` — rewritten in place inside `.dynstr` to `libtalloc.so`;
+2. **Loader path override**: the compile-time Termux loader path is redirected to `nativeLibraryDir` via the `PROOT_LOADER` environment variable;
+3. **Architecture check**: validated by ELF `e_machine` to keep wrong-arch artifacts out;
+4. proot hard-depends on `libandroid-shmem.so`, also handled by the script.
 
-## 📊 项目进度
+## 📊 Project status
 
-| 里程碑 | 内容 | 状态 |
+| Milestone | Scope | Status |
 | --- | --- | --- |
-| M1 | 多模块脚手架、设计系统、NavigationSuiteScaffold 五页导航、四语言 | ✅ |
-| M2 | tar 解压器、OCI Registry 客户端、proot 运行时（argv/环境注入、先子后父停止） | ✅ |
-| M3 | PullEngine（逐源回退/层缓存/进度流）、dataSync 前台服务、Room 库存、镜像页 | ✅ |
-| M4 | proot 二进制 jniLibs 落盘（DT_NEEDED 改名）、ContainerManager、容器页 | ✅ |
-| M5 | 设置页（DataStore）、exec 终端、自启策略 | ✅ |
-| M6 | 统一错误条、僵尸 RUNNING 状态校正、仪表盘真实化 | ✅ |
-| M7 | 编排页（compose）阶段一 | ✅ |
-| M8 | 远程控制：HTTP 服务 + REST + Web 控制台单页（阶段一+二） | ✅ |
-| M9 | Docker Engine API 兼容：只读 + 写操作 + exec 流（阶段一+二） | ✅ |
-| — | 编排页阶段二（模板库、YAML 高亮、端口冲突检查、健康探测） | ✅ |
+| M1 | Multi-module scaffold, design system, NavigationSuiteScaffold five-page nav, four languages | ✅ |
+| M2 | tar extractor, OCI Registry client, proot runtime (argv/env injection, children-first stop) | ✅ |
+| M3 | PullEngine (per-registry fallback / layer cache / progress stream), dataSync foreground service, Room inventory, images screen | ✅ |
+| M4 | proot binaries into jniLibs (DT_NEEDED rename), ContainerManager, containers screen | ✅ |
+| M5 | Settings screen (DataStore), exec terminal, auto-start policy | ✅ |
+| M6 | Unified error banner, zombie RUNNING correction, real dashboard | ✅ |
+| M7 | Compose screen, phase one | ✅ |
+| M8 | Remote control: HTTP service + REST + single-page web console (phases one + two) | ✅ |
+| M9 | Docker Engine API compatibility: read-only + write ops + exec stream (phases one + two) | ✅ |
+| — | Compose screen phase two (template catalog, YAML highlighting, port-conflict checks, readiness probes) | ✅ |
 
-已验证：真机（arm64）端到端链路跑通——拉取镜像 → 创建容器 → 启动 → exec 全链可用，22 个内置编排模板全部真机验证。
+Verified end-to-end on a real device (arm64): pull image → create container → start → exec all work; all 22 built-in orchestration templates verified on hardware.
 
 ## 🗺️ Roadmap
 
-- 远控安全增强：IP 白名单、TLS 自签；Portainer 实测
-- 镜像页 `docker load` 导入增强
-- 设置页镜像源测速 / 排序
+- Remote-control hardening: IP allowlist, self-signed TLS; Portainer field testing
+- Enhanced `docker load` import on the images screen
+- Registry speed test / ordering in settings
 
-## 📚 参考与致谢
+## 📚 References & acknowledgements
 
-- [jinhan1414/android-docker-cli](https://github.com/jinhan1414/android-docker-cli) — Termux + proot 的 Docker 风格 CLI，提供产品语义与命令兼容矩阵
-- [termux/termux-app](https://github.com/termux/termux-app) — 终端模拟组件（Apache-2.0）
-- [proot](https://proot-me.github.io/) — 用户态文件系统隔离
+- [jinhan1414/android-docker-cli](https://github.com/jinhan1414/android-docker-cli) — Termux + proot Docker-style CLI; source of the product semantics and command compatibility matrix
+- [termux/termux-app](https://github.com/termux/termux-app) — terminal emulation components (Apache-2.0)
+- [proot](https://proot-me.github.io/) — user-space filesystem isolation
 
-## 📄 许可
+## 📄 License
 
-本项目源码以 [PolyForm Noncommercial 1.0.0](LICENSE) 许可发布：**可自由使用、修改、分发，但不得用于商业目的**；商业使用请联系作者另行授权。
+This repository's source is released under the [PolyForm Noncommercial 1.0.0](LICENSE) license: **free to use, modify and distribute for noncommercial purposes**; contact the author for commercial licensing.
 
-- 应用名（Droid 容器 / Droid Containers）与图标**不随源码授权**，重新分发的构建产物不得冒用该品牌上架应用商店。
-- 应用商店版内置的编排模板与签名密钥不随源码分发。
+- The app name (Droid Containers / Droid 容器) and icon are **not licensed with the source**; redistributed builds must not list themselves under this brand on app stores.
+- The store build's built-in orchestration templates and signing keys are not part of this repository.
 
-## 💬 反馈与支持
+## 💬 Feedback & support
 
-- **GitHub Issues（推荐）**：[nesror/Droid-Containers/issues](https://github.com/nesror/Droid-Containers/issues)
-- **邮箱**：nestorgu@foxmail.com
+- **GitHub Issues (recommended)**: [nesror/Droid-Containers/issues](https://github.com/nesror/Droid-Containers/issues)
+- **Email**: nestorgu@foxmail.com
 
-反馈问题时请附上：设备型号、Android 版本、镜像名称、容器日志输出（App 内日志页可查看），以及复现步骤，这样能更快定位问题。
+When reporting an issue, please include: device model, Android version, image name, container log output (visible on the in-app log screen) and reproduction steps — it makes triage much faster.
