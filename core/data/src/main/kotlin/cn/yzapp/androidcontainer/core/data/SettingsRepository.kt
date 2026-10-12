@@ -42,9 +42,16 @@ class SettingsRepository(private val context: Context) {
         if (raw.isEmpty()) ImageRepository.DEFAULT_MIRRORS else raw
     }
 
-    /** 容器内 DNS（写入 /etc/resolv.conf 绑定）。 */
+    /**
+     * 容器 DNS 设置：空 = 跟随系统（写入 resolv.conf 前由 [ContainerDns.serversFromSetting]
+     * 结合 [systemDnsServers] 解析成多 nameserver）。
+     */
     val dns: Flow<String> = context.settingsDataStore.data.map { prefs ->
-        prefs[Keys.DNS]?.trim().takeIf { !it.isNullOrEmpty() } ?: DEFAULT_DNS
+        val stored = prefs[Keys.DNS]?.trim().orEmpty()
+        // 旧版 UI 用内置默认 1.1.1.1 预填输入框，凡点过「保存」的用户 DataStore 里都存了这个值；
+        // 1.1.1.1 在部分运营商网络被拒收（connection refused），视为未设置（跟随系统），
+        // 让修复对存量用户直接生效
+        if (stored == LEGACY_DEFAULT_DNS) "" else stored
     }
 
     /** App 启动时自动拉起 autoStart 容器。 */
@@ -63,6 +70,11 @@ class SettingsRepository(private val context: Context) {
             prefs[Keys.DNS] = value.trim()
         }
     }
+
+    /** 系统当前网络的 DNS 服务器（容器 DNS 设置为空时跟随系统）。 */
+    fun systemDnsServers(): List<String> = systemDnsReader.currentServers()
+
+    private val systemDnsReader by lazy { SystemDnsReader(context) }
 
     suspend fun setAutostart(enabled: Boolean) {
         context.settingsDataStore.edit { prefs ->
@@ -163,7 +175,8 @@ class SettingsRepository(private val context: Context) {
     }
 
     companion object {
-        const val DEFAULT_DNS = "1.1.1.1"
+        /** 旧版内置默认 DNS（DataStore 里存了该值视为未设置，见 [dns]）。 */
+        const val LEGACY_DEFAULT_DNS = "1.1.1.1"
         const val DEFAULT_WEB_PORT = 8765
         const val DEFAULT_DOCKER_PORT = 23760
         const val MIN_PORT = 1024

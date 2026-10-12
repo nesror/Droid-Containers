@@ -91,19 +91,21 @@ object NamedVolumes {
         }
     }
 
-    /** 把持久化的 mountsJson 条目（`host:container[:ro]`）还原为 bind（启动/终端共用）。 */
+    /**
+     * 把持久化的 mountsJson 条目（`host:container`，旧版可能是 `host:container:ro`）还原为
+     * bind（启动/终端共用）。旧数据的 `:ro` 后缀读出即丢弃——proot 不支持只读绑定，
+     * 该后缀曾被当成字面路径追加到容器路径上（已修复的 DNS 故障根源）。
+     */
     fun decodeMounts(entries: List<String>): List<BindMount> =
         entries.mapNotNull { raw ->
             val host = raw.substringBefore(':')
             val rest = raw.substringAfter(':', "")
             if (host.isEmpty() || rest.isEmpty()) return@mapNotNull null
             val containerPath = rest.substringBefore(':')
-            val readOnly = rest.substringAfter(':', "") == "ro"
-            BindMount(hostPath = File(host), containerPath = containerPath, readOnly = readOnly)
+            if (host.isEmpty() || containerPath.isEmpty()) return@mapNotNull null
+            BindMount(hostPath = File(host), containerPath = containerPath)
         }
 
     fun encodeMounts(binds: List<BindMount>): List<String> =
-        binds.map { bind ->
-            "${bind.hostPath.path}:${bind.containerPath}" + if (bind.readOnly) ":ro" else ""
-        }
+        binds.map { bind -> "${bind.hostPath.path}:${bind.containerPath}" }
 }

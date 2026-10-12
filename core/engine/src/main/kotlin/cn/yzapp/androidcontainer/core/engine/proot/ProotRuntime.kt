@@ -4,8 +4,11 @@ import cn.yzapp.androidcontainer.core.model.EngineErrorCode
 import cn.yzapp.androidcontainer.core.model.EngineException
 import java.io.File
 
-/** 容器内路径 → 宿主路径的绑定挂载。 */
-data class BindMount(val hostPath: File, val containerPath: String, val readOnly: Boolean = false)
+/**
+ * proot 容器内路径 → 宿主路径的绑定挂载。
+ * 注意：proot 不支持只读绑定，bind 恒为可写（宿主侧权限仍按 App uid 校验）。
+ */
+data class BindMount(val hostPath: File, val containerPath: String)
 
 /**
  * proot argv 组装与环境注入（方案 §3.4）。
@@ -68,8 +71,11 @@ class ProotRuntime(
         argv += listOf("-b", "/proc:/proc")
         argv += listOf("-b", "/sys:/sys")
         userBinds.forEach { bind ->
-            val mapping = "${bind.hostPath.path}:${bind.containerPath}" + if (bind.readOnly) ":ro" else ""
-            argv += listOf("-b", mapping)
+            // 不加 ":ro" 后缀：proot 不支持只读绑定，会把 "/etc/resolv.conf:ro" 当成
+            // 字面路径去 bind，真正的 /etc/resolv.conf 未被遮盖 → 容器内无 resolv.conf →
+            // Go 程序回退查询 127.0.0.1:53 报 connection refused（2026-10 用户反馈：
+            // alist 无法添加网盘，去掉 :ro 后恢复）
+            argv += listOf("-b", "${bind.hostPath.path}:${bind.containerPath}")
         }
         argv += extraProotArgs
         // 不加 `--`：proot CLI 无选项终止符，实测报 "unknown option '--'"（2026-09-18 真机）
@@ -91,8 +97,6 @@ class ProotRuntime(
     )
 
     companion object {
-        const val DNS_DEFAULT = "1.1.1.1"
-
         /**
          * s6-overlay / PID 1 适配（方案 §3.4）：proot 不虚拟化 PID，
          * /init（s6-overlay v3）检查 getpid() != 1 必然失败。

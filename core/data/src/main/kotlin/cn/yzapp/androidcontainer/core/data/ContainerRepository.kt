@@ -211,10 +211,15 @@ class ContainerRepository(
                 val hostAbi = detectHostAbi(Build.SUPPORTED_ABIS.toList())
                     ?: throw EngineException(EngineErrorCode.UNSUPPORTED_DEVICE, "No 64-bit ABI")
 
-                // DNS 设置 → 写 resolv.conf 并只读绑进容器（方案 §5）
-                val dns = settings.dns.first()
+                // DNS 设置 → 写 resolv.conf 绑进容器（方案 §5）：
+                // 空设置跟随系统 DNS；显式设置支持多 nameserver（ContainerDns）
+                val dnsServers = ContainerDns.serversFromSetting(
+                    settings.dns.first(),
+                    settings.systemDnsServers(),
+                )
                 val bindsDir = File(engineDir, "binds").apply { mkdirs() }
-                val resolv = File(bindsDir, "resolv.conf").apply { writeText("nameserver $dns\n") }
+                val resolv = File(bindsDir, "resolv.conf")
+                    .apply { writeText(ContainerDns.resolvConfContent(dnsServers)) }
                 // named volume binds：从 mountsJson 还原（compose up 时写入，重启/autoStart 后仍生效）
                 val volumeBinds = NamedVolumes.decodeMounts(ContainerPayloads.decodeList(container.mountsJson))
 
@@ -229,10 +234,10 @@ class ContainerRepository(
                     workdir = workdir,
                     command = command,
                     userBinds = listOf(
+                        // 不标只读：proot 无 ro 支持，后缀会被当字面路径（DNS 故障根源）
                         cn.yzapp.androidcontainer.core.engine.proot.BindMount(
                             hostPath = resolv,
                             containerPath = "/etc/resolv.conf",
-                            readOnly = true,
                         ),
                     ) + volumeBinds,
                 )
@@ -390,7 +395,7 @@ class ContainerRepository(
         command: List<String>,
         environment: Map<String, String>,
         httpPorts: List<Int> = emptyList(),
-        /** named volume binds（`host:container[:ro]` 编码），随容器持久化到 mountsJson。 */
+        /** named volume binds（`host:container` 编码），随容器持久化到 mountsJson。 */
         volumeBinds: List<String> = emptyList(),
         /** compose `restart` 策略（RestartPolicies 取值；null = 未声明），随容器持久化。 */
         restartPolicy: String? = null,
@@ -464,10 +469,14 @@ class ContainerRepository(
                 listOf("/bin/sh", "-l")
             }
 
-            // 与 start() 相同的绑定：DNS 只读 resolv.conf + named volumes（终端能看到 volume 数据）
-            val dns = settings.dns.first()
+            // 与 start() 相同的绑定：DNS resolv.conf + named volumes（终端能看到 volume 数据）
+            val dnsServers = ContainerDns.serversFromSetting(
+                settings.dns.first(),
+                settings.systemDnsServers(),
+            )
             val bindsDir = File(engineDir, "binds").apply { mkdirs() }
-            val resolv = File(bindsDir, "resolv.conf").apply { writeText("nameserver $dns\n") }
+            val resolv = File(bindsDir, "resolv.conf")
+                .apply { writeText(ContainerDns.resolvConfContent(dnsServers)) }
             val volumeBinds = NamedVolumes.decodeMounts(ContainerPayloads.decodeList(container.mountsJson))
 
             val spec = runtime.launch(
@@ -478,7 +487,6 @@ class ContainerRepository(
                     cn.yzapp.androidcontainer.core.engine.proot.BindMount(
                         hostPath = resolv,
                         containerPath = "/etc/resolv.conf",
-                        readOnly = true,
                     ),
                 ) + volumeBinds,
             )

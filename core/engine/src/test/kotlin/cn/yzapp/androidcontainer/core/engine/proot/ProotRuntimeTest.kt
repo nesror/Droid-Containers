@@ -26,7 +26,7 @@ class ProotRuntimeTest {
             rootfs = rootfs,
             workdir = "/",
             command = listOf("/bin/sh", "-c", "echo hi"),
-            userBinds = listOf(BindMount(File(engineDir, "vol"), "/data", readOnly = true)),
+            userBinds = listOf(BindMount(File(engineDir, "vol"), "/data")),
         )
 
         val argv = spec.argv
@@ -54,7 +54,10 @@ class ProotRuntimeTest {
         assertTrue(File(rootfs, "dev").isDirectory)
         assertTrue(File(rootfs, "proc").isDirectory)
         assertTrue(File(rootfs, "sys").isDirectory)
-        assertTrue(argv.contains(File(engineDir, "vol").path + ":/data:ro"))
+        assertTrue(argv.contains(File(engineDir, "vol").path + ":/data"))
+        // proot 无只读绑定：任何 bind 都不得带 ":ro" 后缀（会被当字面路径，
+        // 曾导致 /etc/resolv.conf 绑定失效、容器内 DNS 全挂）
+        assertTrue(argv.none { it.endsWith(":ro") })
         // proot CLI 不支持 `--` 终止符：命令直接追加在 argv 末尾
         assertFalse(argv.contains("--"))
         assertEquals(listOf("/bin/sh", "-c", "echo hi"), argv.subList(argv.size - 3, argv.size))

@@ -110,9 +110,19 @@ class NamedVolumesTest {
     fun `mounts encode decode round trip`() {
         val binds = listOf(
             BindMount(hostPath = File("/data/data/app/files/engine/volumes/db"), containerPath = "/var/lib/db"),
-            BindMount(hostPath = File("/data/ro"), containerPath = "/mnt/ro", readOnly = true),
+            BindMount(hostPath = File("/data/ro"), containerPath = "/mnt/ro"),
         )
         val decoded = NamedVolumes.decodeMounts(NamedVolumes.encodeMounts(binds))
         assertEquals(binds, decoded)
+    }
+
+    @Test
+    fun `decode drops legacy ro suffix instead of keeping it in the container path`() {
+        // 旧版 mountsJson 可能带 ":ro" 后缀；proot 无只读绑定，后缀必须丢弃
+        // （曾导致 bind 落在字面路径 "/mnt/ro:ro" 上）
+        assertEquals(
+            listOf(BindMount(File("/data/ro"), "/mnt/ro")),
+            NamedVolumes.decodeMounts(listOf("/data/ro:/mnt/ro:ro")),
+        )
     }
 }

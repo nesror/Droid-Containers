@@ -232,13 +232,14 @@ class SettingsViewModel(app: Application) : AndroidViewModel(app) {
             try {
                 val state = _uiState.value
                 val mirrors = state.mirrorsInput.lines().map { it.trim() }.filter { it.isNotEmpty() }
-                if (mirrors.isEmpty() || state.dnsInput.isBlank()) {
+                if (mirrors.isEmpty()) {
                     _uiState.value = state.copy(
                         saveError = getApplication<Application>().getString(R.string.settings_save_empty),
                     )
                     return@launch
                 }
                 repository.setMirrors(mirrors)
+                // DNS 允许为空 = 跟随系统 DNS（ContainerDns 解析为多 nameserver）
                 repository.setDns(state.dnsInput)
                 _uiState.value = _uiState.value.copy(saved = true, saveError = null, touched = false)
             } catch (e: Exception) {

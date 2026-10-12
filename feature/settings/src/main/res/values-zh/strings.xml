@@ -8,12 +8,12 @@
     <string name="settings_mirrors_probe_rtt">%1$s — %2$d 毫秒</string>
     <string name="settings_mirrors_probe_unreachable">%1$s — 不可达</string>
     <string name="settings_dns_title">容器 DNS</string>
-    <string name="settings_dns_hint">DNS 服务器，如 1.1.1.1</string>
+    <string name="settings_dns_hint">DNS 服务器，如 1.1.1.1；留空跟随系统 DNS</string>
     <string name="settings_autostart_title">自启容器</string>
     <string name="settings_autostart_subtitle">应用启动时自动拉起标记为自启的容器</string>
     <string name="settings_save">保存</string>
     <string name="settings_saved">已保存</string>
-    <string name="settings_save_empty">镜像源和 DNS 不能为空</string>
+    <string name="settings_save_empty">镜像源不能为空</string>
     <string name="settings_remote_title">远程控制</string>
     <string name="settings_remote_risk">局域网内设备可通过 HTTP 访问本机容器引擎，请仅在可信网络开启。</string>
     <string name="settings_remote_locked_hint">远程控制属于模板包：解锁后即可在电脑浏览器里管理镜像、容器与编排。</string>

@@ -8,12 +8,12 @@
     <string name="settings_mirrors_probe_rtt">%1$s — %2$d ミリ秒</string>
     <string name="settings_mirrors_probe_unreachable">%1$s — 到達不能</string>
     <string name="settings_dns_title">コンテナ DNS</string>
-    <string name="settings_dns_hint">DNS サーバー、例: 1.1.1.1</string>
+    <string name="settings_dns_hint">DNS サーバー、例: 1.1.1.1。空欄でシステム DNS に従います</string>
     <string name="settings_autostart_title">コンテナ自動起動</string>
     <string name="settings_autostart_subtitle">アプリ起動時に自動起動フラグ付きコンテナを開始します</string>
     <string name="settings_save">保存</string>
     <string name="settings_saved">保存しました</string>
-    <string name="settings_save_empty">ミラーと DNS は空にできません</string>
+    <string name="settings_save_empty">ミラーを空にすることはできません</string>
     <string name="settings_remote_title">リモート操作</string>
     <string name="settings_remote_risk">LAN 内のデバイスから HTTP 経由でコンテナエンジンへアクセス可能になります。信頼できるネットワークでのみ有効にしてください。</string>
     <string name="settings_remote_locked_hint">リモート操作はテンプレートパックに含まれます。ロック解除後はブラウザーからイメージ・コンテナー・スタックを管理できます。</string>

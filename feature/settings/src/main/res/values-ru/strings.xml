@@ -8,12 +8,12 @@
     <string name="settings_mirrors_probe_rtt">%1$s — %2$d мс</string>
     <string name="settings_mirrors_probe_unreachable">%1$s — недоступен</string>
     <string name="settings_dns_title">DNS контейнера</string>
-    <string name="settings_dns_hint">DNS-сервер, например 1.1.1.1</string>
+    <string name="settings_dns_hint">DNS-сервер, например 1.1.1.1; оставьте пустым, чтобы использовать системный DNS</string>
     <string name="settings_autostart_title">Автозапуск контейнеров</string>
     <string name="settings_autostart_subtitle">Запускать контейнеры с флагом автозапуска при старте приложения</string>
     <string name="settings_save">Сохранить</string>
     <string name="settings_saved">Сохранено</string>
-    <string name="settings_save_empty">Зеркала и DNS не могут быть пустыми</string>
+    <string name="settings_save_empty">Список зеркал не может быть пустым</string>
     <string name="settings_remote_title">Удалённое управление</string>
     <string name="settings_remote_risk">Устройства в локальной сети смогут обращаться к движку контейнеров по HTTP. Включайте только в доверенной сети.</string>
     <string name="settings_remote_locked_hint">Удалённое управление входит в набор шаблонов: после разблокировки управляйте образами, контейнерами и стеками из браузера.</string>

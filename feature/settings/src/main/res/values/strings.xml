@@ -8,12 +8,12 @@
     <string name="settings_mirrors_probe_rtt">%1$s — %2$d ms</string>
     <string name="settings_mirrors_probe_unreachable">%1$s — unreachable</string>
     <string name="settings_dns_title">Container DNS</string>
-    <string name="settings_dns_hint">DNS server, e.g. 1.1.1.1</string>
+    <string name="settings_dns_hint">DNS server, e.g. 1.1.1.1. Leave empty to follow the system DNS</string>
     <string name="settings_autostart_title">Auto-start containers</string>
     <string name="settings_autostart_subtitle">Start containers marked auto-start when the app launches</string>
     <string name="settings_save">Save</string>
     <string name="settings_saved">Saved</string>
-    <string name="settings_save_empty">Mirrors and DNS cannot be empty</string>
+    <string name="settings_save_empty">Mirrors cannot be empty</string>
     <string name="settings_remote_title">Remote control</string>
     <string name="settings_remote_risk">Devices on the LAN can reach the container engine over HTTP. Use only on trusted networks.</string>
     <string name="settings_remote_locked_hint">Remote control is part of the template pack. Unlock it to manage images, containers and stacks from your browser.</string>
