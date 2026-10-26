@@ -98,6 +98,14 @@ proot 容器与手机共享网络栈（**无端口重映射**），规则：
 - **不支持**：bind 路径（`/abs:/path`、`./rel:/path`、`C:\...`）——安全否决，解析期报
   `VOLUME_BIND_IGNORED`；匿名卷（`/path`）——报 `VOLUMES_IGNORED`。
 - 多服务引用同一个 volume 名 = 共享数据（同 docker），适合「web + worker 同库」类编排。
+- **有状态的模板必须带卷（2026-10-26 起，守门测试强制）**：`PullEngine` 对同一 tag 重拉是
+  「先删旧 rootfs 再解压」，容器内写的数据会随镜像更新清零——`TemplateCatalogTest` 断言
+  `python-lab` / `web-redis` 之外每个模板都声明了 named volume。两条硬规则：
+  - **卷名全局唯一**（存储是 `files/engine/volumes/<name>/`，不按项目隔离，重名即跨项目串数据），
+    约定 `<模板id>-<用途>`，如 `alist-data`、`smarthome-ha-config`；
+  - **挂载点目录由引擎在 rootfs 内建出**（docker 同语义），所以不必要求镜像里预置该目录；
+    但仍应指向镜像真正的数据路径，否则卷是空的、数据继续留在 rootfs。
+- 提示文案：加了卷的模板把 `data_in_container` 换成 `data_in_volume`（后者说明更新镜像/重建容器不丢数据）。
 
 ## 6.6 restart 策略：常驻服务一律 `unless-stopped`（2026-09-30 起）
 

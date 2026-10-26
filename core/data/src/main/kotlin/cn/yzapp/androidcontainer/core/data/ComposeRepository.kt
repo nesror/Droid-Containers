@@ -244,6 +244,9 @@ class ComposeRepository(
      * ① `volumes/<name>` 目录就绪；② **copy-on-first-use 老数据迁移**——volume 为空且
      * rootfs 内对应容器路径已有数据（历史版本数据寄生 rootfs）时自动拷入；
      * ③ 返回 binds 编码（存 mountsJson，start() 时还原）。engineDir 未配置时返回空。
+     *
+     * 另外要**在 rootfs 内建出挂载点目录**（docker 同语义：mount point 由 daemon 创建）：
+     * proot 的 -b 需要宿主侧目录存在，容器侧路径若镜像里没有，绑定后数据也写不进去。
      */
     private suspend fun prepareVolumeBinds(service: ComposeService): List<String> {
         if (service.volumeMounts.isEmpty()) return emptyList()
@@ -259,6 +262,9 @@ class ComposeRepository(
             }
             if (migrated) {
                 AppLogger.i("Compose", "volume ${mount.name}: migrated existing data from rootfs ${mount.containerPath}")
+            }
+            if (rootfs != null && rootfs.isDirectory) {
+                File(rootfs, mount.containerPath.trimStart('/')).mkdirs()
             }
             binds += "${volumeDir.path}:${mount.containerPath}"
         }

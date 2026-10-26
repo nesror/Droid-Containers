@@ -7,6 +7,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import cn.yzapp.androidcontainer.core.data.AppLogger
 import cn.yzapp.androidcontainer.core.data.DataGraph
+import cn.yzapp.androidcontainer.core.model.EngineErrorCode
+import cn.yzapp.androidcontainer.core.model.EngineException
 import cn.yzapp.androidcontainer.core.model.PullStage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,6 +31,8 @@ data class ImagesUiState(
     val importMessage: String? = null,
     /** 导入失败错误。 */
     val importError: String? = null,
+    /** 操作类失败（删除/重拉被运行中容器占用的镜像等），一次操作后自行清除。 */
+    val actionError: String? = null,
 )
 
 class ImagesViewModel(app: Application) : AndroidViewModel(app) {
@@ -56,14 +60,34 @@ class ImagesViewModel(app: Application) : AndroidViewModel(app) {
     fun pull() {
         val ref = _input.value.trim()
         if (ref.isEmpty()) return
+        _uiState.value = _uiState.value.copy(actionError = null)
         val intent = Intent(ACTION_PULL).setPackage(getApplication<Application>().packageName)
             .putExtra(EXTRA_REF, ref)
         getApplication<Application>().startForegroundService(intent)
     }
 
+    /**
+     * 删除镜像。被运行中容器引用时仓库会抛 [EngineErrorCode.IMAGE_IN_USE]——必须在此接住并展示
+     * 原因，否则 viewModelScope 里的未捕获异常会直接把 App 崩掉（issue #2 之前的行为）。
+     */
     fun remove(ref: String) {
-        viewModelScope.launch { repository.remove(ref) }
+        _uiState.value = _uiState.value.copy(actionError = null)
+        viewModelScope.launch {
+            try {
+                repository.remove(ref)
+            } catch (e: Exception) {
+                AppLogger.w("Images", "remove failed ref=$ref", e)
+                _uiState.value = _uiState.value.copy(actionError = removeErrorText(e))
+            }
+        }
     }
+
+    private fun removeErrorText(e: Exception): String =
+        if (e is EngineException && e.code == EngineErrorCode.IMAGE_IN_USE) {
+            getApplication<Application>().getString(R.string.images_error_in_use)
+        } else {
+            e.message ?: getApplication<Application>().getString(R.string.images_remove_failed)
+        }
 
     /**
      * 导入 `docker save` 导出的 tar：SAF 流先落 cache 临时文件

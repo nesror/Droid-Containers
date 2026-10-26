@@ -169,15 +169,9 @@ class TemplateCatalogTest {
         }
     }
 
-    @Test
-    fun `templates never mount volumes while the engine ignores them`() {
-        templates.forEach { template ->
-            assertTrue(
-                "template ${template.id} declares volumes, but volumes are not mounted in this phase",
-                template.services.flatMap { it.volumes }.isEmpty(),
-            )
-        }
-    }
+    // 曾经有一条「templates never mount volumes while the engine ignores them」断言：
+    // 在 named volume 尚未挂载时成立，现在引擎已实际挂载（见 ComposeParserTest 的
+    // volumes 段与 NamedVolumesTest），该断言已不成立，也不能再拿来要求模板不声明卷。
 
     @Test
     fun `error strings are not language-specific`() {

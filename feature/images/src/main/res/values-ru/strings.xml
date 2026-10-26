@@ -28,4 +28,6 @@
     <string name="images_import_success">Импортировано: %1$s</string>
     <string name="images_import_failed_empty">Выбранный файл пуст</string>
     <string name="images_import_failed">Ошибка импорта: %1$s</string>
+    <string name="images_error_in_use">Этот образ используется запущенным контейнером. Сначала остановите контейнер, затем снова загрузите или удалите образ.</string>
+    <string name="images_remove_failed">Не удалось удалить образ</string>
 </resources>

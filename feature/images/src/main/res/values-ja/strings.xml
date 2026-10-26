@@ -25,4 +25,6 @@
     <string name="images_import_success">読み込み完了：%1$s</string>
     <string name="images_import_failed_empty">選択したファイルが空です</string>
     <string name="images_import_failed">読み込み失敗：%1$s</string>
+    <string name="images_error_in_use">このイメージは実行中のコンテナが使用しています。コンテナを停止してから、再度取得または削除してください。</string>
+    <string name="images_remove_failed">イメージを削除できませんでした</string>
 </resources>

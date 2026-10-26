@@ -25,4 +25,6 @@
     <string name="images_import_success">已导入：%1$s</string>
     <string name="images_import_failed_empty">所选文件为空</string>
     <string name="images_import_failed">导入失败：%1$s</string>
+    <string name="images_error_in_use">该镜像正被运行中的容器使用。请先停止容器，再拉取或删除。</string>
+    <string name="images_remove_failed">删除镜像失败</string>
 </resources>

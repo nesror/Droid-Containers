@@ -68,6 +68,17 @@ class ImageRepository(
             ?: throw EngineException(EngineErrorCode.UNSUPPORTED_DEVICE, "No 64-bit ABI supported on this device")
 
         return pullMutex.withLock {
+            // 重拉同一 ref 会先删旧 rootfs（PullEngine 行为），被运行中容器使用时必须先拒绝
+            rejectIfInUse(refRaw, onlyWhenCached = true)?.let { message ->
+                _pullStates.value = _pullStates.value + (
+                    refRaw to PullProgress(
+                        imageRef = refRaw,
+                        stage = PullStage.FAILED,
+                        message = message,
+                    )
+                    )
+                throw EngineException(EngineErrorCode.IMAGE_IN_USE, message)
+            }
             val engine = PullEngine(mirrorsProvider(), engineDir, hostAbi, DefaultDispatcherProvider())
             val progressJob = scope.launch {
                 engine.progress.collect { progress -> _pullStates.value = _pullStates.value + (refRaw to progress) }
@@ -155,6 +166,10 @@ class ImageRepository(
         // 与 pull/importTar 共用同一把锁（审查 P1-15）：remove 会删 layers/<ref> 整目录，
         // 与并发 pull 的解压写入构成"边写边删"
         pullMutex.withLock {
+            // 被运行中容器引用时拒绝：删 rootfs 会让运行中的进程立刻 ENOENT（docker 同语义）
+            rejectIfInUse(ref, onlyWhenCached = false)?.let { message ->
+                throw EngineException(EngineErrorCode.IMAGE_IN_USE, message)
+            }
             dao.findImage(ref)?.let { entity ->
                 val rootfs = File(entity.rootfsPath)
                 rootfs.parentFile?.let { parent ->
@@ -187,6 +202,17 @@ class ImageRepository(
                 AppLogger.w(TAG, "orphan layers dir removed: ${dir.name}")
             }
         }
+    }
+
+    /**
+     * 运行态镜像保护：镜像被运行中的容器引用时返回拒绝原因（调用方据此抛 [EngineErrorCode.IMAGE_IN_USE]），
+     * 否则返回 null。`onlyWhenCached = true` 用于 pull——只有「库存里已有该 ref」才算重拉（会清空旧
+     * rootfs）；首次拉取不可能有运行中的容器在用，不拦。
+     */
+    private suspend fun rejectIfInUse(ref: String, onlyWhenCached: Boolean): String? {
+        if (onlyWhenCached && dao.findImage(ref) == null) return null
+        val names = ImageUsage.runningContainerNames(dao.findContainersByImage(ref), ref)
+        return if (names.isEmpty()) null else ImageUsage.inUseMessage(ref, names)
     }
 
     companion object {

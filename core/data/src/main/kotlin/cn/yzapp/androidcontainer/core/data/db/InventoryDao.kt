@@ -36,6 +36,10 @@ interface InventoryDao {
     @Query("SELECT COUNT(*) FROM containers WHERE status = 'RUNNING'")
     fun observeRunningCount(): Flow<Int>
 
+    /** 引用某镜像的全部容器（含非运行态）：运行态镜像保护用，见 [cn.yzapp.androidcontainer.core.data.ImageUsage]。 */
+    @Query("SELECT * FROM containers WHERE imageRef = :imageRef")
+    suspend fun findContainersByImage(imageRef: String): List<ContainerEntity>
+
     // ------------------------------------------------------------ compose 编排（M7）
 
     @Query("SELECT * FROM compose_projects ORDER BY createdAt DESC")

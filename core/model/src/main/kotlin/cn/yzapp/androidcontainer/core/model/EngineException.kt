@@ -20,6 +20,12 @@ enum class EngineErrorCode(val retryable: Boolean) {
 
     /** compose：YAML 非法/语义错误（message 带行号）。 */
     COMPOSE_INVALID(false),
+
+    /**
+     * 镜像正被运行中的容器使用：同 tag 重拉会先清空旧 rootfs，删除会整目录删 layers/<image>，
+     * 两者都会让运行中的进程立刻 ENOENT（对齐 docker 的 "image is being used by running container"）。
+     */
+    IMAGE_IN_USE(false),
 }
 
 class EngineException(

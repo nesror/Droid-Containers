@@ -71,6 +71,7 @@ fun ImagesScreen(
         importing = uiState.importing,
         importMessage = uiState.importMessage,
         importError = uiState.importError,
+        actionError = uiState.actionError,
         onInputChange = viewModel::onInputChange,
         onPull = viewModel::pull,
         onImportClick = {
@@ -91,6 +92,7 @@ private fun ImagesContent(
     importing: Boolean,
     importMessage: String?,
     importError: String?,
+    actionError: String?,
     onInputChange: (String) -> Unit,
     onPull: () -> Unit,
     onImportClick: () -> Unit,
@@ -150,6 +152,16 @@ private fun ImagesContent(
                 Button(onClick = onPull) {
                     Text(stringResource(R.string.images_pull))
                 }
+            }
+        }
+        // 删除/重拉被运行中容器占用的镜像：仓库拒绝后在此给出原因
+        actionError?.let { message ->
+            item(span = { GridItemSpan(maxCurrentLineSpan) }) {
+                Text(
+                    text = message,
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodySmall,
+                )
             }
         }
         // docker load 导入：SAF 选 tar，本地解压不走网络（离线设备/私有镜像场景）

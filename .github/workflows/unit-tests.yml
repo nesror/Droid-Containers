@@ -23,8 +23,12 @@ jobs:
       - name: Engine unit tests
         run: ./gradlew :core:engine:testDebugUnitTest --console=plain
 
-      - name: Data unit tests
+      - name: Data unit tests (global)
         run: ./gradlew :core:data:testGlobalDebugUnitTest --console=plain
+
+      # cn 渠道独有逻辑（更新检查 / 版本比较）只在 src/cn 里，global 变体编不到它
+      - name: Data unit tests (cn)
+        run: ./gradlew :core:data:testCnDebugUnitTest --console=plain
 
       - name: Assemble (global debug)
         run: ./gradlew assembleGlobalDebug --console=plain

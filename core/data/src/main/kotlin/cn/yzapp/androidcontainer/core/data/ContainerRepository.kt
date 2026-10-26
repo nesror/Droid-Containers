@@ -222,6 +222,11 @@ class ContainerRepository(
                     .apply { writeText(ContainerDns.resolvConfContent(dnsServers)) }
                 // named volume binds：从 mountsJson 还原（compose up 时写入，重启/autoStart 后仍生效）
                 val volumeBinds = NamedVolumes.decodeMounts(ContainerPayloads.decodeList(container.mountsJson))
+                // 挂载点目录兜底：up 时已建过一次，但镜像更新会换掉整个 rootfs，新树里可能没有该目录——
+                // proot -b 要求容器侧路径存在，缺了数据写不进去（volume 看起来"没挂上"）
+                volumeBinds.forEach { bind ->
+                    File(rootfs, bind.containerPath.trimStart('/')).mkdirs()
+                }
 
                 // compose 服务可能指定了 command / environment（方案 §3.1）；未指定则回落镜像默认入口
                 val command = ContainerPayloads.commandOf(container).ifEmpty { defaultCommand(rootfs) }

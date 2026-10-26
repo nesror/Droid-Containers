@@ -26,4 +26,6 @@
     <string name="images_import_success">Imported: %1$s</string>
     <string name="images_import_failed_empty">Selected file is empty</string>
     <string name="images_import_failed">Import failed: %1$s</string>
+    <string name="images_error_in_use">This image is used by a running container. Stop the container, then pull or delete it again.</string>
+    <string name="images_remove_failed">Could not delete the image</string>
 </resources>

@@ -128,8 +128,9 @@ internal object VersionNumbers {
 
     /** 数字段比较（缺失段补 0）：`1.2.10 > 1.2.9`，`1.2 == 1.2.0`。非数字段按 0 处理。 */
     fun compare(a: String, b: String): Int {
-        val left = a.split('.').map { segment -> segment.filter(Char::isDigit).toIntOrNull() ?: 0 }
-        val right = b.split('.').map { segment -> segment.filter(Char::isDigit).toIntOrNull() ?: 0 }
+        // 先剥预发布后缀：1.2.3-rc1 的基线仍是 1.2.3，否则末段取数字变成 1.2.31（被判为新版本）
+        val left = parseBase(a).split('.').map { segment -> segment.filter(Char::isDigit).toIntOrNull() ?: 0 }
+        val right = parseBase(b).split('.').map { segment -> segment.filter(Char::isDigit).toIntOrNull() ?: 0 }
         for (i in 0 until maxOf(left.size, right.size)) {
             val l = left.getOrElse(i) { 0 }
             val r = right.getOrElse(i) { 0 }
